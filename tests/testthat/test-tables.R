@@ -22,7 +22,6 @@ test_that("tables", {
   
   expect_identical(sbr_tables(drop = list("sub")), txt) 
 
-
   #sbr_tables()
   
 #  expect_identical(list.files(sbr_get_report(), recursive = TRUE),

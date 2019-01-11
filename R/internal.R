@@ -34,13 +34,13 @@ sub_directories <- function(data) {
 transfer_files <- function(data, ext, overwrite, class = names(data)[1]) {
   from <- replace_ext(data$file, ext)
   
-  to <- file_path(sbr_get_report(), class, sub_directories(data), data$name)
-  to <- p0(to, ".", ext)
+  data$to <- file_path(sbr_get_report(), class, sub_directories(data), data$name)
+  data$to <- p0(data$to, ".", ext)
 
-  dirs <- unique(dirname(to))
+  dirs <- unique(dirname(data$to))
   lapply(dirs, dir.create, showWarnings = FALSE, recursive = TRUE)
-  mapply(file.copy, from, to, MoreArgs = list(overwrite = overwrite))
-  invisible(to)
+  mapply(file.copy, from, data$to, MoreArgs = list(overwrite = overwrite))
+  data
 }
 
 filter_files <- function(data, drop) {
@@ -52,3 +52,8 @@ filter_files <- function(data, drop) {
     data <- data[!data[[name]] %in% drop[[name]],]
   data
 }
+
+sort_headings <- function(data, headings, nheaders, header1) {
+  data
+}
+

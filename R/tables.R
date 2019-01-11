@@ -36,12 +36,12 @@ sbr_tables <- function(sub = character(0), headings = list(character(0)),
   
   if(!nrow(data)) return(character(0))
 
-  data$to <- transfer_files(data, ext = "csv", overwrite = overwrite)
-#  data <- sort_headings(data, headings = headings, nheaders = nheaders, header1 = header1)
+  data <- transfer_files(data, ext = "csv", overwrite = overwrite)
+  data <- sort_headings(data, headings, nheaders, header1)
   
   txt <- character(0)
   for (i in seq_len(nrow(data))) {
-#    heading <- data$heading[i]
+ #   heading <- data$heading[i]
     
     caption <- p0("Table ", i, ". ", data$caption[i])
     caption <- add_full_stop(caption)
