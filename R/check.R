@@ -1,10 +1,9 @@
-check_headings <- function(headings, drop, nheaders, header1, locale) {
+check_headings <- function(headings, drop, nheaders, header1) {
   check_list(headings)
   check_list(drop)
   check_count(nheaders)
   check_scalar(header1, c(1L, 10L))
-  check_string(locale)
-  
+
   if (!all(vapply(drop, is.character, TRUE)))
     err("drop must be a list of character vectors")
 

@@ -20,7 +20,7 @@ test_that("tables", {
   x <- data.frame()
   expect_is(subfoldr2::sbf_save_table(x, caption = "Nice two"), "character")
   
-  expect_identical(sbr_tables(drop = list("sub")), txt) 
+  expect_identical(sbr_tables(drop = c("sub")), txt) 
 
   #sbr_tables()
   

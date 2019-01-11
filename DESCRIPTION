@@ -9,7 +9,8 @@ Imports:
     err,
     checkr,
     yesno,
-    subfoldr2
+    subfoldr2,
+    knitr,
 Suggests: 
     covr,
     testthat

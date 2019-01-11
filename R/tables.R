@@ -1,47 +1,45 @@
 #' Tables
 #'
-#' Returns a string of tables in markdown format ready for inclusion in a report.
+#' Returns a string of the report tables in markdown format ready for inclusion in a report.
 #'
-#' The names in the character vectors in headings indicate the new headings for each subfolder.
-#' By default missing subfolders receive their current name with the first letter of each word capitalized.
-#' Subfolders with the name "" do not receive a heading.
-#' The order of the subfolders indicates the order in which they should appear.
-#' By default missing subfolders appear in alphabetical order.
-#' The first named character vector is applied to the highest level of subfolders starting at sub and so on.
-#' The number of character vectors indicates the number of levels that should receive headings.
-#' By default the highest level of subfolders are considered to be third order headings.
-#'
-#' The elements in the character vectors in drop indicate the subfolders to exclude from the report.
-#' Again the number of the character vector indicates the level to which it applies.
-#'
-#' @param sub A string of the path to the sub folder.
-#' @param headings A list of named character vectors.
-#' @param drop A list of character vectors specify the sub folders to drop.
-#' @param nheaders A count of the number of headings to assign headers to.
-#' @param header1 A count of the heading level for the first header.
-#' @param locale A string of the locale.
+#' @param sub A string of the path to the root sub folder.
+#' @param drop A character vector specifying the sub folders and file names to exclude from the report or NULL.
+#' @param sort A character vector specifying the initial sort order for sub folders and file names or NULL.
+#' Missing items appear afterwards in alphabetical order.
+#' @param rename A unique named character vector specifying new heading names for sub folders or NULL.
+#' By default sub folder names have the first letter of each word capitalized.
+#' @param nheaders A count of the number of sub folder levels to assign headers to.
+#' @param header1 A count of the heading level for the first sub folder level.
 #' @param overwrite A flag specifying whether to overwrite existing files in the report folder.
-#' @return A string of the report templates in markdown format ready for inclusion in a report.
+#' @return A string of the tables in markdown format.
 #' @export
-sbr_tables <- function(sub = character(0), headings = list(character(0)), 
-                      drop = list(character(0)),
-                      nheaders = 0L, header1 = 3L,
-                      locale = "en", overwrite = TRUE) {
-  check_headings(headings = headings, drop = drop, 
-                 nheaders = nheaders, header1 = header1, locale = locale)
-  check_flag(overwrite)
+sbr_tables <- function(sub = character(0), 
+                       drop = NULL, sort = NULL, rename = NULL,
+                       nheaders = 0L, header1 = 3L, overwrite = TRUE) {
   
+  checkor(check_null(drop), check_vector(drop, ""))
+  checkor(check_null(sort), check_vector(sort, "", unique = TRUE))
+  checkor(check_null(rename), 
+          check_vector(rename, "", unique = TRUE, named = TRUE))
+  
+  check_scalar(nheaders, c(0L, 3L))
+  check_scalar(header1, c(1L, 5L))
+  check_flag(overwrite)
+
   data <- sbf_load_tables_recursive(sub = sub, meta = TRUE)
-  data <- filter_files(data, drop = drop)
+  data <- drop_sub(data, drop = drop)
   
   if(!nrow(data)) return(character(0))
-
-  data <- transfer_files(data, ext = "csv", overwrite = overwrite)
-  data <- sort_headings(data, headings, nheaders, header1)
   
+  data <- transfer_files(data, ext = "csv", overwrite = overwrite)
+  
+  data <- sort_sub(data, sort = sort)
+  data <- rename_sub(data, rename)
+  data <- set_headings(data, nheaders, header1)
+
   txt <- character(0)
   for (i in seq_len(nrow(data))) {
- #   heading <- data$heading[i]
+    #   heading <- data$heading[i]
     
     caption <- p0("Table ", i, ". ", data$caption[i])
     caption <- add_full_stop(caption)
@@ -50,8 +48,7 @@ sbr_tables <- function(sub = character(0), headings = list(character(0)),
     table <- knitr::kable(table, format = "markdown", row.names = FALSE)
     
     #txt <- c(txt, heading, "")
-    txt <- c(txt, caption, "")
-    txt <- c(txt, table, "")
+    txt <- c(txt, caption, "", table, "")
   }
   p0(txt, collapse = "\n")
 }
