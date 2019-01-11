@@ -1,0 +1,13 @@
+context("report")
+
+test_that("report",{
+  teardown(sbr_reset_report())
+  expect_identical(sbr_reset_report(), "report")
+  expect_identical(sbr_get_report(), "report")
+  expect_identical(sbr_set_report("report2"), "report2")
+  expect_identical(sbr_get_report(), "report2")
+  expect_identical(sbr_set_report("/"), "/")
+  expect_identical(sbr_reset_report(), "report")
+  expect_identical(sbr_get_report(), "report")
+  expect_identical(sbr_set_report(), character(0))
+})
