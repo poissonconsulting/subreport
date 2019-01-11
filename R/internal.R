@@ -63,12 +63,29 @@ drop_sub <- function(data, drop) {
 
 sort_sub <- function(data, sort) {
   if(is.null(sort) || !length(sort)) return(data)
+  
+  names <- sort
+  sort <- 1:length(sort)
+  names(sort) <- names
 
   colnames <- sub_colnames(data)
-  colnames <- rev(colnames) # so names first
-#  for(colname in colnames)
-#    data <- data[!data[[colname]] %in% drop,]
+  colnames <- rev(colnames) 
+  data$order <- 1:nrow(data)
   
+  for(colname in colnames) {
+    in_sort <- !is.na(data[[colname]]) & data[[colname]] %in% names(sort)
+    
+    data_sort <- data[in_sort,]
+    data <- data[!in_sort,]
+    
+    data_sort$order <- sort[data_sort[[colname]]]
+    
+    data_sort <- data_sort[order(data_sort$order),]
+    data <- data[order(data[[colname]], na.last = FALSE),]
+
+    data <- rbind(data_sort, data, stringsAsFactors = FALSE)
+  }
+  data$order <- NULL
   data
 }
 
@@ -76,10 +93,11 @@ rename_sub <- function(data, rename) {
   if(is.null(rename)) return(data)
 
   colnames <- sub_colnames(data, names = FALSE)
-  for(colname in colnames)
+  for(colname in colnames) {
+    
 #    data <- data[!data[[colname]] %in% drop,]
 #
-    
+  }
   data
 }
 

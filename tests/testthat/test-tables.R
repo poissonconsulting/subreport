@@ -7,27 +7,26 @@ test_that("tables", {
   subfoldr2::sbf_set_main(tempdir(), "output", rm = TRUE, ask = FALSE)
   sbr_set_report(tempdir(), "report", rm = TRUE, ask = FALSE)
   
-  x <- data.frame(x = 1:3, y = c("oe", NA, "oeeeeee"))
-  expect_is(subfoldr2::sbf_save_table(x, caption = "Nice one"), "character")
+  x <- data.frame(obs = "JD", count = 1L)
+  subfoldr2::sbf_save_table(x, caption = "Observations")
   
   txt <- sbr_tables()
-  expect_identical(txt, "Table 1. Nice one.\n\n|  x|y       |\n|--:|:-------|\n|  1|oe      |\n|  2|NA      |\n|  3|oeeeeee |\n")
+  expect_identical(txt, "Table 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n")
+  expect_identical(list.files(sbr_get_report(), recursive = TRUE), "tables/x.csv")
   
- expect_identical(list.files(sbr_get_report(), recursive = TRUE),
-                   "tables/x.csv")
+  subfoldr2::sbf_save_table(x, x_name = "y", report = FALSE)
+  expect_identical(sbr_tables(), txt)
+  expect_identical(list.files(sbr_get_report(), recursive = TRUE), 
+                   "tables/x.csv", "tables/y.csv")
   
-  expect_identical(subfoldr2::sbf_set_sub("sub"), "sub")
-  x <- data.frame()
-  expect_is(subfoldr2::sbf_save_table(x, caption = "Nice two"), "character")
+  expect_identical(sbr_tables(drop = "x"), character(0))
   
-  expect_identical(sbr_tables(drop = c("sub")), txt) 
+  z <- data.frame(Site = 1:2, Name = c("parlour", "study"))
+  subfoldr2::sbf_save_table(z, caption = "Sites")
+  expect_identical(sbr_tables(), 
+                   "Table 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 2. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n")
+  
+  expect_identical(sbr_tables(sort = "z"),
+                   "Table 1. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\nTable 2. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n")
 
-  #sbr_tables()
-  
-#  expect_identical(list.files(sbr_get_report(), recursive = TRUE),
- #                  c("tables/sub/x.csv", "tables/x.csv"))
-  
-#  sbr_tables(sub = "sub")
-
-#  expect_identical(sbr_tables(sub = "sub2"), character(0))
 })
