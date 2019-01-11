@@ -13,6 +13,10 @@ sanitize_path <- function(path, rm_leading = TRUE) {
   path
 }
 
+add_full_stop <- function(x) {
+  sub("([^.]$)", "\\1.", x)
+}
+
 replace_ext <- function(x, new_ext) {
   sub("[.][^.]+$", p0(".", new_ext), x)
 }
@@ -27,7 +31,7 @@ sub_directories <- function(data) {
   sub
 }
 
-transfer_files <- function(data, ext, class = names(data)[1]) {
+transfer_files <- function(data, ext, overwrite, class = names(data)[1]) {
   from <- replace_ext(data$file, ext)
   
   to <- file_path(sbr_get_report(), class, sub_directories(data), data$name)
@@ -35,6 +39,16 @@ transfer_files <- function(data, ext, class = names(data)[1]) {
 
   dirs <- unique(dirname(to))
   lapply(dirs, dir.create, showWarnings = FALSE, recursive = TRUE)
-  file.copy(from, to, overwrite = TRUE)
+  mapply(file.copy, from, to, MoreArgs = list(overwrite = overwrite))
   invisible(to)
+}
+
+filter_files <- function(data, drop) {
+  data <- data[data$report,]
+  if(!nrow(data) || !length(drop)) return(data)
+  names(drop) <- p0("sub", 1:length(drop))
+  drop <- drop[names(drop) %in% names(data)]
+  for(name in names(drop))
+    data <- data[!data[[name]] %in% drop[[name]],]
+  data
 }

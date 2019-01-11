@@ -6,7 +6,7 @@
 \usage{
 sbr_tables(sub = character(0), headings = list(character(0)),
   drop = list(character(0)), nheaders = 0L, header1 = 3L,
-  locale = "en")
+  locale = "en", overwrite = TRUE)
 }
 \arguments{
 \item{sub}{A string of the path to the sub folder.}
@@ -20,6 +20,8 @@ sbr_tables(sub = character(0), headings = list(character(0)),
 \item{header1}{A count of the heading level for the first header.}
 
 \item{locale}{A string of the locale.}
+
+\item{overwrite}{A flag specifying whether to overwrite existing files in the report folder.}
 }
 \value{
 A string of the report templates in markdown format ready for inclusion in a report.

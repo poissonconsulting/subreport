@@ -20,47 +20,38 @@
 #' @param nheaders A count of the number of headings to assign headers to.
 #' @param header1 A count of the heading level for the first header.
 #' @param locale A string of the locale.
+#' @param overwrite A flag specifying whether to overwrite existing files in the report folder.
 #' @return A string of the report templates in markdown format ready for inclusion in a report.
 #' @export
 sbr_tables <- function(sub = character(0), headings = list(character(0)), 
                       drop = list(character(0)),
                       nheaders = 0L, header1 = 3L,
-                      locale = "en") {
+                      locale = "en", overwrite = TRUE) {
   check_headings(headings = headings, drop = drop, 
                  nheaders = nheaders, header1 = header1, locale = locale)
+  check_flag(overwrite)
+  
   data <- sbf_load_tables_recursive(sub = sub, meta = TRUE)
-  data <- data[data$report,]
+  data <- filter_files(data, drop = drop)
   
   if(!nrow(data)) return(character(0))
-  
-  data$to <- transfer_files(data, ext = "csv")
-  
-#  data <- 
-  
-  # files <- md_files(headings = headings, drop = drop, main = main,
-  #                   sub = sub, nheaders = nheaders,
-  #                   header1 = header1,
-  #                   locale = locale, class = "tables")
 
-  # txt <- NULL
-  # 
-  # for (i in seq_along(files)) {
-  # 
-  #   file <- files[i]
-  # 
-  #   caption <- readRDS(file)$caption
-  #   caption %<>% add_full_stop()
-  #   caption %<>% str_c("Table ", incr_table_number(), ". ", .)
-  # 
-  #   file %<>% str_replace("(_)([^/]+)(.RDS)", "\\2.rds")
-  #   table <- readRDS(file = file)
-  # 
-  #   txt %<>% c(names(files)[i]) %>% c("")
-  # 
-  #   txt %<>% c(caption) %>% c("")
-  #   txt %<>% c(knitr::kable(table, format = "markdown", row.names = FALSE))
-  #   txt %<>% c("")
-  # }
-  # txt %<>% str_c(collapse = "\n")
-  data
+  data$to <- transfer_files(data, ext = "csv", overwrite = overwrite)
+#  data <- sort_headings(data, headings = headings, nheaders = nheaders, header1 = header1)
+  
+  txt <- character(0)
+  for (i in seq_len(nrow(data))) {
+#    heading <- data$heading[i]
+    
+    caption <- p0("Table ", i, ". ", data$caption[i])
+    caption <- add_full_stop(caption)
+    
+    table <- data$tables[[i]]
+    table <- knitr::kable(table, format = "markdown", row.names = FALSE)
+    
+    #txt <- c(txt, heading, "")
+    txt <- c(txt, caption, "")
+    txt <- c(txt, table, "")
+  }
+  p0(txt, collapse = "\n")
 }
