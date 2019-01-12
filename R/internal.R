@@ -62,14 +62,16 @@ drop_sub <- function(data, drop) {
 }
 
 sort_sub <- function(data, sort) {
-  if(is.null(sort) || !length(sort)) return(data)
+  if(is.null(sort) || !length(sort))
+    sort <- "/not_a_possible_sub"
+
+  colnames <- sub_colnames(data)
+  colnames <- rev(colnames)
   
   names <- sort
   sort <- 1:length(sort)
   names(sort) <- names
-
-  colnames <- sub_colnames(data)
-  colnames <- rev(colnames) 
+  
   data$order <- 1:nrow(data)
   
   for(colname in colnames) {

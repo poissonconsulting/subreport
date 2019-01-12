@@ -35,6 +35,5 @@ test_that("tables", {
   
   expect_identical(sbr_tables(sort = "z"), "Table 1. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\nTable 2. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 3. More Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\nTable 4. Extra Obs.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n")
 
-
-#  cat(sbr_tables())
+  expect_identical(sbr_tables(), "Table 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 2. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\nTable 3. Extra Obs.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 4. More Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n")
 })
