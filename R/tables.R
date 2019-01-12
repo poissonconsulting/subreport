@@ -36,10 +36,10 @@ sbr_tables <- function(sub = character(0),
   data <- sort_sub(data, sort = sort)
   data <- rename_sub(data, rename)
   data <- set_headings(data, nheaders, header1)
-
+  
   txt <- character(0)
   for (i in seq_len(nrow(data))) {
-    #   heading <- data$heading[i]
+      heading <- data$heading[i]
     
     caption <- p0("Table ", i, ". ", data$caption[i])
     caption <- add_full_stop(caption)
@@ -47,8 +47,8 @@ sbr_tables <- function(sub = character(0),
     table <- data$tables[[i]]
     table <- knitr::kable(table, format = "markdown", row.names = FALSE)
     
-    #txt <- c(txt, heading, "")
-    txt <- c(txt, caption, "", table, "")
+    txt <- c(txt, heading, caption, "", table)
   }
+  txt <- c(txt, "")
   p0(txt, collapse = "\n")
 }
