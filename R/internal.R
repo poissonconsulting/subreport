@@ -133,16 +133,16 @@ set_headings <- function(data, nheaders, header1) {
   
   heading <- as.matrix(data[colnames])
   
-  header1 <- matrix("", nrow = nrow(heading), ncol = ncol(heading))
-  for(i in 1:ncol(header1))
-    header1[,i] <- p0(header1[,i], rep("#", i + header1 - 1L), collapse = "")
+  hashes <- matrix("", nrow = nrow(heading), ncol = ncol(heading))
+  for(i in 1:ncol(hashes))
+    hashes[,i] <- p0(rep("#", i + header1 - 1L), collapse = "")
 
   heading <- apply(heading, MARGIN = 2, new_only)
   
   heading[!is.na(heading)] <- 
-    p(header1[!is.na(heading)], heading[!is.na(heading)])
+    p(hashes[!is.na(heading)], heading[!is.na(heading)])
   
-  heading[!is.na(heading)] <- p0(heading[!is.na(heading)], "\n")
+  heading[!is.na(heading)] <- p0("\n", heading[!is.na(heading)], "\n")
   heading[is.na(heading)] <- ""
 
   heading <- apply(heading, MARGIN = 1, p0, collapse = "")
