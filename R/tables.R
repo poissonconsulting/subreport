@@ -15,7 +15,7 @@
 #' @export
 sbr_tables <- function(sub = character(0), 
                        drop = NULL, sort = NULL, rename = NULL,
-                       nheaders = 0L, header1 = 3L, overwrite = TRUE) {
+                       nheaders = 3L, header1 = 3L, overwrite = TRUE) {
   
   checkor(check_null(drop), check_vector(drop, ""))
   checkor(check_null(sort), check_vector(sort, "", unique = TRUE))
