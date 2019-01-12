@@ -5,7 +5,7 @@
 \title{Tables}
 \usage{
 sbr_tables(sub = character(0), drop = NULL, sort = NULL,
-  rename = NULL, nheaders = 0L, header1 = 3L, overwrite = TRUE)
+  rename = NULL, nheaders = 3L, header1 = 3L, overwrite = TRUE)
 }
 \arguments{
 \item{sub}{A string of the path to the root sub folder.}

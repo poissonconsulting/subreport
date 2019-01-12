@@ -21,6 +21,10 @@ replace_ext <- function(x, new_ext) {
   sub("[.][^.]+$", p0(".", new_ext), x)
 }
 
+capitalize_first_letter_words <- function (x) {
+  gsub(pattern = "\\b([a-z])", replacement = "\\U\\1", x, perl = TRUE)
+}
+
 sub_directories <- function(data) {
   data <- data[grepl("^sub\\d+", names(data))]
   if(!ncol(data)) return(character(0))
@@ -92,13 +96,17 @@ sort_sub <- function(data, sort) {
 }
 
 rename_sub <- function(data, rename) {
-  if(is.null(rename)) return(data)
+  if(is.null(rename)) 
+    rename <- c("/not_a_possible_sub" = "please report this bug")
+  
+  names(rename) <- capitalize_first_letter_words(names(rename))
 
   colnames <- sub_colnames(data, names = FALSE)
   for(colname in colnames) {
-    
-#    data <- data[!data[[colname]] %in% drop,]
-#
+    data[[colname]] <- capitalize_first_letter_words(data[[colname]])
+    column <- data[[colname]] 
+    recognized <- column %in% names(rename) 
+    data[[colname]][recognized] <- rename[column[recognized]]
   }
   data
 }

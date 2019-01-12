@@ -32,7 +32,7 @@
 
 <meta property="og:title" content="Tables — sbr_tables" />
 
-<meta property="og:description" content="Returns a string of tables in markdown format ready for inclusion in a report." />
+<meta property="og:description" content="Returns a string of the report tables in markdown format ready for inclusion in a report." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -101,59 +101,51 @@
 
     <div class="ref-description">
     
-    <p>Returns a string of tables in markdown format ready for inclusion in a report.</p>
+    <p>Returns a string of the report tables in markdown format ready for inclusion in a report.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>sbr_tables</span>(<span class='kw'>sub</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a></span>(<span class='fl'>0</span>), <span class='kw'>headings</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a></span>(<span class='fl'>0</span>)),
-  <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a></span>(<span class='fl'>0</span>)), <span class='kw'>nheaders</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>header1</span> <span class='kw'>=</span> <span class='fl'>3L</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='st'>"en"</span>)</pre>
+    <pre class="usage"><span class='fu'>sbr_tables</span>(<span class='kw'>sub</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a></span>(<span class='fl'>0</span>), <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sort</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>rename</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>nheaders</span> <span class='kw'>=</span> <span class='fl'>3L</span>, <span class='kw'>header1</span> <span class='kw'>=</span> <span class='fl'>3L</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>sub</th>
-      <td><p>A string of the path to the sub folder.</p></td>
-    </tr>
-    <tr>
-      <th>headings</th>
-      <td><p>A list of named character vectors.</p></td>
+      <td><p>A string of the path to the root sub folder.</p></td>
     </tr>
     <tr>
       <th>drop</th>
-      <td><p>A list of character vectors specify the sub folders to drop.</p></td>
+      <td><p>A character vector specifying the sub folders and file names to exclude from the report or NULL.</p></td>
+    </tr>
+    <tr>
+      <th>sort</th>
+      <td><p>A character vector specifying the initial sort order for sub folders and file names or NULL.
+Missing items appear afterwards in alphabetical order.</p></td>
+    </tr>
+    <tr>
+      <th>rename</th>
+      <td><p>A unique named character vector specifying new heading names for sub folders or NULL.
+By default sub folder names have the first letter of each word capitalized.</p></td>
     </tr>
     <tr>
       <th>nheaders</th>
-      <td><p>A count of the number of headings to assign headers to.</p></td>
+      <td><p>A count of the number of sub folder levels to assign headers to.</p></td>
     </tr>
     <tr>
       <th>header1</th>
-      <td><p>A count of the heading level for the first header.</p></td>
+      <td><p>A count of the heading level for the first sub folder level.</p></td>
     </tr>
     <tr>
-      <th>locale</th>
-      <td><p>A string of the locale.</p></td>
+      <th>overwrite</th>
+      <td><p>A flag specifying whether to overwrite existing files in the report folder.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A string of the report templates in markdown format ready for inclusion in a report.</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>The names in the character vectors in headings indicate the new headings for each subfolder.
-By default missing subfolders receive their current name with the first letter of each word capitalized.
-Subfolders with the name "" do not receive a heading.
-The order of the subfolders indicates the order in which they should appear.
-By default missing subfolders appear in alphabetical order.
-The first named character vector is applied to the highest level of subfolders starting at sub and so on.
-The number of character vectors indicates the number of levels that should receive headings.
-By default the highest level of subfolders are considered to be third order headings.</p>
-<p>The elements in the character vectors in drop indicate the subfolders to exclude from the report.
-Again the number of the character vector indicates the level to which it applies.</p>
+    <p>A string of the tables in markdown format.</p>
     
 
   </div>
@@ -163,8 +155,6 @@ Again the number of the character vector indicates the level to which it applies
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
           </ul>
 
   </div>
