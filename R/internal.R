@@ -9,7 +9,7 @@ file_path <- function(...) {
 sanitize_path <- function(path, rm_leading = TRUE) {
   path <- sub("//", "/", path)
   path <- sub("(.+)(/$)", "\\1", path)
-  if(isTRUE(rm_leading)) path <- sub("(^/)(.+)", "\\2", path)
+  if(isTRUE(rm_leading)) path <- sub("(^/)(.*)", "\\2", path)
   path
 }
 
@@ -26,7 +26,7 @@ sub_directories <- function(data) {
   if(!ncol(data)) return(character(0))
   data <- as.matrix(data)
   data[is.na(data)] <- ""
-  sub <- apply(data, MARGIN = 1, file_path)
+  sub <- apply(data, MARGIN = 1, function(x) do.call("file_path", as.list(x)))
   sub <- sanitize_path(sub)
   sub
 }
@@ -101,8 +101,49 @@ rename_sub <- function(data, rename) {
   data
 }
 
+new_only <- function(x) {
+  n <- length(x)
+  if(identical(n, 1L)) return(x)
+  new <- rep(NA, n)
+  new[1] <- !is.na(x[1])
+  for(i in 2:n) {
+    new[i] <- !is.na(x[i]) & (is.na(x[i-1]) | x[i] != x[i-1]) 
+  }
+  x[!new] <- NA_character_
+  x
+}
+
+last_sub <- function(x) {
+  x <- x[!is.na(x)]
+  n <- length(x)
+  if(!n) return(NA)
+  return(x[n])
+}
+
 set_headings <- function(data, nheaders, header1) {
-  ## where need to 
+  data$heading <- ""
+  if(!nheaders) return(data)
+  
   colnames <- sub_colnames(data, names = FALSE)
+  if(!length(colnames)) return(data)
+  
+  colnames <- colnames[1:min(nheaders, length(colnames))]
+  
+  heading <- as.matrix(data[colnames])
+  
+  header1 <- matrix("", nrow = nrow(heading), ncol = ncol(heading))
+  for(i in 1:ncol(header1))
+    header1[,i] <- p0(header1[,i], rep("#", i + header1 - 1L), collapse = "")
+
+  heading <- apply(heading, MARGIN = 2, new_only)
+  
+  heading[!is.na(heading)] <- 
+    p(header1[!is.na(heading)], heading[!is.na(heading)])
+  
+  heading[!is.na(heading)] <- p0(heading[!is.na(heading)], "\n")
+  heading[is.na(heading)] <- ""
+
+  heading <- apply(heading, MARGIN = 1, p0, collapse = "")
+  data$heading <- heading
   data
 }

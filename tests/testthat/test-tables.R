@@ -28,5 +28,13 @@ test_that("tables", {
   
   expect_identical(sbr_tables(sort = "z"),
                    "Table 1. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\nTable 2. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n")
+  
+  subfoldr2::sbf_set_sub("RB", "max like")
+  subfoldr2::sbf_save_table(x, caption = "Extra Obs")
+  subfoldr2::sbf_save_table(z, caption = "More Sites")
+  
+  expect_identical(sbr_tables(sort = "z"), "Table 1. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\nTable 2. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 3. More Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\nTable 4. Extra Obs.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n")
 
+
+#  cat(sbr_tables())
 })
