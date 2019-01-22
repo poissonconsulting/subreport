@@ -4,14 +4,14 @@
 \alias{sbr_knit_report}
 \title{Knit Report}
 \usage{
-sbr_knit_report(file = "report", report = sbr_get_report(),
+sbr_knit_report(file = "results", report = sbr_get_report(),
   sub = subfoldr2::sbf_get_sub(), main = subfoldr2::sbf_get_main(),
   quiet = FALSE, browse = TRUE)
 }
 \arguments{
-\item{file}{A string of the output file name without an extension.}
+\item{file}{A string of the file name(s) without an extension.}
 
-\item{report}{A string of the directory to save the output file.}
+\item{report}{A string of the directory to save the tables, code blocks and plots.}
 
 \item{sub}{A string specifying the path to the sub folder (by default the current sub folder).}
 
@@ -19,12 +19,13 @@ sbr_knit_report(file = "report", report = sbr_get_report(),
 
 \item{quiet}{An option to suppress printing of the pandoc command line.}
 
-\item{browse}{A flag specifying whether to open the html file.}
+\item{browse}{A flag specifying whether to open the .html file in a web browser.}
 }
 \value{
-An invisible path to the .html file.
+An invisible path to the .Rmd file.
 }
 \description{
-Knit's tables, code blocks and plots (and windows) into a html file and 
-if browse = TRUE opens in the default web browser.
+Makes a results .Rmd file of the tables, code blocks and plots (and windows)
+and knits it into a .html file and opens
+in the default web browser.
 }
