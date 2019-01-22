@@ -6,6 +6,6 @@ test_that("number", {
 
   x <- 2
   expect_is(sbf_save_number(x), "character")
-  expect_identical(s_num("x"), 2)
-  expect_error(s_num("y"))
+  expect_identical(sbr_n("x"), 2)
+  expect_error(sbr_n("y"))
 })
