@@ -11,8 +11,6 @@
 #' @param browse A flag specifying whether to open the .html file in a web browser.
 #' @return An invisible path to the .Rmd file.
 #' @export
-#'
-#' @examples
 sbr_knit_report <- function(file = "results", 
                             report = sbr_get_report(),
                             sub = subfoldr2::sbf_get_sub(),

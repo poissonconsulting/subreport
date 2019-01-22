@@ -27,11 +27,8 @@ sbr_tables <- function(sub = character(0),
   check_scalar(nheaders, c(0L, 3L))
   check_scalar(header1, c(1L, 5L))
   check_flag(overwrite)
-  check_string(main)
   
-  main2 <- sbf_get_main()
-
-  data <- sbf_load_tables_recursive(sub = sub, meta = TRUE)
+  data <- sbf_load_tables_recursive(sub = sub, main = main, meta = TRUE)
   data <- drop_sub(data, drop = drop)
   
   if(!nrow(data)) return(character(0))
@@ -42,12 +39,13 @@ sbr_tables <- function(sub = character(0),
   data <- rename_sub(data, rename)
   data <- set_headings(data, nheaders, header1)
   
+  data$caption <- p0("Table ", 1:nrow(data), ". ", data$caption)
+  data$caption <- add_full_stop(data$caption)
+
   txt <- character(0)
   for (i in seq_len(nrow(data))) {
-      heading <- data$heading[i]
-    
-    caption <- p0("Table ", i, ". ", data$caption[i])
-    caption <- add_full_stop(caption)
+    heading <- data$heading[i]
+    caption <- data$caption[i]
     
     table <- data$tables[[i]]
     table <- knitr::kable(table, format = "markdown", row.names = FALSE)
