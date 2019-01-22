@@ -10,6 +10,7 @@ Imports:
     checkr,
     yesno,
     subfoldr2,
+    rmarkdown,
     knitr,
 Suggests: 
     covr,

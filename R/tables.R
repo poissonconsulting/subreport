@@ -11,11 +11,13 @@
 #' @param nheaders A count of the number of sub folder levels to assign headers to.
 #' @param header1 A count of the heading level for the first sub folder level.
 #' @param overwrite A flag specifying whether to overwrite existing files in the report folder.
+#' @param main A string of the path to the main folder.
 #' @return A string of the tables in markdown format.
 #' @export
 sbr_tables <- function(sub = character(0), 
                        drop = NULL, sort = NULL, rename = NULL,
-                       nheaders = 3L, header1 = 3L, overwrite = TRUE) {
+                       nheaders = 3L, header1 = 3L, overwrite = TRUE,
+                       main = subfoldr2::sbf_get_main()) {
   
   checkor(check_null(drop), check_vector(drop, ""))
   checkor(check_null(sort), check_vector(sort, "", unique = TRUE))
@@ -25,6 +27,9 @@ sbr_tables <- function(sub = character(0),
   check_scalar(nheaders, c(0L, 3L))
   check_scalar(header1, c(1L, 5L))
   check_flag(overwrite)
+  check_string(main)
+  
+  main2 <- sbf_get_main()
 
   data <- sbf_load_tables_recursive(sub = sub, meta = TRUE)
   data <- drop_sub(data, drop = drop)

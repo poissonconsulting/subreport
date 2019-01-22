@@ -5,7 +5,8 @@
 \title{Tables}
 \usage{
 sbr_tables(sub = character(0), drop = NULL, sort = NULL,
-  rename = NULL, nheaders = 3L, header1 = 3L, overwrite = TRUE)
+  rename = NULL, nheaders = 3L, header1 = 3L, overwrite = TRUE,
+  main = subfoldr2::sbf_get_main())
 }
 \arguments{
 \item{sub}{A string of the path to the root sub folder.}
@@ -23,6 +24,8 @@ By default sub folder names have the first letter of each word capitalized.}
 \item{header1}{A count of the heading level for the first sub folder level.}
 
 \item{overwrite}{A flag specifying whether to overwrite existing files in the report folder.}
+
+\item{main}{A string of the path to the main folder.}
 }
 \value{
 A string of the tables in markdown format.
