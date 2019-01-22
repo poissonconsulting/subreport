@@ -162,3 +162,15 @@ set_headings <- function(data, nheaders, header1) {
   data$heading <- heading
   data
 }
+
+drop_duplicate_sub_colnames <- function(data1, data2) {
+  if(!nrow(data1) || !nrow(data2)) return(data1)
+  
+  sub1 <- data1[sub_colnames(data1)]
+  sub2 <- data2[sub_colnames(data2)]
+  
+  sub <- data.table::rbindlist(list(sub2, sub1), fill = TRUE)
+  wch <- which(!duplicated(sub))
+  wch <- wch - nrow(sub2)
+  data1[wch,,drop = FALSE]  
+}

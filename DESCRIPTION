@@ -9,6 +9,7 @@ Imports:
     err,
     checkr,
     yesno,
+    data.table,
     subfoldr2,
     rmarkdown,
     knitr,

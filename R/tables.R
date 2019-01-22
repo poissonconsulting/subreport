@@ -32,7 +32,7 @@ sbr_tables <- function(sub = character(0),
   
   data <- sbf_load_tables_recursive(sub = sub, main = main, meta = TRUE)
   data <- drop_sub(data, drop = drop)
-  
+ 
   if(!nrow(data)) return(character(0))
   
   data <- transfer_files(data, ext = "csv", overwrite = overwrite)
