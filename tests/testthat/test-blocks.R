@@ -15,6 +15,6 @@ test_that("blocks", {
   subfoldr2::sbf_save_block(y, caption = "jags")
   
   txt <- sbr_blocks()
-  expect_identical(txt, "\n```\n.\n  model {\n    for(i in 1:N)\n      bEffect ~ dnorm(0, 2^-2)\n  }..\n```\nCode Block 1. jags.\n")
+  expect_identical(txt, "\n```\n.\n  model {\n    for(i in 1:N)\n      bEffect ~ dnorm(0, 2^-2)\n  }\n..\n```\nBlock 1. jags.\n")
   expect_identical(list.files(sbr_get_report(), recursive = TRUE), "blocks/y.txt")
 })

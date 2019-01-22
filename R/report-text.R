@@ -8,9 +8,8 @@ date: ", Sys.time(), "
 ```{r, echo = FALSE, warning = FALSE, message = FALSE, include = FALSE, cache = FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, comment = NA, results = 'asis', cache = FALSE)
 
-library(subfoldr2)
-sbf_set_main('", normalizePath(main), "')
-sbf_set_sub('", sub, "')
+main <- '", normalizePath(main), "'
+sub <- '", sub, "'
 ```
 
 ## Results
@@ -18,13 +17,13 @@ sbf_set_sub('", sub, "')
 ### Tables
 
 ```{r}
-cat(subreport::sbr_tables())
+cat(subreport::sbr_tables(sub = sub, main = main))
 ```
 
-### Blocks
+### Code Blocks
 
 ```{r}
-cat('code blocks')
+cat(subreport::sbr_blocks(sub = sub, main = main))
 ```
 
 ### Plots

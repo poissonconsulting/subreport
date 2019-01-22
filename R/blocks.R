@@ -30,10 +30,10 @@ sbr_blocks <- function(sub = character(0),
   data <- rename_sub(data, rename)
   data <- set_headings(data, nheaders, header1)
   
-  data$caption <- p0("Code Block ", 1:nrow(data), ". ", data$caption)
+  data$caption <- p0("Block ", 1:nrow(data), ". ", data$caption)
   data$caption <- add_full_stop(data$caption)
   
-  data$blocks <- p0("```\n.", data$blocks, "..\n```")
+  data$blocks <- p0("```\n.", data$blocks, "\n..\n```")
   
   txt <- character(0)
   for (i in seq_len(nrow(data))) {
