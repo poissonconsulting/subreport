@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">subreport</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9002</span>
       </span>
     </div>
 
@@ -106,7 +106,8 @@
     </div>
 
     <pre class="usage"><span class='fu'>sbr_tables</span>(<span class='kw'>sub</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a></span>(<span class='fl'>0</span>), <span class='kw'>drop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sort</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>rename</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>nheaders</span> <span class='kw'>=</span> <span class='fl'>3L</span>, <span class='kw'>header1</span> <span class='kw'>=</span> <span class='fl'>3L</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>rename</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>nheaders</span> <span class='kw'>=</span> <span class='fl'>2L</span>, <span class='kw'>header1</span> <span class='kw'>=</span> <span class='fl'>4L</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>main</span> <span class='kw'>=</span> <span class='kw pkg'>subfoldr2</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/subfoldr2/topics/sbf_get_main'>sbf_get_main</a></span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -140,6 +141,10 @@ By default sub folder names have the first letter of each word capitalized.</p><
     <tr>
       <th>overwrite</th>
       <td><p>A flag specifying whether to overwrite existing files in the report folder.</p></td>
+    </tr>
+    <tr>
+      <th>main</th>
+      <td><p>A string of the path to the main folder.</p></td>
     </tr>
     </table>
     

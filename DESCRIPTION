@@ -1,9 +1,13 @@
 Package: subreport
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9001
+Title: Generate Reports from subfoldr2 Objects
+Version: 0.0.0.9002
 Authors@R: 
     person("Joe", "Thorley", role = c("aut", "cre"), email = "joe@poissonconsulting.ca", comment = c(ORCID = "0000-0002-7683-4592"))
-Description: What the package does (one paragraph).
+Description: Facilitates generation of .Rmd and .html reports from 
+    tables, (code) blocks and figures (plots and windows) saved using the
+    subfoldr2 package. To quickly view all the results use `sbr_knit_results()`.
+    The `sbr_n()` and `sbr_s()` functions can be used to insert numbers or strings
+    saved using subfoldr2.
 License: MIT + file LICENSE
 Imports:
     err,

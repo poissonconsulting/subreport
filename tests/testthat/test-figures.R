@@ -16,6 +16,7 @@ test_that("figures", {
   expect_identical(sort(list.files(sbr_get_report(), recursive = TRUE)), 
                    sort(c("plots/x.csv", "plots/x.png")))
   
+  skip("opens window")
   subfoldr2::sbf_open_window()
   plot(x~y, data = data.frame(x = c(5,4), y = c(6,7)))
   subfoldr2::sbf_save_window(height = 7L, dpi  = 300L)

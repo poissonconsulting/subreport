@@ -13,7 +13,11 @@ MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org
 
 # subreport
 
-`subreport` is an R package to …
+`subreport` is an R package to generate of .Rmd and .html reports from
+tables, (code) blocks and figures (plots and windows) saved using the
+subfoldr2 package. To quickly view all the results use
+`sbr_knit_results()`. The `sbr_n()` and `sbr_s()` functions can be used
+to insert numbers or strings saved using subfoldr2.
 
 ## Installation
 

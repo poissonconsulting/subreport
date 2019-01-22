@@ -22,18 +22,19 @@ test_that("tables", {
   x <- ggplot2::ggplot(data = data, ggplot2::aes(x = x, y = y)) 
   subfoldr2::sbf_save_plot(x, width = 3, caption = "A ggplot")
 
-  subfoldr2::sbf_open_window()
-  plot(x~y, data = data.frame(x = c(5,4), y = c(6,7)))
-  subfoldr2::sbf_save_window(width = 4, dpi  = 300L)
-  subfoldr2::sbf_close_window()
-
   file <- file.path(dir, "res")
   
-  expect_identical(sbr_knit_report(file, browse = FALSE, quiet = TRUE),
+  expect_identical(sbr_knit_results(file, browse = FALSE, quiet = TRUE),
                    paste0(file, ".Rmd"))
   
   expect_identical(sort(list.files(dir)), sort(c("report", "res.html", "res.Rmd")))
   
-  skip("knit locally")
-  sbr_knit_report()
+  skip("opens window")
+
+  subfoldr2::sbf_open_window()
+  plot(x~y, data = data.frame(x = c(5,4), y = c(6,7)))
+  subfoldr2::sbf_save_window(width = 4, dpi  = 300L)
+  subfoldr2::sbf_close_window()
+  
+  sbr_knit_results()
 })

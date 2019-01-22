@@ -4,9 +4,13 @@
 \name{subreport-package}
 \alias{subreport}
 \alias{subreport-package}
-\title{subreport: What the Package Does (One Line, Title Case)}
+\title{subreport: Generate Reports from subfoldr2 Objects}
 \description{
-What the package does (one paragraph).
+Facilitates generation of .Rmd and .html reports from 
+    tables, (code) blocks and figures (plots and windows) saved using the
+    subfoldr2 package. To quickly view all the results use `sbr_knit_results()`.
+    The `sbr_n()` and `sbr_s()` functions can be used to insert numbers or strings
+    saved using subfoldr2.
 }
 \author{
 \strong{Maintainer}: Joe Thorley \email{joe@poissonconsulting.ca} (0000-0002-7683-4592)
