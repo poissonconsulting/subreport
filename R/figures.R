@@ -1,13 +1,13 @@
-#' Plots (and Windows)
+#' Figures
 #'
-#' Returns a string of the report plots (and windows) in markdown format ready for inclusion in a report.
+#' Returns a string of the report plots and windows in markdown format ready for inclusion in a report.
 #' If a window and plot have identical names then the plot is dropped.
 #'
 #' @inheritParams sbr_tables
 #' @param width A number of the page width in inches.
 #' @return A string of the plots in markdown format.
 #' @export
-sbr_plots <- function(sub = character(0), 
+sbr_figures <- function(sub = character(0), 
                       drop = NULL, sort = NULL, rename = NULL,
                       nheaders = 2L, header1 = 4L, overwrite = TRUE,
                       main = subfoldr2::sbf_get_main(),
@@ -27,47 +27,44 @@ sbr_plots <- function(sub = character(0),
   
   plots <- sbf_load_plots_recursive(sub = sub, main = main, meta = TRUE)
   windows <- sbf_load_windows_recursive(sub = sub, main = main, meta = TRUE)
-
+  
   plots <- drop_sub(plots, drop = drop)
   windows <- drop_sub(windows, drop = drop)
   
   if(!nrow(windows) && !nrow(plots)) return(character(0))
-
+  
   plots <- drop_duplicate_sub_colnames(plots, windows)
-
+  
   if(nrow(windows)) {
     windows <- transfer_files(windows, ext = "png", overwrite = overwrite, class = "plots")
   } 
   if(nrow(plots)) {
-    transfer_files(plots, ext = "png", overwrite = overwrite)
-    plots <- transfer_files(plots, ext = "csv", overwrite = overwrite)
+    transfer_files(plots, ext = "csv", overwrite = overwrite)
+    plots <- transfer_files(plots, ext = "png", overwrite = overwrite)
   }
-  colnames(windows)[1] <- "plot"
+  colnames(windows)[1] <- "plots"
   data <- rbind(plots, windows, stringsAsFactors = FALSE)
-   
+  
   data <- sort_sub(data, sort = sort)
   data <- rename_sub(data, rename)
   data <- set_headings(data, nheaders, header1)
-
+  
   data$caption <- p0("Figure ", 1:nrow(data), ". ", data$caption)
   data$caption <- add_full_stop(data$caption)
   data$width <- data$width / width * 100
-  data$file <- sub_directories(data)
   
-  print(data)
-
   txt <- character(0)
   for (i in seq_len(nrow(data))) {
-     heading <- data$heading[i]
-     caption <- data$caption[i]
-     width <- data$width[i]
-     file <- data$file[i]
-
-    img <- p0("<img alt = \"", file, "\" src = \"", file,
-              "\" title = \"", file, "\" width = \"", width, "%\">")
-
-     caption <- p0("<figcaption>", caption, "</figcaption>")
-     txt <- c(txt, heading, "<figure>", img, caption, "</figure>")
+    heading <- data$heading[i]
+    caption <- data$caption[i]
+    width <- data$width[i]
+    to <- data$to[i]
+    
+    img <- p0("<img alt = \"", to, "\" src = \"", to,
+              "\" title = \"", to, "\" width = \"", width, "%\">")
+    
+    caption <- p0("<figcaption>", caption, "</figcaption>")
+    txt <- c(txt, heading, "<figure>", img, caption, "</figure>")
   }
   txt <- c(txt, "")
   p0(txt, collapse = "\n")

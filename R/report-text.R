@@ -26,10 +26,10 @@ cat(subreport::sbr_tables(sub = sub, main = main))
 cat(subreport::sbr_blocks(sub = sub, main = main))
 ```
 
-### Plots
+### Figures
 
 ```{r}
-cat('code blocks')
+cat(subreport::sbr_figures(sub = sub, main = main))
 ```
 ",
     sep = "")}

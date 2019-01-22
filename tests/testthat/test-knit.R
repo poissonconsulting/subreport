@@ -18,6 +18,15 @@ test_that("tables", {
   }"
   subfoldr2::sbf_save_block(y, caption = "jags")
   
+  data <- data.frame(x = 1, y = 2)
+  x <- ggplot2::ggplot(data = data, ggplot2::aes(x = x, y = y)) 
+  subfoldr2::sbf_save_plot(x, width = 3, caption = "A ggplot")
+
+  subfoldr2::sbf_open_window()
+  plot(x~y, data = data.frame(x = c(5,4), y = c(6,7)))
+  subfoldr2::sbf_save_window(width = 4, dpi  = 300L)
+  subfoldr2::sbf_close_window()
+
   file <- file.path(dir, "res")
   
   expect_identical(sbr_knit_report(file, browse = FALSE, quiet = TRUE),

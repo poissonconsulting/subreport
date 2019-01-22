@@ -18,7 +18,7 @@ sanitize_path <- function(path, rm_leading = TRUE) {
 }
 
 add_full_stop <- function(x) {
-  sub("([^.]$)", "\\1.", x)
+  sub("([^.]+$)", "\\1.", x)
 }
 
 replace_ext <- function(x, new_ext) {
