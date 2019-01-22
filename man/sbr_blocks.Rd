@@ -5,7 +5,7 @@
 \title{Blocks}
 \usage{
 sbr_blocks(sub = character(0), drop = NULL, sort = NULL,
-  rename = NULL, nheaders = 3L, header1 = 3L, overwrite = TRUE,
+  rename = NULL, nheaders = 2L, header1 = 4L, overwrite = TRUE,
   main = subfoldr2::sbf_get_main())
 }
 \arguments{

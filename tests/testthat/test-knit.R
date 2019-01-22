@@ -9,8 +9,8 @@ test_that("tables", {
   subfoldr2::sbf_set_main(tempdir(), "output", rm = TRUE, ask = FALSE)
 
   x <- data.frame(obs = "JD", count = 1L)
-  subfoldr2::sbf_save_table(x, caption = "Observations")
-  
+  subfoldr2::sbf_save_table(x, sub = "A header", caption = "Observations")
+
   y <- "
   model {
     for(i in 1:N)
@@ -26,5 +26,5 @@ test_that("tables", {
   expect_identical(sort(list.files(dir)), sort(c("report", "res.html", "res.Rmd")))
   
   skip("knit locally")
-  sbr_knit_report(file)
+  sbr_knit_report()
 })

@@ -1,7 +1,7 @@
 report_text <- function(sub, main) {
   paste0(
     "---
-title: ", basename(getwd()),"
+title: '", basename(getwd()), "'
 date: ", Sys.time(), "
 ---
 

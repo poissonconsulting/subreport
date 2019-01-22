@@ -1,3 +1,7 @@
+user <- function() {
+  unname(Sys.info()["user"])
+}
+
 file_path <- function(...) {
   args <- list(...)
   if(!length(args)) return(character(0))
@@ -153,6 +157,7 @@ set_headings <- function(data, nheaders, header1) {
   heading[!is.na(heading)] <- p0("\n", heading[!is.na(heading)], "\n")
   heading[is.na(heading)] <- ""
 
+  heading <- as.matrix(heading)
   heading <- apply(heading, MARGIN = 1, p0, collapse = "")
   data$heading <- heading
   data
