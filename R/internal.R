@@ -171,6 +171,7 @@ drop_duplicate_sub_colnames <- function(data1, data2) {
   
   sub <- data.table::rbindlist(list(sub2, sub1), fill = TRUE)
   wch <- which(duplicated(sub))
+  if(!length(wch)) return(data1)
   wch <- wch - nrow(sub2)
   data1[-wch,,drop = FALSE]  
 }
