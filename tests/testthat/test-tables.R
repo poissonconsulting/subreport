@@ -92,5 +92,5 @@ test_that("tables sort sub and name", {
                    c("tables/> b/a.csv", "tables/a.csv"))
   
   txt <- sbr_tables(sort = c("> b", "a"))
-  expect_identical(txt, "\n#### > B\n\nTable 1.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n\nTable 2.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n")
+  expect_identical(txt, "\nTable 1.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n\n#### > B\n\nTable 2.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n")
 })

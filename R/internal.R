@@ -84,17 +84,20 @@ sort_sub <- function(data, sort) {
   data$order <- 1:nrow(data)
   
   for(colname in colnames) {
-    in_sort <- !is.na(data[[colname]]) & data[[colname]] %in% names(sort)
+    is_na <- is.na(data[[colname]])
+    
+    in_sort <- !is_na & data[[colname]] %in% names(sort)
     
     data_sort <- data[in_sort,]
-    data <- data[!in_sort,]
+    data_na <- data[is_na,]
+    data <- data[!is_na & !in_sort,]
     
     data_sort$order <- sort[data_sort[[colname]]]
     
     data_sort <- data_sort[order(data_sort$order),]
     data <- data[order(data[[colname]], na.last = FALSE),]
 
-    data <- rbind(data_sort, data, stringsAsFactors = FALSE)
+    data <- rbind(data_na, data_sort, data, stringsAsFactors = FALSE)
   }
   data$order <- NULL
   data
