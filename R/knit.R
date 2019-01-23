@@ -13,7 +13,7 @@
 #' @export
 sbr_knit_results <- function(file = "results", 
                             report = sbr_get_report(),
-                            sub = subfoldr2::sbf_get_sub(),
+                            sub = character(0),
                             main = subfoldr2::sbf_get_main(),
                             quiet = FALSE,
                             browse = TRUE) {

@@ -5,7 +5,7 @@
 \title{Knit Report}
 \usage{
 sbr_knit_results(file = "results", report = sbr_get_report(),
-  sub = subfoldr2::sbf_get_sub(), main = subfoldr2::sbf_get_main(),
+  sub = character(0), main = subfoldr2::sbf_get_main(),
   quiet = FALSE, browse = TRUE)
 }
 \arguments{
