@@ -73,3 +73,24 @@ test_that("tables missing caption", {
   expect_identical(txt, "\nTable 1.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n")
   expect_identical(list.files(sbr_get_report(), recursive = TRUE), "tables/x.csv")
 })
+
+test_that("tables sort sub and name", {
+  teardown(subfoldr2::sbf_reset_main())
+  teardown(sbr_reset_report())
+
+  subfoldr2::sbf_set_main(tempdir(), "output", rm = TRUE, ask = FALSE)
+  sbr_set_report(tempdir(), "report", rm = TRUE, ask = FALSE)
+  
+  a <- data.frame(obs = "JD", count = "A")
+  subfoldr2::sbf_save_table(a)
+  
+  subfoldr2::sbf_save_table(a, sub = "> b")
+  
+  txt <- sbr_tables()
+  expect_identical(txt, "\nTable 1.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n\n#### > B\n\nTable 2.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n")
+  expect_identical(list.files(sbr_get_report(), recursive = TRUE), 
+                   c("tables/> b/a.csv", "tables/a.csv"))
+  
+  txt <- sbr_tables(sort = c("> b", "a"))
+  expect_identical(txt, "\n#### > B\n\nTable 1.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n\nTable 2.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n")
+})
