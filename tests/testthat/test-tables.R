@@ -58,3 +58,18 @@ test_that("tables sub", {
   expect_identical(txt, "\n#### A Sub\n\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n")
   expect_identical(list.files(sbr_get_report(), recursive = TRUE), "tables/A sub/x.csv")
 })
+
+test_that("tables missing caption", {
+  teardown(subfoldr2::sbf_reset_main())
+  teardown(sbr_reset_report())
+
+  subfoldr2::sbf_set_main(tempdir(), "output", rm = TRUE, ask = FALSE)
+  sbr_set_report(tempdir(), "report", rm = TRUE, ask = FALSE)
+  
+  x <- data.frame(obs = "JD", count = 1L)
+  subfoldr2::sbf_save_table(x)
+  
+  txt <- sbr_tables()
+  expect_identical(txt, "\nTable 1.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n")
+  expect_identical(list.files(sbr_get_report(), recursive = TRUE), "tables/x.csv")
+})

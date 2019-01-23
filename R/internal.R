@@ -18,6 +18,7 @@ sanitize_path <- function(path, rm_leading = TRUE) {
 }
 
 add_full_stop <- function(x) {
+  x <- sub("([.])(\\s+$)", ".", x)
   sub("([^.]+$)", "\\1.", x)
 }
 
