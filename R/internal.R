@@ -170,7 +170,7 @@ drop_duplicate_sub_colnames <- function(data1, data2) {
   sub2 <- data2[sub_colnames(data2)]
   
   sub <- data.table::rbindlist(list(sub2, sub1), fill = TRUE)
-  wch <- which(!duplicated(sub))
+  wch <- which(duplicated(sub))
   wch <- wch - nrow(sub2)
-  data1[wch,,drop = FALSE]  
+  data1[-wch,,drop = FALSE]  
 }
