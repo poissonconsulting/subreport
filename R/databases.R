@@ -5,7 +5,7 @@
 #' @inheritParams sbr_tables
 #' @return A string of the metatables in markdown format.
 #' @export
-sbr_metatables <- function(sub = character(0), 
+sbr_databases <- function(sub = character(0), 
                        drop = NULL, sort = NULL, rename = NULL,
                        nheaders = 2L, header1 = 4L, overwrite = TRUE,
                        main = subfoldr2::sbf_get_main()) {
@@ -33,7 +33,7 @@ sbr_metatables <- function(sub = character(0),
   data <- rename_sub(data, rename)
   data <- set_headings(data, nheaders, header1)
   
-  data$caption <- p0("Metatable ", 1:nrow(data), ". ", data$caption)
+  data$caption <- p0("Database ", 1:nrow(data), ". ", data$caption)
   data$caption <- add_full_stop(data$caption)
   
   txt <- character(0)

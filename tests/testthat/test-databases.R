@@ -1,6 +1,6 @@
-context("metatables")
+context("databases")
 
-test_that("metatables", {
+test_that("databases", {
   teardown(subfoldr2::sbf_reset_main())
   teardown(sbr_reset_report())
 
@@ -23,8 +23,7 @@ test_that("metatables", {
     env = as.environment(list(x = x, y = y))),
                    c("y", "x"))
 
-  txt <- sbr_metatables()
+  txt <- sbr_databases()
   
-  cat(txt)
-  expect_identical(txt, "\nMetatable 1. really!.\n\n|Table |Column |Meta |Description |\n|:-----|:------|:----|:-----------|\n|X     |X      |NA   |NA          |\n|Y     |Z      |NA   |NA          |\n")
+  expect_identical(txt, "\nDatabase 1. really!.\n\n|Table |Column |Meta |Description |\n|:-----|:------|:----|:-----------|\n|X     |X      |NA   |NA          |\n|Y     |Z      |NA   |NA          |\n")
 })

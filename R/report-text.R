@@ -14,10 +14,10 @@ sub <- '", sub, "'
 
 ## Results
 
-### Database Metatables
+### Databases
 
 ```{r}
-cat(subreport::sbr_metatables(sub = sub, main = main))
+cat(subreport::sbr_databases(sub = sub, main = main))
 ```
 
 ### Code Blocks
