@@ -14,16 +14,22 @@ sub <- '", sub, "'
 
 ## Results
 
-### Tables
+### Database Metatables
 
 ```{r}
-cat(subreport::sbr_tables(sub = sub, main = main))
+cat(subreport::sbr_metatables(sub = sub, main = main))
 ```
 
 ### Code Blocks
 
 ```{r}
 cat(subreport::sbr_blocks(sub = sub, main = main))
+```
+
+### Tables
+
+```{r}
+cat(subreport::sbr_tables(sub = sub, main = main))
 ```
 
 ### Figures

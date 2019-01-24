@@ -26,6 +26,7 @@ sbr_metatables <- function(sub = character(0),
  
   if(!nrow(data)) return(character(0))
   
+  data <- transfer_files(data, ext = "sqlite", overwrite = overwrite, class = "dbs")
   data <- write_csv_files(data, overwrite = overwrite, class = "dbs")
 
   data <- sort_sub(data, sort = sort)
@@ -34,7 +35,7 @@ sbr_metatables <- function(sub = character(0),
   
   data$caption <- p0("Metatable ", 1:nrow(data), ". ", data$caption)
   data$caption <- add_full_stop(data$caption)
-
+  
   txt <- character(0)
   for (i in seq_len(nrow(data))) {
     heading <- data$heading[i]
