@@ -21,9 +21,26 @@ knitr::opts_chunk$set(
 
 # subreport
 
-`subreport` is an R package to generate of .Rmd and .html reports from  tables, (code) blocks and figures (plots and windows) saved using the subfoldr2 package. 
-To quickly view all the results use `sbr_knit_results()`.
-The `sbr_n()` and `sbr_s()` functions can be used to insert numbers or strings saved using subfoldr2.
+`subreport` is an R package to generate `.html` results reports and custom markdown for tables, figures (plots, windows and png files) and (code) blocks saved using the [subfoldr2](https://github.com/poissonconsulting/subreport) package.
+
+The `sbr_knit_results()` function allows the user to view a .html report with all the tables, figures and blocks while the `sbr_tables()`, `sbr_figures()` and `sbr_blocks()` functions produce markdown code complete with headings, numbered labels and captions of their respective objects.
+
+The `sbr_n()` and `sbr_s()` functions allow numbers and strings to be inserted into .Rmd reports.
+
+## Usage
+
+```{r}
+library(subfoldr2)
+library(subreport)
+
+sbf_set_main(tempdir(), "output")
+sbr_set_report(tempdir(), "report")
+
+y <- data.frame(t = 2, comment = "blah blah")
+sbf_save_table(y, sub = "Factoids", caption = "A really interesting summary")
+
+cat(sbr_tables())
+```
 
 ## Installation
 

@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">subreport</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9006</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9007</span>
       </span>
     </div>
 
@@ -70,14 +70,38 @@
 <div id="subreport" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#subreport" class="anchor"></a>subreport</h1></div>
-<p><code>subreport</code> is an R package to generate of .Rmd and .html reports from tables, (code) blocks and figures (plots and windows) saved using the subfoldr2 package. To quickly view all the results use <code><a href="reference/sbr_knit_results.html">sbr_knit_results()</a></code>. The <code><a href="reference/sbr_number.html">sbr_n()</a></code> and <code><a href="reference/sbr_string.html">sbr_s()</a></code> functions can be used to insert numbers or strings saved using subfoldr2.</p>
+<p><code>subreport</code> is an R package to generate <code>.html</code> results reports and custom markdown for tables, figures (plots, windows and png files) and (code) blocks saved using the <a href="https://github.com/poissonconsulting/subreport">subfoldr2</a> package.</p>
+<p>The <code><a href="reference/sbr_knit_results.html">sbr_knit_results()</a></code> function allows the user to view a .html report with all the tables, figures and blocks while the <code><a href="reference/sbr_tables.html">sbr_tables()</a></code>, <code><a href="reference/sbr_figures.html">sbr_figures()</a></code> and <code><a href="reference/sbr_blocks.html">sbr_blocks()</a></code> functions produce markdown code complete with headings, numbered labels and captions of their respective objects.</p>
+<p>The <code><a href="reference/sbr_number.html">sbr_n()</a></code> and <code><a href="reference/sbr_string.html">sbr_s()</a></code> functions allow numbers and strings to be inserted into .Rmd reports.</p>
+<div id="usage" class="section level2">
+<h2 class="hasAnchor">
+<a href="#usage" class="anchor"></a>Usage</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(subfoldr2)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(subreport)</a>
+<a class="sourceLine" id="cb1-3" title="3"></a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/subfoldr2/topics/sbf_set_main">sbf_set_main</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/tempfile">tempdir</a></span>(), <span class="st">"output"</span>)</a>
+<a class="sourceLine" id="cb1-5" title="5"><span class="kw"><a href="reference/sbr_set_report.html">sbr_set_report</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/tempfile">tempdir</a></span>(), <span class="st">"report"</span>)</a>
+<a class="sourceLine" id="cb1-6" title="6"></a>
+<a class="sourceLine" id="cb1-7" title="7">y &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(<span class="dt">t =</span> <span class="dv">2</span>, <span class="dt">comment =</span> <span class="st">"blah blah"</span>)</a>
+<a class="sourceLine" id="cb1-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/subfoldr2/topics/sbf_save_table">sbf_save_table</a></span>(y, <span class="dt">sub =</span> <span class="st">"Factoids"</span>, <span class="dt">caption =</span> <span class="st">"A really interesting summary"</span>)</a>
+<a class="sourceLine" id="cb1-9" title="9"></a>
+<a class="sourceLine" id="cb1-10" title="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="kw"><a href="reference/sbr_tables.html">sbr_tables</a></span>())</a>
+<a class="sourceLine" id="cb1-11" title="11"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb1-12" title="12"><span class="co">#&gt; #### Factoids</span></a>
+<a class="sourceLine" id="cb1-13" title="13"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb1-14" title="14"><span class="co">#&gt; Table 1. A really interesting summary.</span></a>
+<a class="sourceLine" id="cb1-15" title="15"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb1-16" title="16"><span class="co">#&gt; |  t|comment   |</span></a>
+<a class="sourceLine" id="cb1-17" title="17"><span class="co">#&gt; |--:|:---------|</span></a>
+<a class="sourceLine" id="cb1-18" title="18"><span class="co">#&gt; |  2|blah blah |</span></a></code></pre></div>
+</div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>To install the latest development version from the Poisson drat <a href="https://github.com/poissonconsulting/drat">repository</a></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"drat"</span>)</a>
-<a class="sourceLine" id="cb1-2" title="2">drat<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/drat/topics/addRepo">addRepo</a></span>(<span class="st">"poissonconsulting"</span>)</a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"subreport"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"drat"</span>)</a>
+<a class="sourceLine" id="cb2-2" title="2">drat<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/drat/topics/addRepo">addRepo</a></span>(<span class="st">"poissonconsulting"</span>)</a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"subreport"</span>)</a></code></pre></div>
 </div>
 <div id="contribution" class="section level2">
 <h2 class="hasAnchor">
