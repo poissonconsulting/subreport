@@ -28,9 +28,9 @@ test_that("databases", {
   expect_identical(txt, "\nDatabase 1. really!.\n\n|Table |Column |Meta |Description |\n|:-----|:------|:----|:-----------|\n|X     |X      |NA   |NA          |\n|Y     |Z      |NA   |NA          |\n")
   
   expect_identical(list.files(sbr_get_report(), recursive = TRUE), 
-                   sort(c("dbs/database.csv", "dbs/database.sqlite")))
+                   sort(c("databases/database.csv", "databases/database.sqlite")))
   
-  database_csv <- utils::read.csv(file.path(sbr_get_report(), "dbs/database.csv"))
+  database_csv <- utils::read.csv(file.path(sbr_get_report(), "databases/database.csv"))
   expect_identical(database_csv, data.frame(Table = c("X", "Y"),
                                             Column = c("X", "Z"),
                                             Meta = c(NA, NA),

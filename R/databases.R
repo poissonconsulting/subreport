@@ -26,8 +26,8 @@ sbr_databases <- function(sub = character(0),
  
   if(!nrow(data)) return(character(0))
   
-  data <- transfer_files(data, ext = "sqlite", overwrite = overwrite, class = "dbs")
-  data <- write_files(data, ext = ".csv", fun = write_csv, overwrite = overwrite, class = "dbs")
+  data <- transfer_files(data, ext = "sqlite", overwrite = overwrite, class = "databases")
+  data <- write_files(data, ext = ".csv", fun = write_csv, overwrite = overwrite, class = "databases")
 
   data <- sort_sub(data, sort = sort)
   data <- rename_sub(data, rename)
