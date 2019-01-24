@@ -2,11 +2,13 @@ user <- function() {
   unname(Sys.info()["user"])
 }
 
-file_path <- function(...) {
+file_path <- function(..., collapse = FALSE) {
   args <- list(...)
   if(!length(args)) return(character(0))
   args <- lapply(args, as.character)
   args <- args[vapply(args, function(x) length(x) > 0L, TRUE)]
+  if(collapse)
+    args <- lapply(args, p0, collapse = "/")
   do.call("file.path", args)
 }
 
