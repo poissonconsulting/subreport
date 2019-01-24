@@ -52,6 +52,21 @@ transfer_files <- function(data, ext, overwrite, class = names(data)[1]) {
   data
 }
 
+write_csv <- function(data, file, overwrite) {
+  if(isFALSE(overwrite) && file.exists(file))
+    err("file '", file, "' already exists and overwrite = FALSE")
+  write.csv(data, file, row.names = FALSE)
+}
+
+write_csv_files <-function(data, overwrite = overwrite, class = names(data)[1]) {
+  data$to <- file_path(sbr_get_report(), class, sub_directories(data), data$name)
+  data$to <- p0(data$to, ".csv")
+  dirs <- unique(dirname(data$to))
+  lapply(dirs, dir.create, showWarnings = FALSE, recursive = TRUE)
+  mapply(write_csv, data[[1]], data$to, MoreArgs = list(overwrite = overwrite))
+  data
+}
+
 sub_colnames <- function(data, names = TRUE) {
   colnames <- colnames(data)
   colnames <- colnames[grepl("^sub\\d+", colnames)]
@@ -62,7 +77,7 @@ sub_colnames <- function(data, names = TRUE) {
 drop_sub <- function(data, drop) {
   data <- data[data$report,]
   if(!nrow(data) || is.null(drop) || !length(drop)) return(data)
-
+  
   colnames <- sub_colnames(data)
   for(colname in colnames)
     data <- data[!data[[colname]] %in% drop,]
@@ -73,7 +88,7 @@ drop_sub <- function(data, drop) {
 sort_sub <- function(data, sort) {
   if(is.null(sort) || !length(sort))
     sort <- "/not_a_possible_sub"
-
+  
   colnames <- sub_colnames(data)
   colnames <- rev(colnames)
   
@@ -96,7 +111,7 @@ sort_sub <- function(data, sort) {
     
     data_sort <- data_sort[order(data_sort$order),]
     data <- data[order(data[[colname]], na.last = FALSE),]
-
+    
     data <- rbind(data_na, data_sort, data, stringsAsFactors = FALSE)
   }
   data$order <- NULL
@@ -108,7 +123,7 @@ rename_sub <- function(data, rename) {
     rename <- c("/not_a_possible_sub" = "please report this bug")
   
   names(rename) <- capitalize_first_letter_words(names(rename))
-
+  
   colnames <- sub_colnames(data, names = FALSE)
   for(colname in colnames) {
     data[[colname]] <- capitalize_first_letter_words(data[[colname]])
@@ -152,7 +167,7 @@ set_headings <- function(data, nheaders, header1) {
   hashes <- matrix("", nrow = nrow(heading), ncol = ncol(heading))
   for(i in 1:ncol(hashes))
     hashes[,i] <- p0(rep("#", i + header1 - 1L), collapse = "")
-
+  
   heading <- apply(heading, MARGIN = 2, new_only)
   
   heading[!is.na(heading)] <- 
@@ -160,7 +175,7 @@ set_headings <- function(data, nheaders, header1) {
   
   heading[!is.na(heading)] <- p0("\n", heading[!is.na(heading)], "\n")
   heading[is.na(heading)] <- ""
-
+  
   heading <- as.matrix(heading)
   heading <- apply(heading, MARGIN = 1, p0, collapse = "")
   data$heading <- heading

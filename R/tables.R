@@ -35,7 +35,7 @@ sbr_tables <- function(sub = character(0),
  
   if(!nrow(data)) return(character(0))
   
-  data <- transfer_files(data, ext = "csv", overwrite = overwrite)
+  data <- write_csv_files(data, overwrite = overwrite)
   
   data <- sort_sub(data, sort = sort)
   data <- rename_sub(data, rename)
