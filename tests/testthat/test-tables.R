@@ -19,6 +19,9 @@ test_that("tables", {
   expect_identical(list.files(sbr_get_report(), recursive = TRUE), 
                    "tables/x.csv", "tables/y.csv")
   
+  x_csv <- utils::read.csv(file.path(sbr_get_report(), "tables/x.csv"))
+  expect_identical(x_csv, x)
+  
   expect_identical(sbr_tables(drop = "x"), character(0))
   
   z <- data.frame(Site = 1:2, Name = c("parlour", "study"))
