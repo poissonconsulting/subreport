@@ -7,7 +7,7 @@
 #' @export
 sbr_databases <- function(sub = character(0), 
                        drop = NULL, sort = NULL, rename = NULL,
-                       nheaders = 2L, header1 = 4L, overwrite = TRUE,
+                       nheaders = 2L, header1 = 4L,
                        main = subfoldr2::sbf_get_main()) {
   
   checkor(check_null(drop), check_vector(drop, ""))
@@ -17,7 +17,6 @@ sbr_databases <- function(sub = character(0),
   
   check_scalar(nheaders, c(0L, 5L))
   check_scalar(header1, c(1L, 6L))
-  check_flag(overwrite)
 
   nheaders <- min(nheaders, (6L - header1))
   
@@ -26,8 +25,8 @@ sbr_databases <- function(sub = character(0),
  
   if(!nrow(data)) return(character(0))
   
-  data <- transfer_files(data, ext = "sqlite", overwrite = overwrite, class = "databases")
-  data <- write_files(data, ext = ".csv", fun = write_csv, overwrite = overwrite, class = "databases")
+  data <- transfer_files(data, ext = "sqlite", class = "databases")
+  data <- write_files(data, ext = ".csv", fun = write_csv, class = "databases")
 
   data <- sort_sub(data, sort = sort)
   data <- rename_sub(data, rename)

@@ -9,7 +9,7 @@
 #' @export
 sbr_figures <- function(sub = character(0), 
                       drop = NULL, sort = NULL, rename = NULL,
-                      nheaders = 2L, header1 = 4L, overwrite = TRUE,
+                      nheaders = 2L, header1 = 4L, 
                       main = subfoldr2::sbf_get_main(),
                       width = 6) {
   
@@ -20,7 +20,6 @@ sbr_figures <- function(sub = character(0),
   
   check_scalar(nheaders, c(0L, 5L))
   check_scalar(header1, c(1L, 6L))
-  check_flag(overwrite)
   check_scalar(width, c(1, 24))
   
   nheaders <- min(nheaders, (6L - header1))
@@ -36,11 +35,11 @@ sbr_figures <- function(sub = character(0),
   plots <- drop_duplicate_sub_colnames(plots, windows)
   
   if(nrow(windows)) {
-    windows <- transfer_files(windows, ext = "png", overwrite = overwrite, class = "plots")
+    windows <- transfer_files(windows, ext = "png", class = "plots")
   } 
   if(nrow(plots)) {
-    transfer_files(plots, ext = "csv", overwrite = overwrite)
-    plots <- transfer_files(plots, ext = "png", overwrite = overwrite)
+    transfer_files(plots, ext = "csv")
+    plots <- transfer_files(plots, ext = "png")
   }
   colnames(windows)[1] <- "plots"
   data <- rbind(plots, windows, stringsAsFactors = FALSE)

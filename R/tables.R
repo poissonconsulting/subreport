@@ -10,13 +10,12 @@
 #' By default sub folder names have the first letter of each word capitalized.
 #' @param nheaders A count of the number of sub folder levels to assign headers to.
 #' @param header1 A count of the heading level for the first sub folder level.
-#' @param overwrite A flag specifying whether to overwrite existing files in the report folder.
 #' @param main A string of the path to the main folder.
 #' @return A string of the tables in markdown format.
 #' @export
 sbr_tables <- function(sub = character(0), 
                        drop = NULL, sort = NULL, rename = NULL,
-                       nheaders = 2L, header1 = 4L, overwrite = TRUE,
+                       nheaders = 2L, header1 = 4L,
                        main = subfoldr2::sbf_get_main()) {
   
   checkor(check_null(drop), check_vector(drop, ""))
@@ -26,7 +25,6 @@ sbr_tables <- function(sub = character(0),
   
   check_scalar(nheaders, c(0L, 5L))
   check_scalar(header1, c(1L, 6L))
-  check_flag(overwrite)
 
   nheaders <- min(nheaders, (6L - header1))
   
@@ -35,7 +33,7 @@ sbr_tables <- function(sub = character(0),
  
   if(!nrow(data)) return(character(0))
   
-  data <- write_files(data, ext = ".csv", fun = write_csv, overwrite = overwrite)
+  data <- write_files(data, ext = ".csv", fun = write_csv)
   
   data <- sort_sub(data, sort = sort)
   data <- rename_sub(data, rename)
