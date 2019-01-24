@@ -3,6 +3,7 @@
 #' Returns a string of the report tables in markdown format ready for inclusion in a report.
 #'
 #' @param sub A string of the path to the root sub folder.
+#' @param report A string of the path to the report folder.
 #' @param drop A character vector specifying the sub folders and file names to exclude from the report or NULL.
 #' @param sort A character vector specifying the initial sort order for sub folders and file names or NULL.
 #' Missing items appear afterwards in alphabetical order.
@@ -13,11 +14,12 @@
 #' @param main A string of the path to the main folder.
 #' @return A string of the tables in markdown format.
 #' @export
-sbr_tables <- function(sub = character(0), 
+sbr_tables <- function(sub = character(0), report = sbr_get_report(),
                        drop = NULL, sort = NULL, rename = NULL,
                        nheaders = 2L, header1 = 4L,
                        main = subfoldr2::sbf_get_main()) {
   
+  check_string(report)
   checkor(check_null(drop), check_vector(drop, ""))
   checkor(check_null(sort), check_vector(sort, "", unique = TRUE))
   checkor(check_null(rename), 
@@ -33,7 +35,7 @@ sbr_tables <- function(sub = character(0),
  
   if(!nrow(data)) return(character(0))
   
-  data <- write_files(data, ext = ".csv", fun = write_csv)
+  data <- write_files(data, report = report, ext = ".csv", fun = write_csv)
   
   data <- sort_sub(data, sort = sort)
   data <- rename_sub(data, rename)

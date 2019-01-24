@@ -4,12 +4,14 @@
 \alias{sbr_tables}
 \title{Tables}
 \usage{
-sbr_tables(sub = character(0), drop = NULL, sort = NULL,
-  rename = NULL, nheaders = 2L, header1 = 4L,
-  main = subfoldr2::sbf_get_main())
+sbr_tables(sub = character(0), report = sbr_get_report(),
+  drop = NULL, sort = NULL, rename = NULL, nheaders = 2L,
+  header1 = 4L, main = subfoldr2::sbf_get_main())
 }
 \arguments{
 \item{sub}{A string of the path to the root sub folder.}
+
+\item{report}{A string of the path to the report folder.}
 
 \item{drop}{A character vector specifying the sub folders and file names to exclude from the report or NULL.}
 

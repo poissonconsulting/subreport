@@ -42,10 +42,10 @@ sub_directories <- function(data) {
   sub
 }
 
-transfer_files <- function(data, ext, class = names(data)[1]) {
+transfer_files <- function(data, ext, report, class = names(data)[1]) {
   from <- replace_ext(data$file, ext)
   
-  data$to <- file_path(sbr_get_report(), class, sub_directories(data), data$name)
+  data$to <- file_path(report, class, sub_directories(data), data$name)
   data$to <- p0(data$to, ".", ext)
   
   dirs <- unique(dirname(data$to))
@@ -54,8 +54,8 @@ transfer_files <- function(data, ext, class = names(data)[1]) {
   data
 }
 
-write_files <-function(data, ext, fun, class = names(data)[1]) {
-  data$to <- file_path(sbr_get_report(), class, sub_directories(data), data$name)
+write_files <-function(data, ext, report, fun, class = names(data)[1]) {
+  data$to <- file_path(report, class, sub_directories(data), data$name)
   data$to <- p0(data$to, ext)
   dirs <- unique(dirname(data$to))
   lapply(dirs, dir.create, showWarnings = FALSE, recursive = TRUE)

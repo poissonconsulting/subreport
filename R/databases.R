@@ -5,11 +5,12 @@
 #' @inheritParams sbr_tables
 #' @return A string of the metatables in markdown format.
 #' @export
-sbr_databases <- function(sub = character(0), 
+sbr_databases <- function(sub = character(0), report = sbr_get_report(),
                        drop = NULL, sort = NULL, rename = NULL,
                        nheaders = 2L, header1 = 4L,
                        main = subfoldr2::sbf_get_main()) {
   
+  check_string(report)
   checkor(check_null(drop), check_vector(drop, ""))
   checkor(check_null(sort), check_vector(sort, "", unique = TRUE))
   checkor(check_null(rename), 
@@ -25,8 +26,8 @@ sbr_databases <- function(sub = character(0),
  
   if(!nrow(data)) return(character(0))
   
-  data <- transfer_files(data, ext = "sqlite", class = "databases")
-  data <- write_files(data, ext = ".csv", fun = write_csv, class = "databases")
+  data <- transfer_files(data, ext = "sqlite", report = report, class = "databases")
+  data <- write_files(data, ext = ".csv", report = report, fun = write_csv, class = "databases")
 
   data <- sort_sub(data, sort = sort)
   data <- rename_sub(data, rename)
