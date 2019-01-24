@@ -54,20 +54,32 @@ transfer_files <- function(data, ext, overwrite, class = names(data)[1]) {
   data
 }
 
+write_files <-function(data, ext, fun, overwrite, class = names(data)[1]) {
+  data$to <- file_path(sbr_get_report(), class, sub_directories(data), data$name)
+  data$to <- p0(data$to, ext)
+  dirs <- unique(dirname(data$to))
+  lapply(dirs, dir.create, showWarnings = FALSE, recursive = TRUE)
+  mapply(fun, data[[1]], data$to, MoreArgs = list(overwrite = overwrite))
+  data
+}
+
 write_csv <- function(data, file, overwrite) {
   if(isFALSE(overwrite) && file.exists(file))
     err("file '", file, "' already exists and overwrite = FALSE")
   write.csv(data, file, row.names = FALSE)
 }
 
-write_csv_files <-function(data, overwrite = overwrite, class = names(data)[1]) {
+
+
+write_txt_files <-function(data, overwrite = overwrite, class = names(data)[1]) {
   data$to <- file_path(sbr_get_report(), class, sub_directories(data), data$name)
-  data$to <- p0(data$to, ".csv")
+  data$to <- p0(data$to, ".txt")
   dirs <- unique(dirname(data$to))
   lapply(dirs, dir.create, showWarnings = FALSE, recursive = TRUE)
   mapply(write_csv, data[[1]], data$to, MoreArgs = list(overwrite = overwrite))
   data
 }
+
 
 sub_colnames <- function(data, names = TRUE) {
   colnames <- colnames(data)
