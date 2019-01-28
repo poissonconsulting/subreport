@@ -8,6 +8,10 @@ test_that("tables", {
   teardown(subfoldr2::sbf_reset_main())
   subfoldr2::sbf_set_main(tempdir(), "output", rm = TRUE, ask = FALSE)
   
+  subfoldr2::sbf_save_string("this is an assumption", "x", tag = "assumption")
+  subfoldr2::sbf_save_string("so is this", "y", tag = "assumption")
+  subfoldr2::sbf_save_string("this is not", "z")
+  
   x <- data.frame(obs = "JD", count = 1L)
   subfoldr2::sbf_save_table(x, sub = "A header", caption = "Observations")
   
