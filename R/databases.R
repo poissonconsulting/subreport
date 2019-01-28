@@ -7,12 +7,14 @@
 #' @export
 sbr_databases <- function(x_name = ".*", 
                           sub = character(0), report = sbr_get_report(),
+                          tag = ".*",
                           drop = NULL, sort = NULL, rename = NULL,
                           nheaders = 2L, header1 = 4L,
                           main = subfoldr2::sbf_get_main()) {
   
   check_string(x_name)
   check_string(report)
+  check_string(tag)
   checkor(check_null(drop), check_vector(drop, ""))
   checkor(check_null(sort), check_vector(sort, "", unique = TRUE))
   checkor(check_null(rename), 
@@ -23,7 +25,8 @@ sbr_databases <- function(x_name = ".*",
   
   nheaders <- min(nheaders, (6L - header1))
   
-  data <- sbf_load_dbs_metatable_recursive(sub = sub, main = main, meta = TRUE)
+  data <- sbf_load_dbs_metatable_recursive(sub = sub, main = main, meta = TRUE,
+                                           tag = tag)
   data <- drop_sub(data, drop = drop)
   
   data <- data[grepl(x_name, data$name),]

@@ -5,7 +5,7 @@
 \title{Database Meta Tables}
 \usage{
 sbr_databases(x_name = ".*", sub = character(0),
-  report = sbr_get_report(), drop = NULL, sort = NULL,
+  report = sbr_get_report(), tag = ".*", drop = NULL, sort = NULL,
   rename = NULL, nheaders = 2L, header1 = 4L,
   main = subfoldr2::sbf_get_main())
 }
@@ -15,6 +15,8 @@ sbr_databases(x_name = ".*", sub = character(0),
 \item{sub}{A string of the path to the root sub folder.}
 
 \item{report}{A string of the path to the report folder.}
+
+\item{tag}{A string of the regular expression that the tag must match to be included.}
 
 \item{drop}{A character vector specifying the sub folders and file names to exclude from the report or NULL.}
 

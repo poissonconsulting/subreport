@@ -8,13 +8,15 @@
 #' @return A string of the plots in markdown format.
 #' @export
 sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_report(),
-                      drop = NULL, sort = NULL, rename = NULL,
-                      nheaders = 2L, header1 = 4L, 
-                      main = subfoldr2::sbf_get_main(),
-                      width = 6) {
+                        tag = ".*",
+                        drop = NULL, sort = NULL, rename = NULL,
+                        nheaders = 2L, header1 = 4L, 
+                        main = subfoldr2::sbf_get_main(),
+                        width = 6) {
   
   check_string(x_name)
   check_string(report)
+  check_string(tag)
   checkor(check_null(drop), check_vector(drop, ""))
   checkor(check_null(sort), check_vector(sort, "", unique = TRUE))
   checkor(check_null(rename), 
@@ -26,15 +28,17 @@ sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
   
   nheaders <- min(nheaders, (6L - header1))
   
-  plots <- sbf_load_plots_recursive(sub = sub, main = main, meta = TRUE)
-  windows <- sbf_load_windows_recursive(sub = sub, main = main, meta = TRUE)
+  plots <- sbf_load_plots_recursive(sub = sub, main = main, meta = TRUE, 
+                                    tag = tag)
+  windows <- sbf_load_windows_recursive(sub = sub, main = main, meta = TRUE, 
+                                        tag = tag)
   
   plots <- drop_sub(plots, drop = drop)
   windows <- drop_sub(windows, drop = drop)
   
   plots <- plots[grepl(x_name, plots$name),]
   windows <- windows[grepl(x_name, windows$name),]
-
+  
   if(!nrow(windows) && !nrow(plots)) return(character(0))
   
   plots <- drop_duplicate_sub_colnames(plots, windows)
