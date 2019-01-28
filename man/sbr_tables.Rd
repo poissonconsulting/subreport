@@ -4,11 +4,14 @@
 \alias{sbr_tables}
 \title{Tables}
 \usage{
-sbr_tables(sub = character(0), report = sbr_get_report(),
-  drop = NULL, sort = NULL, rename = NULL, nheaders = 2L,
-  header1 = 4L, main = subfoldr2::sbf_get_main())
+sbr_tables(x_name = ".*", sub = character(0),
+  report = sbr_get_report(), drop = NULL, sort = NULL,
+  rename = NULL, nheaders = 2L, header1 = 4L,
+  main = subfoldr2::sbf_get_main())
 }
 \arguments{
+\item{x_name}{A string of the regular expression to match file names.}
+
 \item{sub}{A string of the path to the root sub folder.}
 
 \item{report}{A string of the path to the report folder.}

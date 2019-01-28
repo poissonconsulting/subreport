@@ -5,11 +5,12 @@
 #' @inheritParams sbr_tables
 #' @return A string of the code blocks in markdown format.
 #' @export
-sbr_blocks <- function(sub = character(0), report = sbr_get_report(),
+sbr_blocks <- function(x_name = ".*", sub = character(0), report = sbr_get_report(),
                        drop = NULL, sort = NULL, rename = NULL,
                        nheaders = 2L, header1 = 4L,
                        main = subfoldr2::sbf_get_main()) {
   
+  check_string(x_name)
   check_string(report)
   checkor(check_null(drop), check_vector(drop, ""))
   checkor(check_null(sort), check_vector(sort, "", unique = TRUE))
@@ -24,6 +25,8 @@ sbr_blocks <- function(sub = character(0), report = sbr_get_report(),
   data <- sbf_load_blocks_recursive(sub = sub, main = main, meta = TRUE)
   data <- drop_sub(data, drop = drop)
   
+  data <- data[grepl(x_name, data$name),]
+
   if(!nrow(data)) return(character(0))
   
   data <- write_files(data, ext = ".txt", report = report, fun = write_txt)

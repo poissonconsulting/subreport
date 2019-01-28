@@ -27,6 +27,9 @@ test_that("databases", {
   
   expect_identical(txt, "\nDatabase 1. really!.\n\n|Table |Column |Meta |Description |\n|:-----|:------|:----|:-----------|\n|X     |X      |NA   |NA          |\n|Y     |Z      |NA   |NA          |\n")
   
+  expect_identical(sbr_databases(x_name = "datab"), txt)
+  expect_identical(sbr_databases(x_name = "datab2"), character(0))
+  
   expect_identical(list.files(sbr_get_report(), recursive = TRUE), 
                    sort(c("databases/database.csv", "databases/database.sqlite")))
   

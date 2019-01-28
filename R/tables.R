@@ -2,6 +2,7 @@
 #'
 #' Returns a string of the report tables in markdown format ready for inclusion in a report.
 #'
+#' @param x_name A string of the regular expression to match file names.
 #' @param sub A string of the path to the root sub folder.
 #' @param report A string of the path to the report folder.
 #' @param drop A character vector specifying the sub folders and file names to exclude from the report or NULL.
@@ -14,11 +15,12 @@
 #' @param main A string of the path to the main folder.
 #' @return A string of the tables in markdown format.
 #' @export
-sbr_tables <- function(sub = character(0), report = sbr_get_report(),
+sbr_tables <- function(x_name = ".*", sub = character(0), report = sbr_get_report(),
                        drop = NULL, sort = NULL, rename = NULL,
                        nheaders = 2L, header1 = 4L,
                        main = subfoldr2::sbf_get_main()) {
   
+  check_string(x_name)
   check_string(report)
   checkor(check_null(drop), check_vector(drop, ""))
   checkor(check_null(sort), check_vector(sort, "", unique = TRUE))
@@ -32,6 +34,8 @@ sbr_tables <- function(sub = character(0), report = sbr_get_report(),
   
   data <- sbf_load_tables_recursive(sub = sub, main = main, meta = TRUE)
   data <- drop_sub(data, drop = drop)
+  
+  data <- data[grepl(x_name, data$name),]
  
   if(!nrow(data)) return(character(0))
   

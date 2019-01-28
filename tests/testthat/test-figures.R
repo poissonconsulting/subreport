@@ -36,6 +36,7 @@ test_that("figures", {
   
   txt <- sbr_figures()
   expect_match(txt, "\n<figure>\n<img alt = \".*plots/x.png\" width = \"200%\">\n<figcaption>Figure 2. the window one.</figcaption>\n</figure>\n")
+  expect_identical(sbr_figures(x_name = ".*.*"), txt)
 })
 
 test_that("figures sort sub and name", {
@@ -60,5 +61,8 @@ test_that("figures sort sub and name", {
   txt <- sbr_figures(sort = c("allometry", "> 90 mm", "standard"))
 
   expect_match(txt, "\n<figure>\n<img alt = .* width = \"100%\">\n<figcaption>Figure 1. Length weight.</figcaption>\n</figure>\n\n#### > 90 Mm\n\n<figure>\n<img alt = .*report/plots/> 90 mm/standard.png\" width = \"100%\">\n<figcaption>Figure 2.</figcaption>\n</figure>\n")
-})
 
+  txt <- sbr_figures(x_name = "allometry", sort = c("allometry", "> 90 mm", "standard"))
+  
+  expect_match(txt, "\n<figure>\n<img alt = .*report/plots//allometry.png\" width = \"100%\">\n<figcaption>Figure 1. Length weight.</figcaption>\n</figure>\n")
+})

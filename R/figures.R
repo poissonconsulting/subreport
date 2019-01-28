@@ -7,12 +7,13 @@
 #' @param width A number of the page width in inches.
 #' @return A string of the plots in markdown format.
 #' @export
-sbr_figures <- function(sub = character(0), report = sbr_get_report(),
+sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_report(),
                       drop = NULL, sort = NULL, rename = NULL,
                       nheaders = 2L, header1 = 4L, 
                       main = subfoldr2::sbf_get_main(),
                       width = 6) {
   
+  check_string(x_name)
   check_string(report)
   checkor(check_null(drop), check_vector(drop, ""))
   checkor(check_null(sort), check_vector(sort, "", unique = TRUE))
@@ -31,6 +32,9 @@ sbr_figures <- function(sub = character(0), report = sbr_get_report(),
   plots <- drop_sub(plots, drop = drop)
   windows <- drop_sub(windows, drop = drop)
   
+  plots <- plots[grepl(x_name, plots$name),]
+  windows <- windows[grepl(x_name, windows$name),]
+
   if(!nrow(windows) && !nrow(plots)) return(character(0))
   
   plots <- drop_duplicate_sub_colnames(plots, windows)
