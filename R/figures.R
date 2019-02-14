@@ -54,10 +54,17 @@ sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
     plots <- transfer_files(plots, report = report, ext = "png")
   }
   colnames(windows)[1] <- "plots"
-  data <- rbind(plots, windows, stringsAsFactors = FALSE)
-  
+
+  if(!nrow(windows)) {
+    data <- plots
+  } else if(!nrow(plots)) {
+    data <- windows
+  } else
+    data <- data.table::rbindlist(list(plots, windows), fill = TRUE)
+
   data <- sort_sub(data, sort = sort)
   data <- rename_sub(data, rename)
+  
   data <- set_headings(data, nheaders, header1)
   
   data$caption <- p0("Figure ", 1:nrow(data), ". ", data$caption)
