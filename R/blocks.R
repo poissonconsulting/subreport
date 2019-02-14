@@ -25,6 +25,9 @@ sbr_blocks <- function(x_name = ".*", sub = character(0), report = sbr_get_repor
   
   data <- sbf_load_blocks_recursive(sub = sub, main = main, meta = TRUE,
                                     tag = tag)
+  
+  data <- rename_sub_sub1(data)
+
   data <- drop_sub(data, drop = drop)
   
   data <- data[grepl(x_name, data$name),]

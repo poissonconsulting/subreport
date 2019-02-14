@@ -32,6 +32,15 @@ capitalize_first_letter_words <- function (x) {
   gsub(pattern = "\\b([a-z])", replacement = "\\U\\1", x, perl = TRUE)
 }
 
+rename_sub_sub1 <- function(data) {
+  if(!"sub1" %in% colnames(data) && any(data$sub != "")) {
+    data$sub1 <- data$sub
+    data$sub1[data$sub1 == ""] <- NA_character_
+  }
+  data$sub <- NULL
+  data
+}
+
 sub_directories <- function(data) {
   data <- data[grepl("^sub\\d+", names(data))]
   if(!ncol(data)) return(character(0))

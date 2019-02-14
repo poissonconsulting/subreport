@@ -27,6 +27,9 @@ sbr_databases <- function(x_name = ".*",
   
   data <- sbf_load_dbs_metatable_recursive(sub = sub, main = main, meta = TRUE,
                                            tag = tag)
+  
+  data <- rename_sub_sub1(data)
+
   data <- drop_sub(data, drop = drop)
   
   data <- data[grepl(x_name, data$name),]

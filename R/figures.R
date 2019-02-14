@@ -33,6 +33,9 @@ sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
   windows <- sbf_load_windows_recursive(sub = sub, main = main, meta = TRUE, 
                                         tag = tag)
   
+  plots <- rename_sub_sub1(plots)
+  windows <- rename_sub_sub1(windows)
+
   plots <- drop_sub(plots, drop = drop)
   windows <- drop_sub(windows, drop = drop)
   
