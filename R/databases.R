@@ -23,7 +23,7 @@ sbr_databases <- function(x_name = ".*",
   check_scalar(nheaders, c(0L, 5L))
   check_scalar(header1, c(1L, 6L))
   
-  nheaders <- min(nheaders, (6L - header1))
+  nheaders <- min(nheaders, (7L - header1))
   
   data <- sbf_load_dbs_metatable_recursive(sub = sub, main = main, meta = TRUE,
                                            tag = tag)

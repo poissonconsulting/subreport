@@ -51,6 +51,13 @@ test_that("tables", {
     expect_identical(sbr_tables(header1 = 1L), "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 2. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\n# RB\n\n## Max Like\n\nTable 3. Extra Obs.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 4. More Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n")
     
   expect_identical(sbr_tables(rename = c("max like" = "max Like", "RB" = "Rainbow trout")), "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 2. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\n#### Rainbow trout\n\n##### max Like\n\nTable 3. Extra Obs.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 4. More Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n")
+  
+  subfoldr2::sbf_set_sub("RB", "max like", "number6")
+  subfoldr2::sbf_save_table(x, caption = "Tiny")
+  
+    expect_identical(sbr_tables(rename = c("max like" = "max Like", "RB" = "Rainbow trout")), "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 2. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\n#### Rainbow trout\n\n##### max Like\n\nTable 3. Extra Obs.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 4. More Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\nTable 5. Tiny.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n")
+    
+  expect_identical(sbr_tables(rename = c("max like" = "max Like", "RB" = "Rainbow trout"), nheaders = 3L), "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 2. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\n#### Rainbow trout\n\n##### max Like\n\nTable 3. Extra Obs.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 4. More Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\n###### Number6\n\nTable 5. Tiny.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n")
 })
 
 test_that("tables sub", {

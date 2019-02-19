@@ -26,7 +26,7 @@ sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
   check_scalar(header1, c(1L, 6L))
   check_scalar(width, c(1, 24))
   
-  nheaders <- min(nheaders, (6L - header1))
+  nheaders <- min(nheaders, (7L - header1))
   
   plots <- sbf_load_plots_recursive(sub = sub, main = main, meta = TRUE, 
                                     tag = tag)

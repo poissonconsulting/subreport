@@ -23,7 +23,7 @@ sbr_strings <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
   check_scalar(header1, c(1L, 6L))
   check_flag(numbered)
 
-  nheaders <- min(nheaders, (6L - header1))
+  nheaders <- min(nheaders, (7L - header1))
   
   data <- sbf_load_strings_recursive(sub = sub, main = main, meta = TRUE,
                                     tag = tag)
