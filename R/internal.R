@@ -125,7 +125,7 @@ sort_sub <- function(data, sort) {
     data_sort <- data_sort[order(data_sort$order),]
     data <- data[order(data[[colname]], na.last = FALSE),]
     
-    data <- rbind(data_na, data_sort, data, stringsAsFactors = FALSE)
+    data <- rbind(data_na, data_sort, data)
   }
   data$order <- NULL
   data

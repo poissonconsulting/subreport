@@ -4,9 +4,14 @@
 \alias{sbr_knit_results}
 \title{Knit Report}
 \usage{
-sbr_knit_results(file = "results", report = sbr_get_report(),
-  sub = character(0), main = subfoldr2::sbf_get_main(),
-  quiet = FALSE, browse = TRUE)
+sbr_knit_results(
+  file = "results",
+  report = sbr_get_report(),
+  sub = character(0),
+  main = subfoldr2::sbf_get_main(),
+  quiet = FALSE,
+  browse = TRUE
+)
 }
 \arguments{
 \item{file}{A string of the file name(s) without an extension.}

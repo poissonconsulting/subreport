@@ -4,10 +4,19 @@
 \alias{sbr_strings}
 \title{Strings}
 \usage{
-sbr_strings(x_name = ".*", sub = character(0),
-  report = sbr_get_report(), tag = ".*", drop = NULL, sort = NULL,
-  rename = NULL, nheaders = 2L, header1 = 4L, numbered = FALSE,
-  main = subfoldr2::sbf_get_main())
+sbr_strings(
+  x_name = ".*",
+  sub = character(0),
+  report = sbr_get_report(),
+  tag = ".*",
+  drop = NULL,
+  sort = NULL,
+  rename = NULL,
+  nheaders = 2L,
+  header1 = 4L,
+  numbered = FALSE,
+  main = subfoldr2::sbf_get_main()
+)
 }
 \arguments{
 \item{x_name}{A string of the regular expression to match file names.}
