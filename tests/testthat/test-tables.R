@@ -110,3 +110,18 @@ test_that("tables sort sub and name", {
   txt <- sbr_tables(sort = c("> b", "a"))
   expect_identical(txt, "\nTable 1.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n\n#### > B\n\nTable 2.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n")
 })
+
+test_that("tables with []", {
+  teardown(subfoldr2::sbf_reset_main())
+  teardown(sbr_reset_report())
+  
+  subfoldr2::sbf_set_main(tempdir(), "output", rm = TRUE, ask = FALSE)
+  sbr_set_report(tempdir(), "report", rm = TRUE, ask = FALSE)
+  
+  x <- data.frame(term = c("par[1]", "par[2]"), count = 1:2)
+  subfoldr2::sbf_save_table(x)
+  
+  txt <- sbr_tables()
+  expect_identical(txt, "\nTable 1.\n\n|term   | count|\n|:------|-----:|\n|par[1] |     1|\n|par[2] |     2|\n")
+  expect_identical(list.files(sbr_get_report(), recursive = TRUE), "tables/x.csv")
+})
