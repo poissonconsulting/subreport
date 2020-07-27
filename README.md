@@ -1,15 +1,16 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+<!-- badges: start -->
+
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![Travis build
-status](https://travis-ci.org/poissonconsulting/subreport.svg?branch=master)](https://travis-ci.org/poissonconsulting/subreport)
-[![AppVeyor build
-status](https://ci.appveyor.com/api/projects/status/github/poissonconsulting/subreport?branch=master&svg=true)](https://ci.appveyor.com/project/poissonconsulting/subreport)
-[![Coverage
-status](https://codecov.io/gh/poissonconsulting/subreport/branch/master/graph/badge.svg)](https://codecov.io/github/poissonconsulting/subreport?branch=master)
+[![R build
+status](https://github.com/poissonconsulting/subreport/workflows/R-CMD-check/badge.svg)](https://github.com/poissonconsulting/subreport/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/poissonconsulting/subreport/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/subreport?branch=master)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+<!-- badges: end -->
 
 # subreport
 
@@ -52,13 +53,12 @@ cat(sbr_tables())
 
 ## Installation
 
-To install the latest development version from the Poisson drat
-[repository](https://github.com/poissonconsulting/drat)
+To install the latest development version from GitHub
+[repository](https://github.com/poissonconsulting/subreport)
 
 ``` r
-install.packages("drat")
-drat::addRepo("poissonconsulting")
-install.packages("subreport")
+# install.packages("remotes")
+remotes::install_github("poissonconsulting/subreport")
 ```
 
 ## Contribution
@@ -69,6 +69,9 @@ Please report any
 [Pull requests](https://github.com/poissonconsulting/subreport/pulls)
 are always welcome.
 
-Please note that this project is released with a [Contributor Code of
-Conduct](CONDUCT.md). By participating in this project you agree to
-abide by its terms.
+## Code of Conduct
+
+Please note that the subreport project is released with a [Contributor
+Code of
+Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
