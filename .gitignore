@@ -3,7 +3,12 @@
 .RData
 .Ruserdata
 
-output
-report
+.DS_Store
+.Renviron
+.RProfile
+.httr-oauth
+
 *.html
-*.Rmd
+
+docs/
+inst/docs/
