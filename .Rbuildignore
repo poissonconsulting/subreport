@@ -11,3 +11,4 @@
 ^build\.R$
 ^output$
 ^report$
+^\.github$
