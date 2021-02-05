@@ -15,13 +15,12 @@ Imports:
     checkr,
     yesno,
     data.table,
-    DBI,
-    ggplot2,
     subfoldr2 (>= 0.0.0.9045),
     rmarkdown,
     knitr,
 Suggests: 
     covr,
+    ggplot2,
     testthat,
     withr
 Remotes: poissonconsulting/subfoldr2

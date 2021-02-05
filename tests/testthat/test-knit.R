@@ -26,15 +26,6 @@ test_that("tables", {
   x <- data.frame(x = 1)
   y <- data.frame(z = 3)
   
-  conn <- subfoldr2::sbf_open_db(exists = NA, sub = "Chumly")
-  teardown(suppressWarnings(DBI::dbDisconnect(conn)))
-  
-  DBI::dbExecute(conn, "CREATE TABLE x (
-                  x INTEGER PRIMARY KEY NOT NULL)")
-  
-  DBI::dbExecute(conn, "CREATE TABLE y (
-                  z INTEGER PRIMARY KEY NOT NULL)")
-  
   file <- file.path(path, "res")
   
   expect_identical(sbr_knit_results(file, browse = FALSE, quiet = TRUE),
