@@ -88,7 +88,8 @@ sub_colnames <- function(data, names = TRUE) {
 }
 
 drop_sub <- function(data, drop) {
-  data <- data[data$report,]
+  if("report" %in% colnames(data))
+    data <- data[data$report,]
   if(!nrow(data) || is.null(drop) || !length(drop)) return(data)
   
   colnames <- sub_colnames(data)

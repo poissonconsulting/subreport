@@ -1,8 +1,9 @@
 context("string")
 
 test_that("string", {
-  teardown(subfoldr2::sbf_reset_main())
-  subfoldr2::sbf_set_main(tempdir(), "output", rm = TRUE, ask = FALSE)
+  path <- withr::local_tempdir()
+  subfoldr2::sbf_set_main(path, rm = TRUE, ask = FALSE)
+  sbf_reset_sub()
 
   x <- "text"
   expect_is(sbf_save_string(x), "character")

@@ -1,11 +1,10 @@
 context("tables")
 
 test_that("tables", {
-  teardown(subfoldr2::sbf_reset_main())
-  teardown(sbr_reset_report())
-
-  subfoldr2::sbf_set_main(tempdir(), "output", rm = TRUE, ask = FALSE)
-  sbr_set_report(tempdir(), "report", rm = TRUE, ask = FALSE)
+  path <- withr::local_tempdir()
+  subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
+  sbr_set_report(path, "report", rm = TRUE, ask = FALSE)
+  sbf_reset_sub()
   
   x <- data.frame(obs = "JD", count = 1L)
   subfoldr2::sbf_save_table(x, caption = "Observations")
@@ -61,11 +60,10 @@ test_that("tables", {
 })
 
 test_that("tables sub", {
-  teardown(subfoldr2::sbf_reset_main())
-  teardown(sbr_reset_report())
-
-  subfoldr2::sbf_set_main(tempdir(), "output", rm = TRUE, ask = FALSE)
-  sbr_set_report(tempdir(), "report", rm = TRUE, ask = FALSE)
+  path <- withr::local_tempdir()
+  subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
+  sbr_set_report(path, "report", rm = TRUE, ask = FALSE)
+  sbf_reset_sub()
   
   x <- data.frame(obs = "JD", count = 1L)
   subfoldr2::sbf_save_table(x, sub = "A sub", caption = "Observations")
@@ -91,11 +89,10 @@ test_that("tables missing caption", {
 })
 
 test_that("tables sort sub and name", {
-  teardown(subfoldr2::sbf_reset_main())
-  teardown(sbr_reset_report())
-
-  subfoldr2::sbf_set_main(tempdir(), "output", rm = TRUE, ask = FALSE)
-  sbr_set_report(tempdir(), "report", rm = TRUE, ask = FALSE)
+  path <- withr::local_tempdir()
+  subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
+  sbr_set_report(path, "report", rm = TRUE, ask = FALSE)
+  sbf_reset_sub()
   
   a <- data.frame(obs = "JD", count = "A")
   subfoldr2::sbf_save_table(a)
@@ -112,11 +109,10 @@ test_that("tables sort sub and name", {
 })
 
 test_that("tables with []", {
-  teardown(subfoldr2::sbf_reset_main())
-  teardown(sbr_reset_report())
-  
-  subfoldr2::sbf_set_main(tempdir(), "output", rm = TRUE, ask = FALSE)
-  sbr_set_report(tempdir(), "report", rm = TRUE, ask = FALSE)
+  path <- withr::local_tempdir()
+  subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
+  sbr_set_report(path, "report", rm = TRUE, ask = FALSE)
+  sbf_reset_sub()
   
   x <- data.frame(term = c("par[1]", "par[2]"), count = 1:2)
   subfoldr2::sbf_save_table(x)

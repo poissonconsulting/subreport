@@ -11,6 +11,7 @@ test_that("figures", {
   x <- ggplot2::ggplot(data = data, ggplot2::aes(x = x, y = y))
   subfoldr2::sbf_save_plot(x, caption = "A ggplot")
   
+  options(warn = 2)
   txt <- sbr_figures()
   expect_match(txt, "\n<figure>\n<img alt = \".*report/plots/x.png\" width = \"100%\">\n<figcaption>Figure 1. A ggplot.</figcaption>\n</figure>\n")
   expect_identical(sort(list.files(sbr_get_report(), recursive = TRUE)), 
@@ -40,11 +41,10 @@ test_that("figures", {
 })
 
 test_that("figures sort sub and name", {
-  teardown(subfoldr2::sbf_reset_main())
-  teardown(sbr_reset_report())
-  
-  subfoldr2::sbf_set_main(tempdir(), "output", rm = TRUE, ask = FALSE)
-  sbr_set_report(tempdir(), "report", rm = TRUE, ask = FALSE)
+  path <- withr::local_tempdir()
+  subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
+  sbr_set_report(path, "report", rm = TRUE, ask = FALSE)
+  sbf_reset_sub()
   
   data <- data.frame(x = 1, y = 2)
   allometry <- ggplot2::ggplot(data = data, ggplot2::aes(x = x, y = y))
@@ -68,11 +68,10 @@ test_that("figures sort sub and name", {
 })
 
 test_that("figures different sub lengths windows and plots", {
-  teardown(subfoldr2::sbf_reset_main())
-  teardown(sbr_reset_report())
-  
-  subfoldr2::sbf_set_main(tempdir(), "output", rm = TRUE, ask = FALSE)
-  sbr_set_report(tempdir(), "report", rm = TRUE, ask = FALSE)
+  path <- withr::local_tempdir()
+  subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
+  sbr_set_report(path, "report", rm = TRUE, ask = FALSE)
+  sbf_reset_sub()
   
   subfoldr2::sbf_set_sub("one", "two")
   

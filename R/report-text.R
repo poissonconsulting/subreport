@@ -20,12 +20,6 @@ sub <- '", sub, "'
 cat(subreport::sbr_strings(sub = sub, main = main, tag = '.+'))
 ```
 
-### Databases
-
-```{r}
-cat(subreport::sbr_databases(sub = sub, main = main))
-```
-
 ### Blocks
 
 ```{r}

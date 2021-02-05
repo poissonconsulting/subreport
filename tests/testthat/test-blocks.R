@@ -1,12 +1,11 @@
 context("blocks")
 
 test_that("blocks", {
-  teardown(subfoldr2::sbf_reset_main())
-  teardown(sbr_reset_report())
+  path <- withr::local_tempdir()
+  subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
+  sbr_set_report(path, "report", rm = TRUE, ask = FALSE)
+  sbf_reset_sub()
 
-  subfoldr2::sbf_set_main(tempdir(), "output", rm = TRUE, ask = FALSE)
-  sbr_set_report(tempdir(), "report", rm = TRUE, ask = FALSE)
-  
   y <- "
   model {
     for(i in 1:N)

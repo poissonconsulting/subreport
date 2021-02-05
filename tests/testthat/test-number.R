@@ -1,8 +1,9 @@
 context("number")
 
 test_that("number", {
-  teardown(subfoldr2::sbf_reset_main())
-  subfoldr2::sbf_set_main(tempdir(), "output", rm = TRUE, ask = FALSE)
+  path <- withr::local_tempdir()
+  subfoldr2::sbf_set_main(path, rm = TRUE, ask = FALSE)
+  sbf_reset_sub()
 
   x <- 2
   expect_is(sbf_save_number(x), "character")
