@@ -4,7 +4,7 @@
 #' @return A string.
 #' @export
 sbr_string <- function(x_name, sub = character(0)) {
-  sbf_load_string(x_name, sub = sub)
+  sbf_load_string(x_name, sub = sub, exists = NA)
 }
 
 #' @rdname sbr_string

@@ -4,7 +4,7 @@
 #' @return A number.
 #' @export
 sbr_number <- function(x_name, sub = character(0)) {
-  sbf_load_number(x_name, sub = sub)
+  sbf_load_number(x_name, sub = sub, exists = NA)
 }
 
 #' @rdname sbr_number

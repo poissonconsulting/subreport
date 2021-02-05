@@ -8,5 +8,5 @@ test_that("string", {
   x <- "text"
   expect_is(sbf_save_string(x), "character")
   expect_identical(sbr_s("x"), "text")
-  expect_error(sbr_s("y"))
+  expect_null(sbr_s("y"))
 })
