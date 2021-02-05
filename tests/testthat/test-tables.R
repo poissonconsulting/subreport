@@ -96,15 +96,15 @@ test_that("tables sort sub and name", {
   a <- data.frame(obs = "JD", count = "A")
   subfoldr2::sbf_save_table(a)
   
-  subfoldr2::sbf_save_table(a, sub = "> b")
+  subfoldr2::sbf_save_table(a, sub = "b")
   
   txt <- sbr_tables()
-  expect_identical(txt, "\nTable 1.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n\n#### > B\n\nTable 2.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n")
+  expect_identical(txt, "\nTable 1.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n\n#### B\n\nTable 2.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n")
   expect_identical(list.files(sbr_get_report(), recursive = TRUE), 
-                   c("tables/> b/a.csv", "tables/a.csv"))
+                   c("tables/a.csv", "tables/b/a.csv"))
   
-  txt <- sbr_tables(sort = c("> b", "a"))
-  expect_identical(txt, "\nTable 1.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n\n#### > B\n\nTable 2.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n")
+  txt <- sbr_tables(sort = c("b", "a"))
+  expect_identical(txt, "\nTable 1.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n\n#### B\n\nTable 2.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n")
 })
 
 test_that("tables with []", {
