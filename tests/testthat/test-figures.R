@@ -52,16 +52,16 @@ test_that("figures sort sub and name", {
   data <- data.frame(x = 1:2, y = 3:4)
   standard <- ggplot2::ggplot(data = data, ggplot2::aes(x = x, y = y))
   
-  subfoldr2::sbf_save_plot(standard, sub = "> 90 mm")
+  subfoldr2::sbf_save_plot(standard, sub = "90 mm")
   
   txt <- sbr_figures()
-  expect_match(txt, "\n<figure>\n<img alt = .* width = \"100%\">\n<figcaption>Figure 1. Length weight.</figcaption>\n</figure>\n\n#### > 90 Mm\n\n<figure>\n<img alt = .*report/plots/> 90 mm/standard.png\" width = \"100%\">\n<figcaption>Figure 2.</figcaption>\n</figure>\n")
+  expect_match(txt, "\n<figure>\n<img alt = .* width = \"100%\">\n<figcaption>Figure 1. Length weight.</figcaption>\n</figure>\n\n#### 90 Mm\n\n<figure>\n<img alt = .*report/plots/90 mm/standard.png\" width = \"100%\">\n<figcaption>Figure 2.</figcaption>\n</figure>\n")
   
-  txt <- sbr_figures(sort = c("allometry", "> 90 mm", "standard"))
+  txt <- sbr_figures(sort = c("allometry", "90mm", "standard"))
   
-  expect_match(txt, "\n<figure>\n<img alt = .* width = \"100%\">\n<figcaption>Figure 1. Length weight.</figcaption>\n</figure>\n\n#### > 90 Mm\n\n<figure>\n<img alt = .*report/plots/> 90 mm/standard.png\" width = \"100%\">\n<figcaption>Figure 2.</figcaption>\n</figure>\n")
+  expect_match(txt, "\n<figure>\n<img alt = .* width = \"100%\">\n<figcaption>Figure 1. Length weight.</figcaption>\n</figure>\n\n#### 90 Mm\n\n<figure>\n<img alt = .*report/plots/90 mm/standard.png\" width = \"100%\">\n<figcaption>Figure 2.</figcaption>\n</figure>\n")
   
-  txt <- sbr_figures(x_name = "allometry", sort = c("allometry", "> 90 mm", "standard"))
+  txt <- sbr_figures(x_name = "allometry", sort = c("allometry", "90 mm", "standard"))
   
   expect_match(txt, "\n<figure>\n<img alt = .*report/plots//allometry.png\" width = \"100%\">\n<figcaption>Figure 1. Length weight.</figcaption>\n</figure>\n")
 })
