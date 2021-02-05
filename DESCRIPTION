@@ -11,7 +11,7 @@ Description: Facilitates generation of .Rmd and .html reports from
 License: MIT + file LICENSE
 Imports:
     utils,
-    err,
+    chk,
     checkr,
     yesno,
     data.table,
