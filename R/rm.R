@@ -1,5 +1,5 @@
 rm_all <- function(ask) {
-  check_flag(ask)
+  chk_flag(ask)
   
   report <- sbr_get_report()
 

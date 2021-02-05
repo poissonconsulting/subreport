@@ -18,8 +18,8 @@ sbr_get_report <- function() {
 #' @return An invisible string of the path to the main folder.
 #' @export
 sbr_set_report <- function(..., rm = FALSE, ask = getOption("sbf.ask", TRUE)) {
-  check_flag(rm)
-  check_flag(ask)
+  chk_flag(rm)
+  chk_flag(ask)
   path <- file_path(...)
   path <- sanitize_path(path, rm_leading = FALSE)
   options(sbr.report = path)

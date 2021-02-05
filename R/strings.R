@@ -21,7 +21,7 @@ sbr_strings <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
   
   check_scalar(nheaders, c(0L, 5L))
   check_scalar(header1, c(1L, 6L))
-  check_flag(numbered)
+  chk_flag(numbered)
 
   nheaders <- min(nheaders, (7L - header1))
   
