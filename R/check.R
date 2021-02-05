@@ -1,8 +1,10 @@
 check_headings <- function(headings, drop, nheaders, header1) {
-  check_list(headings)
-  check_list(drop)
-  check_count(nheaders)
-  check_scalar(header1, c(1L, 10L))
+  chk_list(headings)
+  chk_list(drop)
+  chk_whole_number(nheaders)
+  chk_gte(nheaders)
+  chk_whole_number(header1)
+  chk_range(header1, c(1L, 10L))
 
   if (!all(vapply(drop, is.character, TRUE)))
     err("drop must be a list of character vectors")
