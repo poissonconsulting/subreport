@@ -14,9 +14,9 @@ sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
                         main = subfoldr2::sbf_get_main(),
                         width = 6) {
   
-  check_string(x_name)
-  check_string(report)
-  check_string(tag)
+  chk_string(x_name)
+  chk_string(report)
+  chk_string(tag)
   checkor(check_null(drop), check_vector(drop, ""))
   checkor(check_null(sort), check_vector(sort, "", unique = TRUE))
   checkor(check_null(rename), 

@@ -17,10 +17,10 @@ sbr_knit_results <- function(file = "results",
                             main = subfoldr2::sbf_get_main(),
                             quiet = FALSE,
                             browse = TRUE) {
-  check_string(file)
-  check_string(report)
+  chk_string(file)
+  chk_string(report)
   check_vector(sub, "", length = c(0L, 1L))
-  check_string(main)
+  chk_string(main)
 
   dir.create(dirname(file), showWarnings = FALSE, recursive = TRUE)
   input <- paste0(file, ".Rmd")
