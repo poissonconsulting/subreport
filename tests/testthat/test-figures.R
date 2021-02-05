@@ -1,11 +1,10 @@
 context("figures")
 
 test_that("figures", {
-  teardown(subfoldr2::sbf_reset_main())
-  teardown(sbr_reset_report())
-  
-  subfoldr2::sbf_set_main(tempdir(), "output", rm = TRUE, ask = FALSE)
-  sbr_set_report(tempdir(), "report", rm = TRUE, ask = FALSE)
+  path <- withr::local_tempdir()
+  subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
+  sbr_set_report(path, "report", rm = TRUE, ask = FALSE)
+  sbf_reset_sub()
   
   data <- data.frame(x = 1, y = 2)
   x <- ggplot2::ggplot(data = data, ggplot2::aes(x = x, y = y))

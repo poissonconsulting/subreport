@@ -1,5 +1,5 @@
 Package: subreport
-Title: Generate Reports from subfoldr2 Objects
+Title: Generate Reports from `subfoldr2` Objects
 Version: 0.0.0.9014
 Authors@R: 
     c(person(given = "Joe",

@@ -4,7 +4,7 @@
 \name{subreport-package}
 \alias{subreport}
 \alias{subreport-package}
-\title{subreport: Generate Reports from subfoldr2 Objects}
+\title{subreport: Generate Reports from `subfoldr2` Objects}
 \description{
 Facilitates generation of .Rmd and .html reports
     from tables, (code) blocks and figures (plots and windows) saved using

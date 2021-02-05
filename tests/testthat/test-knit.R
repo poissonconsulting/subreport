@@ -31,9 +31,8 @@ test_that("tables", {
   expect_identical(sbr_knit_results(file, browse = FALSE, quiet = TRUE),
                    paste0(file, ".Rmd"))
   
-  expect_identical(sort(list.files(path)), 
-                   sort(c("output", "report", "res.html", "res.Rmd")))
-  
+  expect_true("res.html" %in% list.files(path))
+
   skip("opens window")
   
   subfoldr2::sbf_open_window()
