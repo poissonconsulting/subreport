@@ -2,7 +2,7 @@ context("knit")
 
 test_that("tables", {
   path <- withr::local_tempdir()
-  subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
+  subfoldr2::sbf_set_main(path, "output", ask = FALSE)
   sbf_reset_sub()
   
   subfoldr2::sbf_save_string("this is an assumption", "x", tag = "assumption")
@@ -26,13 +26,9 @@ test_that("tables", {
   x <- data.frame(x = 1)
   y <- data.frame(z = 3)
   
-  file <- file.path(path, "res")
+  expect_identical(sbr_knit_results(browse = FALSE, quiet = TRUE),
+                   "results.Rmd")
   
-  expect_identical(sbr_knit_results(file, browse = FALSE, quiet = TRUE),
-                   paste0(file, ".Rmd"))
-  
-  expect_true("res.html" %in% list.files(path))
-
   skip("opens window")
   
   subfoldr2::sbf_open_window()
