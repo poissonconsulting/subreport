@@ -1,5 +1,3 @@
-context("report")
-
 test_that("report",{
   teardown(sbr_reset_report())
   expect_identical(sbr_reset_report(), "report")

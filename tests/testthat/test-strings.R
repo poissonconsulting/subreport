@@ -1,5 +1,3 @@
-context("strings")
-
 test_that("strings", {
   path <- withr::local_tempdir()
   subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)

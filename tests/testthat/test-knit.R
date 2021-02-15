@@ -1,5 +1,3 @@
-context("knit")
-
 test_that("tables", {
   path <- withr::local_tempdir()
   subfoldr2::sbf_set_main(path, "output", ask = FALSE)
