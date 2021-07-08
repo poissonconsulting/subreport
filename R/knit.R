@@ -19,7 +19,8 @@ sbr_knit_results <- function(file = "results",
                             browse = TRUE) {
   chk_string(file)
   chk_string(report)
-  check_vector(sub, "", length = c(0L, 1L))
+  check_values(sub, "") 
+  check_dim(sub, values = c(0L, 1L))
   chk_string(main)
 
   dir.create(dirname(file), showWarnings = FALSE, recursive = TRUE)
