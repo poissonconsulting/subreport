@@ -16,7 +16,6 @@ Description: Facilitates generation of .Rmd and .html reports
     used to insert numbers or strings saved using subfoldr2.
 License: MIT + file LICENSE
 Imports:
-    checkr,
     chk,
     data.table,
     knitr,

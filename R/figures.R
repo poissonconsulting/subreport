@@ -17,14 +17,17 @@ sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
   chk_string(x_name)
   chk_string(report)
   chk_string(tag)
-  checkor(chk_null(drop), check_vector(drop, ""))
-  checkor(chk_null(sort), check_vector(sort, "", unique = TRUE))
-  checkor(chk_null(rename), 
-          check_vector(rename, "", unique = TRUE, named = TRUE))
+  chkor(chk_null(drop), c(chk_vector(drop), check_values(drop, "")))
+  chkor(chk_null(sort), c(chk_vector(sort), check_values(sort, ""), chk_unique(sort)))
+  chkor(chk_null(rename), c(chk_vector(rename), check_values(rename, ""), 
+                            chk_unique(rename), chk_named(rename)))
   
-  check_scalar(nheaders, c(0L, 5L))
-  check_scalar(header1, c(1L, 6L))
-  check_scalar(width, c(1, 24))
+  chk_scalar(nheaders)
+  chk_range(nheaders, c(0L, 5L))
+  chk_scalar(header1)
+  chk_range(header1, c(1L, 6L))
+  chk_scalar(width)
+  chk_range(width, c(1, 24))
   
   nheaders <- min(nheaders, (7L - header1))
   

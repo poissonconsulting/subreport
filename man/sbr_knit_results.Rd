@@ -22,7 +22,10 @@ sbr_knit_results(
 
 \item{main}{A string specifying the path to the main folder (by default the current main folder)}
 
-\item{quiet}{An option to suppress printing of the pandoc command line.}
+\item{quiet}{An option to suppress printing during rendering from knitr,
+pandoc command line and others. To only suppress printing of the last
+"Output created: " message, you can set \code{rmarkdown.render.message} to
+\code{FALSE}}
 
 \item{browse}{A flag specifying whether to open the .html file in a web browser.}
 }
