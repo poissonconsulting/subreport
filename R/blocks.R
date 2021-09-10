@@ -13,10 +13,22 @@ sbr_blocks <- function(x_name = ".*", sub = character(0), report = sbr_get_repor
   chk_string(x_name)
   chk_string(report)
   chk_string(tag)
-  chkor(chk_null(drop), c(chk_vector(drop), check_values(drop, "")))
-  chkor(chk_null(sort), c(chk_vector(sort), check_values(sort, ""), chk_unique(sort)))
-  chkor(chk_null(rename), c(chk_vector(rename), check_values(rename, ""),
-        chk_unique(rename), chk_named(rename)))
+  
+  if(!is.null(drop)) {
+    chk_vector(drop)
+    check_values(drop, "")
+  }
+  if(!is.null(sort)) {
+    chk_vector(sort)
+    check_values(sort, "")
+    chk_unique(sort)
+  }
+  if(!is.null(rename)) {
+    chk_vector(rename) 
+    check_values(rename, "")
+    chk_unique(rename)
+    chk_named(rename)
+  }
   
   chk_scalar(nheaders)
   chk_range(nheaders, c(0L, 5L))
