@@ -1,0 +1,38 @@
+---
+title: 'testthat'
+date: 2021-11-30 16:10:48
+---
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE, include = FALSE, cache = FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, comment = NA, results = 'asis', cache = FALSE)
+
+main <- '/private/var/folders/wy/svb7d7bx3dlcm68nkktbghvm0000gn/T/RtmpUrhaTU/file423c340ec0fe/output'
+sub <- ''
+```
+
+## Results
+
+### Strings
+
+```{r}
+cat(subreport::sbr_strings(sub = sub, main = main, tag = '.+'))
+```
+
+### Blocks
+
+```{r}
+cat(subreport::sbr_blocks(sub = sub, main = main))
+```
+
+### Tables
+
+```{r}
+cat(subreport::sbr_tables(sub = sub, main = main))
+```
+
+### Figures
+
+```{r}
+cat(subreport::sbr_figures(sub = sub, main = main))
+```
+
