@@ -5,6 +5,7 @@
 #'
 #' @inheritParams sbr_tables
 #' @param width A number of the page width in inches.
+#' @param pre_num A count specifying the number of pre-existing items.
 #' @return A string of the plots in markdown format.
 #' @export
 sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_report(),
@@ -12,7 +13,8 @@ sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
                         drop = NULL, sort = NULL, rename = NULL,
                         nheaders = 2L, header1 = 4L, 
                         main = subfoldr2::sbf_get_main(),
-                        width = 6) {
+                        width = 6,
+                        pre_num = getOption("sbr.pre_num_fig", 0L)) {
   
   chk_string(x_name)
   chk_string(report)
@@ -39,6 +41,7 @@ sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
   chk_range(header1, c(1L, 6L))
   chk_scalar(width)
   chk_range(width, c(1, 24))
+  chk_count(pre_num)
   
   nheaders <- min(nheaders, (7L - header1))
   
@@ -81,7 +84,7 @@ sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
   
   data <- set_headings(data, nheaders, header1)
   
-  data$caption <- p0("Figure ", 1:nrow(data), ". ", data$caption)
+  data$caption <- p0("Figure ", 1:nrow(data) + pre_num, ". ", data$caption)
   data$caption <- add_full_stop(data$caption)
   data$width <- data$width / width * 100
   
@@ -99,5 +102,6 @@ sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
     txt <- c(txt, heading, "<figure>", img, caption, "</figure>")
   }
   txt <- c(txt, "")
+  options(sbr.pre_num_fig = nrow(data) + pre_num)
   p0(txt, collapse = "\n")
 }

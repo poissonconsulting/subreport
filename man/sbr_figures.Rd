@@ -15,7 +15,8 @@ sbr_figures(
   nheaders = 2L,
   header1 = 4L,
   main = subfoldr2::sbf_get_main(),
-  width = 6
+  width = 6,
+  pre_num = getOption("sbr.pre_num_fig", 0L)
 )
 }
 \arguments{
@@ -42,6 +43,8 @@ By default sub folder names have the first letter of each word capitalized.}
 \item{main}{A string of the path to the main folder.}
 
 \item{width}{A number of the page width in inches.}
+
+\item{pre_num}{A count specifying the number of pre-existing items.}
 }
 \value{
 A string of the plots in markdown format.
