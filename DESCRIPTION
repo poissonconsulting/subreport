@@ -26,6 +26,6 @@ Suggests:
     testthat,
     withr
 Remotes: 
-    poissonconsulting/subfoldr2
+    poissonconsulting/subfoldr2@dev
 Encoding: UTF-8
 RoxygenNote: 7.1.2
