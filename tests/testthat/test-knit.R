@@ -25,6 +25,7 @@ test_that("tables", {
   x <- data.frame(x = 1)
   y <- data.frame(z = 3)
   
+  skip_on_os("windows")
   expect_identical(sbr_knit_results(browse = FALSE, quiet = TRUE),
                    "results.Rmd")
   
