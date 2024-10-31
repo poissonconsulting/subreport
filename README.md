@@ -1,4 +1,3 @@
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 
@@ -29,36 +28,32 @@ inserted into .Rmd reports.
 
 ## Usage
 
-``` r
-library(subfoldr2)
-library(subreport)
+    library(subfoldr2)
+    library(subreport)
 
-sbf_set_main(tempdir(), "output")
-sbr_set_report(tempdir(), "report")
+    sbf_set_main(tempdir(), "output")
+    sbr_set_report(tempdir(), "report")
 
-y <- data.frame(t = 2, comment = "blah blah")
-sbf_save_table(y, sub = "Factoids", caption = "A really interesting summary")
+    y <- data.frame(t = 2, comment = "blah blah")
+    sbf_save_table(y, sub = "Factoids", caption = "A really interesting summary")
 
-cat(sbr_tables())
-#> 
-#> #### Factoids
-#> 
-#> Table 1. A really interesting summary.
-#> 
-#> |  t|comment   |
-#> |--:|:---------|
-#> |  2|blah blah |
-```
+    cat(sbr_tables())
+    #> 
+    #> #### Factoids
+    #> 
+    #> Table 1. A really interesting summary.
+    #> 
+    #> |  t|comment   |
+    #> |--:|:---------|
+    #> |  2|blah blah |
 
 ## Installation
 
 To install the latest development version from GitHub
 [repository](https://github.com/poissonconsulting/subreport)
 
-``` r
-# install.packages("remotes")
-remotes::install_github("poissonconsulting/subreport")
-```
+    # install.packages("remotes")
+    remotes::install_github("poissonconsulting/subreport")
 
 ## Contribution
 
