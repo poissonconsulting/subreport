@@ -30,6 +30,6 @@ sbr_knit_results <- function(file = "results",
   path <- rmarkdown::render(input = input, output_format = "html_document",
                             quiet = quiet)
   if(isTRUE(browse))
-    utils::browseURL(paste0('file://', path))
+    utils::browseURL(file.path('file://', path))
   invisible(input)
 }
