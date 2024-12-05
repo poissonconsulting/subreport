@@ -27,8 +27,11 @@ sbr_knit_results <- function(file = "results",
   input <- paste0(file, ".Rmd")
   writeLines(report_text(sub = sub, main = main), con = input)
 
-  path <- rmarkdown::render(input = input, output_format = "html_document",
-                            quiet = quiet)
+  path <- rmarkdown::render(
+    input = input,
+    output_format = "html_document",
+    quiet = quiet
+  )
   if(isTRUE(browse))
     utils::browseURL(paste0('file://', path))
   invisible(input)
