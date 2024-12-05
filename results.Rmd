@@ -1,15 +1,13 @@
-report_text <- function(sub, main) {
-  paste0(
-    "---
-title: '", basename(getwd()), "'
-date: ", Sys.time(), "
+---
+title: 'subreport'
+date: 2024-12-05 09:38:35.482031
 ---
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE, include = FALSE, cache = FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, comment = NA, results = 'asis', cache = FALSE)
 
-main <- '", normalizePath(main, winslash = "/"), "'
-sub <- '", sub, "'
+main <- 'output'
+sub <- ''
 ```
 
 ## Results
@@ -37,5 +35,4 @@ cat(subreport::sbr_tables(sub = sub, main = main))
 ```{r}
 cat(subreport::sbr_figures(sub = sub, main = main))
 ```
-",
-    sep = "")}
+
