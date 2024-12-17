@@ -1,12 +1,12 @@
 ---
 title: 'testthat'
-date: 2024-12-17 15:45:42.160192
+date: 2024-12-17 15:48:32.448967
 ---
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE, include = FALSE, cache = FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, comment = NA, results = 'asis', cache = FALSE)
 
-main <- '/private/var/folders/yg/xzvpt0r53gsgj094f3sxb1n00000gn/T/RtmpuZY3Sz/file67c44e63aa6b/output'
+main <- '/private/var/folders/yg/xzvpt0r53gsgj094f3sxb1n00000gn/T/Rtmp3dthgd/file6b20621ef8f6/output'
 sub <- ''
 ```
 

@@ -8,7 +8,7 @@
 .RProfile
 .httr-oauth
 
-results.Rmd
+**/results.Rmd
 
 *.html
 
