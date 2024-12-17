@@ -8,6 +8,8 @@
 .RProfile
 .httr-oauth
 
+results.Rmd
+
 *.html
 
 docs/
