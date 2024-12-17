@@ -1,12 +1,11 @@
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![R-CMD-check](https://github.com/poissonconsulting/subreport/workflows/R-CMD-check/badge.svg)](https://github.com/poissonconsulting/subreport/actions)
+[![R-CMD-check](https://github.com/poissonconsulting/subreport/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/poissonconsulting/subreport/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
-coverage](https://codecov.io/gh/poissonconsulting/subreport/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/subreport?branch=master)
+coverage](https://codecov.io/gh/poissonconsulting/subreport/graph/badge.svg)](https://app.codecov.io/gh/poissonconsulting/subreport)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
@@ -29,36 +28,32 @@ inserted into .Rmd reports.
 
 ## Usage
 
-``` r
-library(subfoldr2)
-library(subreport)
+    library(subfoldr2)
+    library(subreport)
 
-sbf_set_main(tempdir(), "output")
-sbr_set_report(tempdir(), "report")
+    sbf_set_main(tempdir(), "output")
+    sbr_set_report(tempdir(), "report")
 
-y <- data.frame(t = 2, comment = "blah blah")
-sbf_save_table(y, sub = "Factoids", caption = "A really interesting summary")
+    y <- data.frame(t = 2, comment = "blah blah")
+    sbf_save_table(y, sub = "Factoids", caption = "A really interesting summary")
 
-cat(sbr_tables())
-#> 
-#> #### Factoids
-#> 
-#> Table 1. A really interesting summary.
-#> 
-#> |  t|comment   |
-#> |--:|:---------|
-#> |  2|blah blah |
-```
+    cat(sbr_tables())
+    #> 
+    #> #### Factoids
+    #> 
+    #> Table 1. A really interesting summary.
+    #> 
+    #> |  t|comment   |
+    #> |--:|:---------|
+    #> |  2|blah blah |
 
 ## Installation
 
 To install the latest development version from GitHub
 [repository](https://github.com/poissonconsulting/subreport)
 
-``` r
-# install.packages("remotes")
-remotes::install_github("poissonconsulting/subreport")
-```
+    # install.packages("remotes")
+    remotes::install_github("poissonconsulting/subreport")
 
 ## Contribution
 
