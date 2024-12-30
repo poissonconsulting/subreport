@@ -12,7 +12,8 @@ sbr_s(x_name, sub = character(0))
 \arguments{
 \item{x_name}{A string of the name.}
 
-\item{sub}{A string specifying the path to the sub folder (by default the current sub folder).}
+\item{sub}{A string specifying the path to the sub folder (by default the
+current sub folder).}
 }
 \value{
 A string.
