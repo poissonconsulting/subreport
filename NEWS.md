@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# subreport 0.0.0.9017
+
+- Merge pull request #22 from poissonconsulting/upkeep.
+
+  Upkeep
+
+
 # subreport 0.0.0.9016
 
 - Add extra line break to model blocks to ensure correct PDF wrapping behaviour in poisreport.
