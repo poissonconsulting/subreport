@@ -2,7 +2,7 @@
 
 # subreport 0.0.0.9017
 
-- Fixed tests.
+- Fixed Windows, versus Mac and Linux, path format for `sbr_knit_results()`.
 
 # subreport 0.0.0.9016
 
