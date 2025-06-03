@@ -15,7 +15,8 @@ sbr_tables(
   nheaders = 2L,
   header1 = 4L,
   main = subfoldr2::sbf_get_main(),
-  sigfig = 3L
+  sigfig = 3L,
+  sigfig_override = NULL
 )
 }
 \arguments{
@@ -41,7 +42,9 @@ By default sub folder names have the first letter of each word capitalized.}
 
 \item{main}{A string of the path to the main folder.}
 
-\item{sigfig}{A number of the significant figures to use when formatting numbers.}
+\item{sigfig}{A positive integer of the significant figures to use when formatting numbers. This is applied to all tables.}
+
+\item{sigfig_override}{A named vector of table names and the number of significant figures to use. This will override the default set in `sigfig` for matching tables.}
 }
 \value{
 A string of the tables in markdown format.
