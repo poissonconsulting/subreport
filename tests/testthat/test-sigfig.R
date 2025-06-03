@@ -27,8 +27,6 @@ test_that("sigfig function works correctly on various numeric types", {
 test_that("sigfig_override and sigfig work as expected", {
   path <- withr::local_tempdir()
   subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
-  sbr_set_report(path, "report", rm = TRUE, ask = FALSE)
-  sbf_reset_sub()
   
   x <- data.frame(x = "a", y = 0.015899)
   x2 <- data.frame(x = "b", y = 1.90009)
