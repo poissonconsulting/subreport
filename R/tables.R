@@ -14,12 +14,13 @@
 #' @param nheaders A count of the number of sub folder levels to assign headers to.
 #' @param header1 A count of the heading level for the first sub folder level.
 #' @param main A string of the path to the main folder.
+#' @param sigfig A number of the significant figures to use when formatting numbers.
 #' @return A string of the tables in markdown format.
 #' @export
 sbr_tables <- function(x_name = ".*", sub = character(0), report = sbr_get_report(),
                        tag = ".*", drop = NULL, sort = NULL, rename = NULL,
                        nheaders = 2L, header1 = 4L,
-                       main = subfoldr2::sbf_get_main()) {
+                       main = subfoldr2::sbf_get_main(), sigfig = 3L) {
   
   chk_string(x_name)
   chk_string(report)
@@ -72,6 +73,7 @@ sbr_tables <- function(x_name = ".*", sub = character(0), report = sbr_get_repor
     caption <- data$caption[i]
     
     table <- data$tables[[i]]
+    table <- signif_table(table, sigfig = sigfig)
     table <- knitr::kable(table, format = "markdown", row.names = FALSE)
     
     txt <- c(txt, heading, caption, "", table)
