@@ -21,5 +21,30 @@ test_that("sigfig function works correctly on various numeric types", {
   expect_identical(res$character, df$character)
   expect_identical(res$logical, df$logical)
   
-  expect_true(all(sapply(res[c("small_decimal", "large_number", "scientific", "integer")], is.numeric)))
+  expect_true(all(sapply(res[c("small_decimal", "large_number", "scientific", "integer", "missing")], is.numeric)))
+})
+
+test_that("sigfig_override and sigfig work as expected", {
+  path <- withr::local_tempdir()
+  subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
+  sbr_set_report(path, "report", rm = TRUE, ask = FALSE)
+  sbf_reset_sub()
+  
+  x <- data.frame(x = "a", y = 0.015899)
+  x2 <- data.frame(x = "b", y = 1.90009)
+  subfoldr2::sbf_save_table(x, x_name = "coef")
+  subfoldr2::sbf_save_table(x2, x_name = "glance")
+  
+  txt <- sbr_tables()
+  expect_identical(txt, "\nTable 1.\n\n|x  |      y|\n|:--|------:|\n|a  | 0.0159|\n\nTable 2.\n\n|x  |   y|\n|:--|---:|\n|b  | 1.9|\n")
+  
+  txt <- sbr_tables(sigfig = 1)
+  expect_identical(txt, "\nTable 1.\n\n|x  |    y|\n|:--|----:|\n|a  | 0.02|\n\nTable 2.\n\n|x  |  y|\n|:--|--:|\n|b  |  2|\n")
+  
+  txt <- sbr_tables(sigfig = 1, sigfig_override = c("coef" = 3))
+  expect_identical(txt, "\nTable 1.\n\n|x  |      y|\n|:--|------:|\n|a  | 0.0159|\n\nTable 2.\n\n|x  |  y|\n|:--|--:|\n|b  |  2|\n")
+  
+  txt <- sbr_tables(sigfig = 1, sigfig_override = c("coef" = 4, "glance" = 2))
+  expect_identical(txt, "\nTable 1.\n\n|x  |      y|\n|:--|------:|\n|a  | 0.0159|\n\nTable 2.\n\n|x  |   y|\n|:--|---:|\n|b  | 1.9|\n")
+  
 })
