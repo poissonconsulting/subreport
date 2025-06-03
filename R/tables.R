@@ -14,13 +14,16 @@
 #' @param nheaders A count of the number of sub folder levels to assign headers to.
 #' @param header1 A count of the heading level for the first sub folder level.
 #' @param main A string of the path to the main folder.
-#' @param sigfig A number of the significant figures to use when formatting numbers.
+#' @param sigfig A positive integer of the significant figures to use when formatting numbers. This is applied to all tables. 
+#' @param sigfig_override A named vector of table names and the number of significant figures to use. This will override the default set in `sigfig` for matching tables. 
 #' @return A string of the tables in markdown format.
 #' @export
 sbr_tables <- function(x_name = ".*", sub = character(0), report = sbr_get_report(),
                        tag = ".*", drop = NULL, sort = NULL, rename = NULL,
                        nheaders = 2L, header1 = 4L,
-                       main = subfoldr2::sbf_get_main(), sigfig = 3L) {
+                       main = subfoldr2::sbf_get_main(), 
+                       sigfig = 3L, 
+                       sigfig_override = NULL) {
   
   chk_string(x_name)
   chk_string(report)
@@ -45,6 +48,14 @@ sbr_tables <- function(x_name = ".*", sub = character(0), report = sbr_get_repor
   chk_range(nheaders, c(0L, 5L))
   chk_scalar(header1)
   chk_range(header1, c(1L, 6L))
+  
+  chk_whole_number(sigfig)
+  chk_gte(sigfig)
+  chk_null_or(sigfig_override, vld = vld_named)
+  sigfig_override <- c("a" = 0, "b" = 2)
+  chk_whole_numeric(sigfig_override)
+  chk_gte(sigfig_override)
+  chk_unique(names(sigfig_override))
 
   nheaders <- min(nheaders, (7L - header1))
   
@@ -71,9 +82,15 @@ sbr_tables <- function(x_name = ".*", sub = character(0), report = sbr_get_repor
   for (i in seq_len(nrow(data))) {
     heading <- data$heading[i]
     caption <- data$caption[i]
+    nm <- data$name[i]
     
     table <- data$tables[[i]]
-    table <- signif_table(table, sigfig = sigfig)
+    if(!is.null(sigfig_override) && nm %in% names(sigfig_override)) {
+      table <- signif_table(table, sigfig = sigfig_override[[nm]])
+    } else {
+      table <- signif_table(table, sigfig = sigfig)
+    }
+   
     table <- knitr::kable(table, format = "markdown", row.names = FALSE)
     
     txt <- c(txt, heading, caption, "", table)
