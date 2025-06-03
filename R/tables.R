@@ -52,10 +52,9 @@ sbr_tables <- function(x_name = ".*", sub = character(0), report = sbr_get_repor
   chk_whole_number(sigfig)
   chk_gte(sigfig)
   chk_null_or(sigfig_override, vld = vld_named)
-  sigfig_override <- c("a" = 0, "b" = 2)
-  chk_whole_numeric(sigfig_override)
-  chk_gte(sigfig_override)
-  chk_unique(names(sigfig_override))
+  chk_null_or(sigfig_override, vld = vld_whole_numeric)
+  chk_null_or(sigfig_override, vld = vld_gte)
+  chk_null_or(names(sigfig_override), vld = vld_unique)
 
   nheaders <- min(nheaders, (7L - header1))
   
