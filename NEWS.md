@@ -1,4 +1,13 @@
-<!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
+<!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
+
+# subreport 0.0.0.9017
+
+- Fixed Windows, versus Mac and Linux, path format for `sbr_knit_results()`.
+
+# subreport 0.0.0.9016
+
+- Add extra line break to model blocks to ensure correct PDF wrapping behaviour in poisreport.
+
 
 # subreport 0.0.0.9015
 

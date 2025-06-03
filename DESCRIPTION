@@ -1,6 +1,6 @@
 Package: subreport
 Title: Generate Reports from `subfoldr2` Objects
-Version: 0.0.0.9015
+Version: 0.0.0.9017
 Authors@R: c(
     person("Joe", "Thorley", , "joe@poissonconsulting.ca", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-7683-4592")),
@@ -29,3 +29,4 @@ Remotes:
     poissonconsulting/subfoldr2
 Encoding: UTF-8
 RoxygenNote: 7.3.2.9000
+Config/Needs/website: poissonconsulting/poissontemplate
