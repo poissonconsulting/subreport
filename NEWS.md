@@ -2,23 +2,8 @@
 
 # subreport 0.0.0.9018
 
-## IGNORE
-
-- Merge conflict.
-
-## Uncategorized
-
-- Merge pull request #24 from poissonconsulting/sigfig.
-
-  Add ability to set significant figures for tables in report
-
-- IGNORE.
-
-  Merge branch 'main' of github.com:poissonconsulting/subreport
-
-  # Conflicts:
-  # NEWS.md
-
+- Add functionality in `sbr_table()` to control significant figures for numeric columns in data.frame prior to converting to markdown table for report. 
+- New arguments`sigfig` and `sigfig_override` set default significant figures and significant figures for specific table, respectively.
 
 # subreport 0.0.0.9017
 
