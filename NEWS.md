@@ -1,5 +1,25 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# subreport 0.0.0.9018
+
+## IGNORE
+
+- Merge conflict.
+
+## Uncategorized
+
+- Merge pull request #24 from poissonconsulting/sigfig.
+
+  Add ability to set significant figures for tables in report
+
+- IGNORE.
+
+  Merge branch 'main' of github.com:poissonconsulting/subreport
+
+  # Conflicts:
+  # NEWS.md
+
+
 # subreport 0.0.0.9017
 
 - Fixed Windows, versus Mac and Linux, path format for `sbr_knit_results()`.
