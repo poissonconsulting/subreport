@@ -84,14 +84,21 @@ sbr_tables <- function(x_name = ".*", sub = character(0), report = sbr_get_repor
     nm <- data$name[i]
     
     table <- data$tables[[i]]
+    # done before formatting to character in signif_table
+    numeric_cols <- sapply(table, is.numeric)
+    alignment <- ifelse(numeric_cols, "r", "l")
+    
     if(!is.null(sigfig_override) && nm %in% names(sigfig_override)) {
       table <- signif_table(table, sigfig = sigfig_override[[nm]])
     } else {
       table <- signif_table(table, sigfig = sigfig)
     }
-   
-    table <- knitr::kable(table, format = "markdown", row.names = FALSE)
     
+    table <- knitr::kable(table, 
+                          format = "markdown", 
+                          row.names = FALSE,
+                          align = alignment)
+   
     txt <- c(txt, heading, caption, "", table)
   }
   txt <- c(txt, "")
