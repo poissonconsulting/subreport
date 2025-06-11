@@ -194,9 +194,17 @@ set_headings <- function(data, nheaders, header1) {
   hashes <- matrix("", nrow = nrow(heading), ncol = ncol(heading))
   for(i in 1:ncol(hashes))
     hashes[,i] <- p0(rep("#", i + header1 - 1L), collapse = "")
-  
-  heading <- apply(heading, MARGIN = 2, new_only)
-  
+
+  heading <- apply(heading, MARGIN = 1, new_only_within_section) |>
+    t() |>
+    matrix(
+      dimnames = dimnames(heading),
+      nrow = nrow(heading),
+      ncol = ncol(heading)
+    )
+
+  heading <- new_only_across_section(heading)
+
   heading[!is.na(heading)] <- 
     p(hashes[!is.na(heading)], heading[!is.na(heading)])
   
