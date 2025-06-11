@@ -2,8 +2,7 @@
 
 # subreport 0.0.0.9019
 
-- Internal changes only.
-
+- Fix handling of duplicated headers within and accross sections.
 
 # subreport 0.0.0.9018
 
