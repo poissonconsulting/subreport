@@ -160,6 +160,19 @@ new_only_within_section <- function(x) {
   x
 }
 
+new_only_across_section <- function(data) {
+  col <- 1L
+  while(col <= ncol(data)) {
+    if(col == 1L) {
+      data[which(duplicated(data[, col])), col] <- NA
+    } else {
+      data[which(duplicated(data[, col]) & is.na(data[, col - 1])), col] <- NA
+    }
+    col <- col + 1L
+  }
+  data
+}
+
 last_sub <- function(x) {
   x <- x[!is.na(x)]
   n <- length(x)
