@@ -1,5 +1,10 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# subreport 0.0.0.9019
+
+- Internal changes only.
+
+
 # subreport 0.0.0.9018
 
 - Add functionality in `sbr_table()` to control significant figures for numeric columns in data.frame prior to converting to markdown table for report. 
