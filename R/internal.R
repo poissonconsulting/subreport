@@ -148,7 +148,7 @@ rename_sub <- function(data, rename) {
   data
 }
 
-new_only <- function(x) {
+new_only_within_section <- function(x) {
   n <- length(x)
   if(identical(n, 1L)) return(x)
   new <- rep(NA, n)
