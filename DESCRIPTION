@@ -19,7 +19,8 @@ Imports:
     rmarkdown,
     subfoldr2 (>= 0.0.0.9045),
     utils,
-    yesno
+    yesno,
+    stats
 Suggests: 
     covr,
     ggplot2,
