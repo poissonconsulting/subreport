@@ -148,7 +148,7 @@ rename_sub <- function(data, rename) {
   data
 }
 
-new_only <- function(x) {
+new_only_within_section <- function(x) {
   n <- length(x)
   if(identical(n, 1L)) return(x)
   new <- rep(NA, n)
@@ -160,6 +160,27 @@ new_only <- function(x) {
   x
 }
 
+new_only_across_section <- function(matrix) {
+
+  data <- as.data.frame(matrix)
+  data[is.na(data)] <- "missing_value_filler"
+  
+  col <- 1L
+  new_data <- data
+
+  while(col <= ncol(data)) {
+    if(col == 1L) {
+      new_data[which(duplicated(data[, col])), col] <- NA
+    } else {
+      new_data[as.logical(stats::ave(data[,col], data[,1:(col - 1)], FUN = duplicated)), col] <- NA
+    }
+    col <- col + 1L
+  }
+  
+  new_data[new_data == "missing_value_filler"] <- NA
+  as.matrix(new_data)
+}
+
 last_sub <- function(x) {
   x <- x[!is.na(x)]
   n <- length(x)
@@ -168,6 +189,7 @@ last_sub <- function(x) {
 }
 
 set_headings <- function(data, nheaders, header1) {
+  
   data$heading <- ""
   if(!nheaders) return(data)
   
@@ -180,10 +202,17 @@ set_headings <- function(data, nheaders, header1) {
 
   hashes <- matrix("", nrow = nrow(heading), ncol = ncol(heading))
   for(i in 1:ncol(hashes))
-    hashes[,i] <- p0(rep("#", i + header1 - 1L), collapse = "")
+    hashes[,i] <- p0(rep("#", i + header1 - 1L), collapse = "") 
   
-  heading <- apply(heading, MARGIN = 2, new_only)
+  heading <- new_only_across_section(heading)
   
+  heading <- matrix(
+    t(apply(heading, MARGIN = 1, new_only_within_section)),
+    dimnames = dimnames(heading),
+    nrow = nrow(heading),
+    ncol = ncol(heading)
+  )
+
   heading[!is.na(heading)] <- 
     p(hashes[!is.na(heading)], heading[!is.na(heading)])
   
