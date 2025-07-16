@@ -19,6 +19,6 @@ folder.}
 An invisible string of the path to the main folder.
 }
 \description{
-The directory is created when needed 
- if it doesn't already exist.
+The directory is created when needed
+if it doesn't already exist.
 }

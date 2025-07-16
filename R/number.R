@@ -1,6 +1,6 @@
 #' Get Number
-#' 
-#' @inheritParams subfoldr2::sbf_load_number 
+#'
+#' @inheritParams subfoldr2::sbf_load_number
 #' @return A number.
 #' @export
 sbr_number <- function(x_name, sub = character(0)) {

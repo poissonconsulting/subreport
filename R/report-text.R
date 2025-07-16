@@ -38,4 +38,6 @@ cat(subreport::sbr_tables(sub = sub, main = main))
 cat(subreport::sbr_figures(sub = sub, main = main))
 ```
 ",
-    sep = "")}
+    sep = ""
+  )
+}
