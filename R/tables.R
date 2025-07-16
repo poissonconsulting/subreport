@@ -22,7 +22,7 @@ sbr_tables <- function(x_name = ".*", sub = character(0), report = sbr_get_repor
                        tag = ".*", drop = NULL, sort = NULL, rename = NULL,
                        nheaders = 2L, header1 = 4L,
                        main = subfoldr2::sbf_get_main(), 
-                       sigfig = 3L, 
+                       sigfig = 4L, 
                        sigfig_override = NULL) {
   
   chk_string(x_name)
