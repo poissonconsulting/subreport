@@ -1,5 +1,5 @@
 #' Knit Report
-#' 
+#'
 #' Makes a results .Rmd file of the tables, code blocks and plots (and windows)
 #' and knits it into a .html file and opens
 #' in the default web browser.
@@ -11,15 +11,15 @@
 #' @param browse A flag specifying whether to open the .html file in a web browser.
 #' @return An invisible path to the .Rmd file.
 #' @export
-sbr_knit_results <- function(file = "results", 
-                            report = sbr_get_report(),
-                            sub = character(0),
-                            main = subfoldr2::sbf_get_main(),
-                            quiet = FALSE,
-                            browse = TRUE) {
+sbr_knit_results <- function(file = "results",
+                             report = sbr_get_report(),
+                             sub = character(0),
+                             main = subfoldr2::sbf_get_main(),
+                             quiet = FALSE,
+                             browse = TRUE) {
   chk_string(file)
   chk_string(report)
-  check_values(sub, "") 
+  check_values(sub, "")
   check_dim(sub, values = c(0L, 1L))
   chk_string(main)
 
@@ -32,7 +32,8 @@ sbr_knit_results <- function(file = "results",
     output_format = "html_document",
     quiet = quiet
   )
-  if(isTRUE(browse))
-    utils::browseURL(paste0('file://', path))
+  if (isTRUE(browse)) {
+    utils::browseURL(paste0("file://", path))
+  }
   invisible(input)
 }

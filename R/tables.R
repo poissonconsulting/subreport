@@ -14,31 +14,30 @@
 #' @param nheaders A count of the number of sub folder levels to assign headers to.
 #' @param header1 A count of the heading level for the first sub folder level.
 #' @param main A string of the path to the main folder.
-#' @param sigfig A positive integer of the significant figures to use when formatting numbers. This is applied to all tables. 
-#' @param sigfig_override A named vector of table names and the number of significant figures to use. This will override the default set in `sigfig` for matching tables. 
+#' @param sigfig A positive integer of the significant figures to use when formatting numbers. This is applied to all tables.
+#' @param sigfig_override A named vector of table names and the number of significant figures to use. This will override the default set in `sigfig` for matching tables.
 #' @return A string of the tables in markdown format.
 #' @export
 sbr_tables <- function(x_name = ".*", sub = character(0), report = sbr_get_report(),
                        tag = ".*", drop = NULL, sort = NULL, rename = NULL,
                        nheaders = 2L, header1 = 4L,
-                       main = subfoldr2::sbf_get_main(), 
-                       sigfig = 3L, 
+                       main = subfoldr2::sbf_get_main(),
+                       sigfig = 4L,
                        sigfig_override = NULL) {
-  
   chk_string(x_name)
   chk_string(report)
   chk_string(tag)
-  if(!is.null(drop)) {
+  if (!is.null(drop)) {
     chk_vector(drop)
     check_values(drop, "")
   }
-  if(!is.null(sort)) {
+  if (!is.null(sort)) {
     chk_vector(sort)
     check_values(sort, "")
     chk_unique(sort)
   }
-  if(!is.null(rename)) {
-    chk_vector(rename) 
+  if (!is.null(rename)) {
+    chk_vector(rename)
     check_values(rename, "")
     chk_unique(rename)
     chk_named(rename)
@@ -48,7 +47,7 @@ sbr_tables <- function(x_name = ".*", sub = character(0), report = sbr_get_repor
   chk_range(nheaders, c(0L, 5L))
   chk_scalar(header1)
   chk_range(header1, c(1L, 6L))
-  
+
   chk_whole_number(sigfig)
   chk_gte(sigfig)
   chk_null_or(sigfig_override, vld = vld_named)
@@ -57,23 +56,27 @@ sbr_tables <- function(x_name = ".*", sub = character(0), report = sbr_get_repor
   chk_null_or(names(sigfig_override), vld = vld_unique)
 
   nheaders <- min(nheaders, (7L - header1))
-  
-  data <- sbf_load_tables_recursive(sub = sub, main = main, meta = TRUE,
-                                    tag = tag)
+
+  data <- sbf_load_tables_recursive(
+    sub = sub, main = main, meta = TRUE,
+    tag = tag
+  )
   data <- rename_sub_sub1(data)
 
   data <- drop_sub(data, drop = drop)
-  
-  data <- data[grepl(x_name, data$name),]
- 
-  if(!nrow(data)) return(character(0))
-  
+
+  data <- data[grepl(x_name, data$name), ]
+
+  if (!nrow(data)) {
+    return(character(0))
+  }
+
   data <- write_files(data, report = report, ext = ".csv", fun = write_csv)
-  
+
   data <- sort_sub(data, sort = sort)
   data <- rename_sub(data, rename)
   data <- set_headings(data, nheaders, header1)
-  
+
   data$caption <- p0("Table ", 1:nrow(data), ". ", data$caption)
   data$caption <- add_full_stop(data$caption)
 
@@ -82,23 +85,24 @@ sbr_tables <- function(x_name = ".*", sub = character(0), report = sbr_get_repor
     heading <- data$heading[i]
     caption <- data$caption[i]
     nm <- data$name[i]
-    
+
     table <- data$tables[[i]]
     # done before formatting to character in signif_table
     numeric_cols <- sapply(table, is.numeric)
     alignment <- ifelse(numeric_cols, "r", "l")
-    
-    if(!is.null(sigfig_override) && nm %in% names(sigfig_override)) {
+
+    if (!is.null(sigfig_override) && nm %in% names(sigfig_override)) {
       table <- signif_table(table, sigfig = sigfig_override[[nm]])
     } else {
       table <- signif_table(table, sigfig = sigfig)
     }
-    
-    table <- knitr::kable(table, 
-                          format = "markdown", 
-                          row.names = FALSE,
-                          align = alignment)
-   
+
+    table <- knitr::kable(table,
+      format = "markdown",
+      row.names = FALSE,
+      align = alignment
+    )
+
     txt <- c(txt, heading, caption, "", table)
   }
   txt <- c(txt, "")

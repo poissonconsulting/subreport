@@ -12,4 +12,3 @@ sbr_string <- function(x_name, sub = character(0)) {
 sbr_s <- function(x_name, sub = character(0)) {
   sbr_string(x_name, sub = sub)
 }
-

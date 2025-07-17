@@ -31,3 +31,4 @@ Remotes:
 Encoding: UTF-8
 RoxygenNote: 7.3.2.9000
 Config/Needs/website: poissonconsulting/poissontemplate
+Roxygen: list(markdown = TRUE)
