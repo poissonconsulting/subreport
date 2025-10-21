@@ -7,6 +7,7 @@
 #' @param report A string of the path to the report folder.
 #' @param tag A string of the regular expression that the tag must match to be included.
 #' @param drop A character vector specifying the sub folders and file names to exclude from the report or NULL.
+#' @param keep A character vector specifying the highest level sub folders to keep that are not in drop. If NULL all highest level subfolders that are not in drop are kept.
 #' @param sort A character vector specifying the initial sort order for sub folders and file names or NULL.
 #' Missing items appear afterwards in alphabetical order.
 #' @param rename A unique named character vector specifying new heading names for sub folders or NULL.
@@ -19,7 +20,7 @@
 #' @return A string of the tables in markdown format.
 #' @export
 sbr_tables <- function(x_name = ".*", sub = character(0), report = sbr_get_report(),
-                       tag = ".*", drop = NULL, sort = NULL, rename = NULL,
+                       tag = ".*", drop = NULL, keep = NULL, sort = NULL, rename = NULL,
                        nheaders = 2L, header1 = 4L,
                        main = subfoldr2::sbf_get_main(),
                        sigfig = 4L,
@@ -30,6 +31,10 @@ sbr_tables <- function(x_name = ".*", sub = character(0), report = sbr_get_repor
   if (!is.null(drop)) {
     chk_vector(drop)
     check_values(drop, "")
+  }
+    if (!is.null(keep)) {
+    chk_vector(keep)
+    check_values(keep, "")
   }
   if (!is.null(sort)) {
     chk_vector(sort)
@@ -63,6 +68,7 @@ sbr_tables <- function(x_name = ".*", sub = character(0), report = sbr_get_repor
   )
   data <- rename_sub_sub1(data)
 
+  data <- keep_sub(data, keep = keep)
   data <- drop_sub(data, drop = drop)
 
   data <- data[grepl(x_name, data$name), ]

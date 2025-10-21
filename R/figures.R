@@ -10,7 +10,7 @@
 #' @export
 sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_report(),
                         tag = ".*",
-                        drop = NULL, sort = NULL, rename = NULL,
+                        drop = NULL, keep = NULL, sort = NULL, rename = NULL,
                         nheaders = 2L, header1 = 4L,
                         main = subfoldr2::sbf_get_main(),
                         width = 6,
@@ -21,6 +21,10 @@ sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
   if (!is.null(drop)) {
     chk_vector(drop)
     check_values(drop, "")
+  }
+    if (!is.null(keep)) {
+    chk_vector(keep)
+    check_values(keep, "")
   }
   if (!is.null(sort)) {
     chk_vector(sort)
@@ -56,6 +60,9 @@ sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
   plots <- rename_sub_sub1(plots)
   windows <- rename_sub_sub1(windows)
 
+  plots <- keep_sub(plots, keep = keep)
+  windows <- keep_sub(windows, keep = keep)
+  
   plots <- drop_sub(plots, drop = drop)
   windows <- drop_sub(windows, drop = drop)
 

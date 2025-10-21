@@ -6,7 +6,7 @@
 #' @return A string of the code blocks in markdown format.
 #' @export
 sbr_blocks <- function(x_name = ".*", sub = character(0), report = sbr_get_report(),
-                       tag = ".*", drop = NULL, sort = NULL, rename = NULL,
+                       tag = ".*", drop = NULL, keep = NULL, sort = NULL, rename = NULL,
                        nheaders = 2L, header1 = 4L,
                        main = subfoldr2::sbf_get_main()) {
   chk_string(x_name)
@@ -16,6 +16,10 @@ sbr_blocks <- function(x_name = ".*", sub = character(0), report = sbr_get_repor
   if (!is.null(drop)) {
     chk_vector(drop)
     check_values(drop, "")
+  }
+  if (!is.null(keep)) {
+    chk_vector(keep)
+    check_values(keep, "")
   }
   if (!is.null(sort)) {
     chk_vector(sort)
@@ -43,6 +47,7 @@ sbr_blocks <- function(x_name = ".*", sub = character(0), report = sbr_get_repor
 
   data <- rename_sub_sub1(data)
 
+  data <- keep_sub(data, keep = keep)
   data <- drop_sub(data, drop = drop)
 
   data <- data[grepl(x_name, data$name), ]

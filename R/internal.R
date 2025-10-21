@@ -108,6 +108,20 @@ drop_sub <- function(data, drop) {
   data
 }
 
+keep_sub <- function(data, keep) {
+  if ("report" %in% colnames(data)) {
+    data <- data[data$report, ]
+  }
+  if (!nrow(data) || is.null(keep)) {
+    return(data)
+  }
+
+  colnames <- sub_colnames(data)
+  data <- data[data[[colnames[1]]] %in% keep, ]
+  
+  data
+}
+
 sort_sub <- function(data, sort) {
   if (is.null(sort) || !length(sort)) {
     sort <- "/not_a_possible_sub"
