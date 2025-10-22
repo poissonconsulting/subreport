@@ -44,6 +44,7 @@
 <span>  report <span class="op">=</span> <span class="fu"><a href="sbr_get_report.html">sbr_get_report</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  tag <span class="op">=</span> <span class="st">".*"</span>,</span>
 <span>  drop <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  keep <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  sort <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rename <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  nheaders <span class="op">=</span> <span class="fl">2L</span>,</span>
@@ -74,6 +75,10 @@
 
 <dt id="arg-drop">drop<a class="anchor" aria-label="anchor" href="#arg-drop"></a></dt>
 <dd><p>A character vector specifying the sub folders and file names to exclude from the report or NULL.</p></dd>
+
+
+<dt id="arg-keep">keep<a class="anchor" aria-label="anchor" href="#arg-keep"></a></dt>
+<dd><p>A character vector specifying the highest level sub folders to keep that are not in drop. If NULL all highest level subfolders that are not in drop are kept.</p></dd>
 
 
 <dt id="arg-sort">sort<a class="anchor" aria-label="anchor" href="#arg-sort"></a></dt>
