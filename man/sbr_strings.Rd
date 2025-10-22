@@ -10,6 +10,7 @@ sbr_strings(
   report = sbr_get_report(),
   tag = ".*",
   drop = NULL,
+  keep = NULL,
   sort = NULL,
   rename = NULL,
   nheaders = 2L,
@@ -28,6 +29,8 @@ sbr_strings(
 \item{tag}{A string of the regular expression that the tag must match to be included.}
 
 \item{drop}{A character vector specifying the sub folders and file names to exclude from the report or NULL.}
+
+\item{keep}{A character vector specifying the highest level sub folders to keep that are not in drop. If NULL all highest level subfolders that are not in drop are kept.}
 
 \item{sort}{A character vector specifying the initial sort order for sub folders and file names or NULL.
 Missing items appear afterwards in alphabetical order.}
