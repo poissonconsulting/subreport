@@ -65,6 +65,7 @@ sbr_blocks <- function(x_name = ".*", sub = character(0), report = sbr_get_repor
   data$caption <- p0("Block ", 1:nrow(data), ". ", data$caption)
   data$caption <- add_full_stop(data$caption)
 
+  data$blocks <- purrr::map(data$blocks, \(x) stringr::str_replace(x, "^\\{", " {"))
   data$blocks <- p0("```\n.\n", data$blocks, "\n..\n```")
 
   txt <- character(0)
