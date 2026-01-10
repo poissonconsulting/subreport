@@ -1,5 +1,11 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# subreport 0.1.0
+
+- Added keep argument to specific highest level sub folders to keep (unless in drop). (#29).
+- Corrected duplicate headings/subheadings.
+- Fixed block rendering starting with "{
+
 # subreport 0.0.0.9019
 
 - Fix handling of duplicated headers within and accross sections.
