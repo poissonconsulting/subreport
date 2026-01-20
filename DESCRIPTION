@@ -12,6 +12,7 @@ Description: Facilitates generation of .Rmd and .html reports from tables,
     `sbr_knit_results()`.  The `sbr_n()` and `sbr_s()` functions can be
     used to insert numbers or strings saved using subfoldr2.
 License: MIT + file LICENSE
+Depends: R (>= 4.1)
 Imports:
     chk,
     data.table,
@@ -27,6 +28,7 @@ Suggests:
     covr,
     ggplot2,
     testthat,
+    usethis,
     withr
 Remotes: 
     poissonconsulting/subfoldr2
