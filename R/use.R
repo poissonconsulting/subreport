@@ -1,11 +1,11 @@
-#' Use Project Rmd File
+#' Use Report File
 #'
-#' Creates a project.Rmd file in the root directory.
+#' Creates a report.Rmd file in the root directory.
 #' 
 #' @export
-sbr_use_project_rmd <- function() {
+sbr_use_report <- function() {
   usethis::use_template(
-    template = "project.Rmd",
+    template = "report.Rmd",
     package = "subreport"
   )
 }
