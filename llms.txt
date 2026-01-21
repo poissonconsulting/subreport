@@ -100,6 +100,8 @@ By contributing to this project, you agree to abide by its terms.
   : Use Bibliography
 - [`sbr_use_knit_report()`](https://poissonconsulting.github.io/subreport/reference/sbr_use_knit_report.md)
   : Use Knit Report
-- [`sbr_use_project_rmd()`](https://poissonconsulting.github.io/subreport/reference/sbr_use_project_rmd.md)
-  : Use Project Rmd File
+- [`sbr_use_knit_report_all()`](https://poissonconsulting.github.io/subreport/reference/sbr_use_knit_report_all.md)
+  : Use Knit Report All
+- [`sbr_use_report()`](https://poissonconsulting.github.io/subreport/reference/sbr_use_report.md)
+  : Use Report File
 
