@@ -25,6 +25,8 @@
 - [`sbr_tables()`](https://poissonconsulting.github.io/subreport/reference/sbr_tables.md)
   : Tables
 - [`sbr_use_bibliography()`](https://poissonconsulting.github.io/subreport/reference/sbr_use_bibliography.md)
-  : Use Project Rmd File
+  : Use Bibliography
+- [`sbr_use_knit_report()`](https://poissonconsulting.github.io/subreport/reference/sbr_use_knit_report.md)
+  : Use Knit Report
 - [`sbr_use_project_rmd()`](https://poissonconsulting.github.io/subreport/reference/sbr_use_project_rmd.md)
   : Use Project Rmd File

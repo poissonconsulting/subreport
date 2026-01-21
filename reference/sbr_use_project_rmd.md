@@ -1,6 +1,6 @@
 # Use Project Rmd File
 
-Creates a project.Rmd in the root directory.
+Creates a project.Rmd file in the root directory.
 
 ## Usage
 

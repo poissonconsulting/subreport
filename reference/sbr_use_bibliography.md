@@ -1,6 +1,6 @@
-# Use Project Rmd File
+# Use Bibliography
 
-Creates a project.Rmd in the root directory.
+Creates a bibliography.bib file in the root directory.
 
 ## Usage
 

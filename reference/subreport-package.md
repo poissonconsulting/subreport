@@ -11,6 +11,14 @@ strings saved using subfoldr2.
 **Maintainer**: Joe Thorley <joe@poissonconsulting.ca>
 ([ORCID](https://orcid.org/0000-0002-7683-4592))
 
+Authors:
+
+- Seb Dalgarno <seb@poissonconsulting.ca>
+  ([ORCID](https://orcid.org/0000-0002-3658-4517))
+
 Other contributors:
+
+- Duncan Kennedy ([ORCID](https://orcid.org/0009-0001-4880-5751))
+  \[contributor\]
 
 - Poisson Consulting \[copyright holder, funder\]
