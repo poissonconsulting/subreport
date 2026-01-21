@@ -1,6 +1,6 @@
 source("header.R")
 
 rmarkdown::render(
-  input = "project.Rmd",
+  input = "report.Rmd",
   output_format = "html_document",
 )
