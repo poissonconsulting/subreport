@@ -13,7 +13,8 @@ sbr_knit_results(
   sub = character(0),
   main = subfoldr2::sbf_get_main(),
   quiet = FALSE,
-  browse = TRUE
+  browse = TRUE,
+  browser = "open"
 )
 ```
 
@@ -46,6 +47,16 @@ sbr_knit_results(
 - browse:
 
   A flag specifying whether to open the .html file in a web browser.
+
+- browser:
+
+  a non-empty character string giving the name of the program to be used
+  as the HTML browser. It should be in the PATH, or a full path
+  specified. Alternatively, an R function to be called to invoke the
+  browser.
+
+  Under Windows `NULL` is also allowed (and is the default), and implies
+  that the file association mechanism will be used.
 
 ## Value
 
