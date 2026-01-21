@@ -57,9 +57,6 @@ sbr_numbers <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
     return(character(0))
   }
 
-  return(data)
-  data <- write_files(data, ext = ".txt", report = report, fun = write_txt)
-
   data <- sort_sub(data, sort = sort)
   data <- rename_sub(data, rename)
   data <- set_headings(data, nheaders, header1)
@@ -75,11 +72,12 @@ sbr_numbers <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
       number <- 1
     }
 
-    string <- data$strings[[i]]
+    name <- data$name[[i]]
+    nmbr <- data$numbers[[i]]
     if (numbered) {
-      string <- p0(number, ". ", string)
+      string <- p0(number, ". ", name, ": ", nmbr)
     } else {
-      string <- p0("- ", string)
+      string <- p0("- ", name, ": ", nmbr)
     }
 
     txt <- c(txt, heading, string)
