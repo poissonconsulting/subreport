@@ -25,6 +25,7 @@ Imports:
     rmarkdown,
     stringr,
     subfoldr2 (>= 0.0.0.9045),
+    term,
     utils,
     yesno,
     stats

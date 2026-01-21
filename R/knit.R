@@ -8,6 +8,7 @@
 #' @param report A string of the directory to save the tables, code blocks and plots.
 #' @inheritParams subfoldr2::sbf_save_object
 #' @inheritParams rmarkdown::render
+#' @inheritParams utils::browseURL
 #' @param browse A flag specifying whether to open the .html file in a web browser.
 #' @return An invisible path to the .Rmd file.
 #' @export
@@ -16,7 +17,8 @@ sbr_knit_results <- function(file = "results",
                              sub = character(0),
                              main = subfoldr2::sbf_get_main(),
                              quiet = FALSE,
-                             browse = TRUE) {
+                             browse = TRUE,
+                             browser = "open") {
   chk_string(file)
   chk_string(report)
   check_values(sub, "")
@@ -32,8 +34,9 @@ sbr_knit_results <- function(file = "results",
     output_format = "html_document",
     quiet = quiet
   )
+  print(path)
   if (isTRUE(browse)) {
-    utils::browseURL(paste0("file://", path))
+    utils::browseURL(paste0("file://", path), browser = browser)
   }
   invisible(input)
 }
