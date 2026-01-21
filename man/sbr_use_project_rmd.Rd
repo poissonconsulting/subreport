@@ -7,5 +7,5 @@
 sbr_use_project_rmd()
 }
 \description{
-Creates a project.Rmd in the root directory.
+Creates a project.Rmd file in the root directory.
 }

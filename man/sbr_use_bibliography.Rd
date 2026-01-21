@@ -2,10 +2,10 @@
 % Please edit documentation in R/use.R
 \name{sbr_use_bibliography}
 \alias{sbr_use_bibliography}
-\title{Use Project Rmd File}
+\title{Use Bibliography}
 \usage{
 sbr_use_bibliography()
 }
 \description{
-Creates a project.Rmd in the root directory.
+Creates a bibliography.bib file in the root directory.
 }
