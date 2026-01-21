@@ -34,7 +34,6 @@ sbr_knit_results <- function(file = "results",
     output_format = "html_document",
     quiet = quiet
   )
-  print(path)
   if (isTRUE(browse)) {
     utils::browseURL(paste0("file://", path), browser = browser)
   }
