@@ -24,7 +24,7 @@ Imports:
     purrr,
     rmarkdown,
     stringr,
-    subfoldr2 (>= 0.0.0.9045),
+    subfoldr2 (>= 1.0.1.9000),
     term,
     utils,
     yesno,
