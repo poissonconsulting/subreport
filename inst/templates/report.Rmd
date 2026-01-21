@@ -7,8 +7,6 @@ bibliography: bibliography.bib
 ```{r, echo = FALSE, warning = FALSE, message = FALSE, include = FALSE, cache = FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, comment = NA, results = "asis", cache = FALSE)
 
-library(subreport)
-
 nheaders <- 2L
 
 rename <- c(
@@ -32,37 +30,30 @@ The primary goal of the current analyses is to answer the following questions:
   
 The data were extracted, cleaned (i.e., checked for errors and corrected if possible), and tidied (i.e., manipulated into a consistent format) using `r substr(R.version.string,1,15)` [@r_core_team_r_2025].
 
-Key assumptions of the data cleaning included:
-  
-- The data were recorded correctly.
+## Results
 
-### Model Descriptions
-
-#### Model
-
-The data were analyzed using a model.
-Key assumptions of the model include:
-  
-- The residual variation is normally distributed.
-
-### Model Templates
+### Strings
 
 ```{r}
-cat(sbr_blocks(sort = sort, rename = rename, nheaders = nheaders, drop = drop))
+cat(subreport::sbr_strings(sort = sort, rename = rename, nheaders = nheaders, drop = drop, tag = ".+"))
 ```
 
-## Results
+### Blocks
+
+```{r}
+cat(subreport::sbr_blocks(sort = sort, rename = rename, nheaders = nheaders, drop = drop))
+```
 
 ### Tables
 
 ```{r}
-cat(sbr_tables(sort = sort, rename = rename, nheaders = nheaders, drop = drop))
+cat(subreport::sbr_tables(sort = sort, rename = rename, nheaders = nheaders, drop = drop))
 ```
 
 ### Figures
 
 ```{r}
-cat(sbr_figures(sort = sort, rename = rename, nheaders = nheaders, drop = drop))
+cat(subreport::sbr_figures(sort = sort, rename = rename, nheaders = nheaders, drop = drop))
 ```
 
 ## Acknowledgements

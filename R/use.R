@@ -33,3 +33,15 @@ sbr_use_knit_report <- function() {
     package = "subreport"
   )
 }
+
+#' Use Knit Report All
+#'
+#' Creates knit-report.R, bibliography.bib and and knit-report.R files
+#'  in the root directory.
+#' 
+#' @export
+sbr_use_knit_report_all <- function() {
+  sbr_use_report()
+  sbr_use_bibliography()
+  sbr_use_knit_report()
+}
