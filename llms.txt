@@ -85,6 +85,8 @@ By contributing to this project, you agree to abide by its terms.
 - [`sbr_number()`](https://poissonconsulting.github.io/subreport/reference/sbr_number.md)
   [`sbr_n()`](https://poissonconsulting.github.io/subreport/reference/sbr_number.md)
   : Get Number
+- [`sbr_numbers()`](https://poissonconsulting.github.io/subreport/reference/sbr_numbers.md)
+  : Numbers
 - [`sbr_reset_report()`](https://poissonconsulting.github.io/subreport/reference/sbr_reset_report.md)
   : Reset Report
 - [`sbr_set_report()`](https://poissonconsulting.github.io/subreport/reference/sbr_set_report.md)
