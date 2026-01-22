@@ -58,6 +58,12 @@ cat(subreport::sbr_tables(sort = sort, rename = rename, nheaders = nheaders, dro
 cat(subreport::sbr_figures(sort = sort, rename = rename, nheaders = nheaders, drop = drop))
 ```
 
+### Numbers
+
+```{r}
+cat(subreport::sbr_figures(sort = sort, rename = rename, nheaders = nheaders, drop = drop))
+```
+
 ## Acknowledgements
 
 The organizations and individuals whose contributions have made this analytic appendix possible include:
