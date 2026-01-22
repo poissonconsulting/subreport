@@ -61,7 +61,7 @@ cat(subreport::sbr_figures(sort = sort, rename = rename, nheaders = nheaders, dr
 ### Numbers
 
 ```{r}
-cat(subreport::sbr_figures(sort = sort, rename = rename, nheaders = nheaders, drop = drop))
+cat(subreport::sbr_numbers(sort = sort, rename = rename, nheaders = nheaders, drop = drop))
 ```
 
 ## Acknowledgements
