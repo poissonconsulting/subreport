@@ -37,6 +37,12 @@ cat(subreport::sbr_tables(sub = sub, main = main))
 ```{r}
 cat(subreport::sbr_figures(sub = sub, main = main))
 ```
+
+### Numbers
+
+```{r}
+cat(subreport::sbr_numbers(sub = sub, main = main))
+```
 ",
     sep = ""
   )
