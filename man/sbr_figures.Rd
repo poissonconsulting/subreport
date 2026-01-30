@@ -9,6 +9,7 @@ sbr_figures(
   sub = character(0),
   report = sbr_get_report(),
   tag = ".*",
+  return_filenames = FALSE,
   drop = NULL,
   keep = NULL,
   sort = NULL,
@@ -28,6 +29,8 @@ sbr_figures(
 \item{report}{A string of the path to the report folder.}
 
 \item{tag}{A string of the regular expression that the tag must match to be included.}
+
+\item{return_filenames}{whether to return the file names as a check (defaults to \code{FALSE}).}
 
 \item{drop}{A character vector specifying the sub folders and file names to exclude from the report or NULL.}
 
