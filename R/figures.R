@@ -4,12 +4,13 @@
 #' If a window and plot have identical names then the plot is dropped.
 #'
 #' @inheritParams sbr_tables
+#' @param return_filenames whether to return the file names as a check (defaults to `FALSE`).
 #' @param width A number of the page width in inches.
 #' @param pre_num A count specifying the number of pre-existing items.
 #' @return A string of the plots in markdown format.
 #' @export
 sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_report(),
-                        tag = ".*",
+                        tag = ".*", return_filenames = FALSE,
                         drop = NULL, keep = NULL, sort = NULL, rename = NULL,
                         nheaders = 2L, header1 = 4L,
                         main = subfoldr2::sbf_get_main(),
@@ -47,7 +48,23 @@ sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
   chk_count(pre_num)
 
   nheaders <- min(nheaders, (7L - header1))
-
+  
+  if(isTRUE(return_filenames)) {
+    files <- list.files(
+      subfoldr2:::file_path(subfoldr2:::sanitize_path(main, rm_leading = FALSE),
+                            'plots',
+                            subfoldr2:::sanitize_path(sub)),
+      pattern = '[.]rds$', recursive = TRUE)
+    
+    if(length(drop) > 0) {
+      files <- stringr::str_subset(files,
+                                   pattern = paste0(drop, collapse = '|'),
+                                   negate = TRUE)
+    }
+    
+    return(files)
+  }
+  
   plots <- sbf_load_plots_recursive(
     sub = sub, main = main, meta = TRUE,
     tag = tag
