@@ -67,7 +67,7 @@ sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
   
   plots <- sbf_load_plots_recursive(
     sub = sub, main = main, meta = TRUE,
-    tag = tag
+    tag = tag, drop = drop
   )
   windows <- sbf_load_windows_recursive(
     sub = sub, main = main, meta = TRUE,
