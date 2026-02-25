@@ -78,9 +78,6 @@ sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
   plots <- keep_sub(plots, keep = keep)
   windows <- keep_sub(windows, keep = keep)
   
-  plots <- drop_sub(plots, drop = drop)
-  windows <- drop_sub(windows, drop = drop)
-  
   plots <- plots[grepl(x_name, plots$name), ]
   windows <- windows[grepl(x_name, windows$name), ]
   
