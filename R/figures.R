@@ -47,14 +47,14 @@ sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
   chk_count(pre_num)
 
   nheaders <- min(nheaders, (7L - header1))
-
+  
   plots <- sbf_load_plots_recursive(
     sub = sub, main = main, meta = TRUE,
-    tag = tag
+    tag = tag, drop = drop
   )
   windows <- sbf_load_windows_recursive(
     sub = sub, main = main, meta = TRUE,
-    tag = tag
+    tag = tag, drop = drop
   )
 
   plots <- rename_sub_sub1(plots)
@@ -63,9 +63,6 @@ sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
   plots <- keep_sub(plots, keep = keep)
   windows <- keep_sub(windows, keep = keep)
   
-  plots <- drop_sub(plots, drop = drop)
-  windows <- drop_sub(windows, drop = drop)
-
   plots <- plots[grepl(x_name, plots$name), ]
   windows <- windows[grepl(x_name, windows$name), ]
 
