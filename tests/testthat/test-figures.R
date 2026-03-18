@@ -126,9 +126,8 @@ test_that("figures pre_num", {
   )
 })
 
-test_that("sbr_figures() lists the correct file names in the md string and the vector of files.", {
+test_that("sbr_figures() lists the correct file names in the md string.", {
   expect_identical(character(0), sbr_figures())
-  expect_identical(character(0), sbr_figures(return_filenames = TRUE))
   
   p1 <- ggplot2::ggplot() +
     ggplot2::geom_point(ggplot2::aes(1, 1)) +
@@ -151,20 +150,15 @@ test_that("sbr_figures() lists the correct file names in the md string and the v
   
   # without dropping sub
   input <- sbr_figures(sub = "sub", main = temp_dir)
-  files <- sbr_figures(sub = "sub", main = temp_dir, return_filenames = TRUE)
   
   expect_all_true(c(grepl("plot-1.png", input),
                     grepl("plot-2.png", input),
                     grepl("plot-3.png", input)))
-  expect_equal(c("plot-1.rds", "plot-2.rds", "plot-3.rds"), files)
   
   # dropping sub
   input <- sbr_figures(main = temp_dir, drop = "sub", report = paste0(temp_dir, "/report"))
-  files <- sbr_figures(main = temp_dir, return_filenames = TRUE, drop = "sub",
-                       report = temp_dir)
   
   expect_equal(input, character(0))
-  expect_equal(files, character(0))
   
   file.remove(list.files("report", pattern = "plot-", recursive = TRUE, full.names = TRUE))
   file.remove(list.files("report", pattern = "\\.DS_Store", recursive = TRUE,
