@@ -1,3 +1,10 @@
+<!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
+
+# subreport 0.1.0.9000
+
+- Add `sbr_use_project_rmd()` and `sbr_use_bibliography()`.
+
+
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
 # subreport 0.1.0
