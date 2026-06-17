@@ -1,5 +1,10 @@
 # Changelog
 
+## subreport 0.1.0.9000
+
+- Add `sbr_use_project_rmd()` and
+  [`sbr_use_bibliography()`](https://poissonconsulting.github.io/subreport/reference/sbr_use_bibliography.md).
+
 ## subreport 0.1.0
 
 - Added keep argument to specific highest level sub folders to keep
