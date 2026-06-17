@@ -8,5 +8,5 @@
   jobs:
     tag:
       if: github.event.pull_request.merged == true && github.event.pull_request.head.ref == 'fledge-bump'
-      uses: poissonconsulting/.github/.github/workflows/fledge-tag-on-merge.yml@f-fledge-automation
+      uses: poissonconsulting/.github/.github/workflows/fledge-tag-on-merge.yml@f-fledge-automation@v1
       secrets: inherit
