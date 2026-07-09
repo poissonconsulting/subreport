@@ -12,13 +12,15 @@
 #' @param browse A flag specifying whether to open the .html file in a web browser.
 #' @return An invisible path to the .Rmd file.
 #' @export
-sbr_knit_results <- function(file = "results",
-                             report = sbr_get_report(),
-                             sub = character(0),
-                             main = subfoldr2::sbf_get_main(),
-                             quiet = FALSE,
-                             browse = TRUE,
-                             browser = "open") {
+sbr_knit_results <- function(
+  file = "results",
+  report = sbr_get_report(),
+  sub = character(0),
+  main = subfoldr2::sbf_get_main(),
+  quiet = FALSE,
+  browse = TRUE,
+  browser = "open"
+) {
   chk_string(file)
   chk_string(report)
   check_values(sub, "")

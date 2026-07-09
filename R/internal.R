@@ -18,7 +18,9 @@ file_path <- function(..., collapse = FALSE) {
 sanitize_path <- function(path, rm_leading = TRUE) {
   path <- sub("//", "/", path)
   path <- sub("(.+)(/$)", "\\1", path)
-  if (isTRUE(rm_leading)) path <- sub("(^/)(.*)", "\\2", path)
+  if (isTRUE(rm_leading)) {
+    path <- sub("(^/)(.*)", "\\2", path)
+  }
   path
 }
 
@@ -88,7 +90,9 @@ write_txt <- function(x, file) {
 sub_colnames <- function(data, names = TRUE) {
   colnames <- colnames(data)
   colnames <- colnames[grepl("^sub\\d+", colnames)]
-  if (isTRUE(names)) colnames <- c(colnames, "name")
+  if (isTRUE(names)) {
+    colnames <- c(colnames, "name")
+  }
   colnames
 }
 
@@ -118,7 +122,7 @@ keep_sub <- function(data, keep) {
 
   colnames <- sub_colnames(data)
   data <- data[data[[colnames[1]]] %in% keep, ]
-  
+
   data
 }
 
@@ -198,7 +202,14 @@ new_only_across_section <- function(matrix) {
     if (col == 1L) {
       new_data[which(duplicated(data[, col])), col] <- NA
     } else {
-      new_data[as.logical(stats::ave(data[, col], data[, 1:(col - 1)], FUN = duplicated)), col] <- NA
+      new_data[
+        as.logical(stats::ave(
+          data[, col],
+          data[, 1:(col - 1)],
+          FUN = duplicated
+        )),
+        col
+      ] <- NA
     }
     col <- col + 1L
   }
@@ -252,7 +263,9 @@ set_headings <- function(data, nheaders, header1) {
   heading[is.na(heading)] <- ""
 
   heading <- as.matrix(heading)
-  if (!is.null(row.names(heading))) heading <- t(heading)
+  if (!is.null(row.names(heading))) {
+    heading <- t(heading)
+  }
   heading <- apply(heading, MARGIN = 1, p0, collapse = "")
 
   data$heading <- heading

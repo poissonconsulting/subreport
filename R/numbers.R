@@ -6,10 +6,20 @@
 #' @param numbered A flag specifying whether the list(s) items should be numbered.
 #' @return A string of the numbers in markdown format.
 #' @export
-sbr_numbers <- function(x_name = ".*", sub = character(0), report = sbr_get_report(),
-                        tag = ".*", drop = NULL, keep = NULL, sort = NULL, rename = NULL,
-                        nheaders = 2L, header1 = 4L, numbered = FALSE,
-                        main = subfoldr2::sbf_get_main()) {
+sbr_numbers <- function(
+  x_name = ".*",
+  sub = character(0),
+  report = sbr_get_report(),
+  tag = ".*",
+  drop = NULL,
+  keep = NULL,
+  sort = NULL,
+  rename = NULL,
+  nheaders = 2L,
+  header1 = 4L,
+  numbered = FALSE,
+  main = subfoldr2::sbf_get_main()
+) {
   chk_string(x_name)
   chk_string(report)
   chk_string(tag)
@@ -18,7 +28,7 @@ sbr_numbers <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
     chk_vector(drop)
     check_values(drop, "")
   }
-    if (!is.null(keep)) {
+  if (!is.null(keep)) {
     chk_vector(keep)
     check_values(keep, "")
   }
@@ -43,7 +53,9 @@ sbr_numbers <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
   nheaders <- min(nheaders, (7L - header1))
 
   data <- sbf_load_numbers_recursive(
-    sub = sub, main = main, meta = TRUE,
+    sub = sub,
+    main = main,
+    meta = TRUE,
     tag = tag
   )
   data <- rename_sub_sub1(data)

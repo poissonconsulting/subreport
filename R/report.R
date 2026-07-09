@@ -23,7 +23,9 @@ sbr_set_report <- function(..., rm = FALSE, ask = getOption("sbf.ask", TRUE)) {
   path <- file_path(...)
   path <- sanitize_path(path, rm_leading = FALSE)
   options(sbr.report = path)
-  if (rm) rm_all(ask = ask)
+  if (rm) {
+    rm_all(ask = ask)
+  }
   invisible(path)
 }
 

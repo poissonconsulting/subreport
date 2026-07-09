@@ -33,8 +33,14 @@ test_that("numbers", {
   t <- 10^6
   subfoldr2::sbf_save_number(t, sub = "tori")
   txt <- sbr_numbers()
-  expect_identical(txt, "\n- 1.5: 1.5\n- indx: 1\n- z: -0.1\n\n#### Tori\n\n- t: 1e+06\n")
+  expect_identical(
+    txt,
+    "\n- 1.5: 1.5\n- indx: 1\n- z: -0.1\n\n#### Tori\n\n- t: 1e+06\n"
+  )
 
   txt <- sbr_numbers(numbered = TRUE)
-  expect_identical(txt, "\n1. 1.5: 1.5\n2. indx: 1\n3. z: -0.1\n\n#### Tori\n\n1. t: 1e+06\n")
+  expect_identical(
+    txt,
+    "\n1. 1.5: 1.5\n2. indx: 1\n3. z: -0.1\n\n#### Tori\n\n1. t: 1e+06\n"
+  )
 })
