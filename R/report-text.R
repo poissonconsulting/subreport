@@ -1,15 +1,23 @@
 report_text <- function(sub, main) {
   paste0(
     "---
-title: '", basename(getwd()), "'
-date: ", Sys.time(), "
+title: '",
+    basename(getwd()),
+    "'
+date: ",
+    Sys.time(),
+    "
 ---
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE, include = FALSE, cache = FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, comment = NA, results = 'asis', cache = FALSE)
 
-main <- '", normalizePath(main, winslash = "/"), "'
-sub <- '", sub, "'
+main <- '",
+    normalizePath(main, winslash = "/"),
+    "'
+sub <- '",
+    sub,
+    "'
 ```
 
 ## Results

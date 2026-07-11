@@ -15,3 +15,5 @@
 ^README\.Rmd$
 ^results\.Rmd$
 ^results\.html$
+^[.]?air[.]toml$
+^\.vscode$

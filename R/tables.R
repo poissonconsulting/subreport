@@ -19,12 +19,21 @@
 #' @param sigfig_override A named vector of table names and the number of significant figures to use. This will override the default set in `sigfig` for matching tables.
 #' @return A string of the tables in markdown format.
 #' @export
-sbr_tables <- function(x_name = ".*", sub = character(0), report = sbr_get_report(),
-                       tag = ".*", drop = NULL, keep = NULL, sort = NULL, rename = NULL,
-                       nheaders = 2L, header1 = 4L,
-                       main = subfoldr2::sbf_get_main(),
-                       sigfig = 4L,
-                       sigfig_override = NULL) {
+sbr_tables <- function(
+  x_name = ".*",
+  sub = character(0),
+  report = sbr_get_report(),
+  tag = ".*",
+  drop = NULL,
+  keep = NULL,
+  sort = NULL,
+  rename = NULL,
+  nheaders = 2L,
+  header1 = 4L,
+  main = subfoldr2::sbf_get_main(),
+  sigfig = 4L,
+  sigfig_override = NULL
+) {
   chk_string(x_name)
   chk_string(report)
   chk_string(tag)
@@ -32,7 +41,7 @@ sbr_tables <- function(x_name = ".*", sub = character(0), report = sbr_get_repor
     chk_vector(drop)
     check_values(drop, "")
   }
-    if (!is.null(keep)) {
+  if (!is.null(keep)) {
     chk_vector(keep)
     check_values(keep, "")
   }
@@ -63,7 +72,9 @@ sbr_tables <- function(x_name = ".*", sub = character(0), report = sbr_get_repor
   nheaders <- min(nheaders, (7L - header1))
 
   data <- sbf_load_tables_recursive(
-    sub = sub, main = main, meta = TRUE,
+    sub = sub,
+    main = main,
+    meta = TRUE,
     tag = tag
   )
   data <- rename_sub_sub1(data)
@@ -103,7 +114,8 @@ sbr_tables <- function(x_name = ".*", sub = character(0), report = sbr_get_repor
       table <- signif_table(table, sigfig = sigfig)
     }
 
-    table <- knitr::kable(table,
+    table <- knitr::kable(
+      table,
       format = "markdown",
       row.names = FALSE,
       align = alignment
