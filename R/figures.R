@@ -8,13 +8,21 @@
 #' @param pre_num A count specifying the number of pre-existing items.
 #' @return A string of the plots in markdown format.
 #' @export
-sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_report(),
-                        tag = ".*",
-                        drop = NULL, keep = NULL, sort = NULL, rename = NULL,
-                        nheaders = 2L, header1 = 4L,
-                        main = subfoldr2::sbf_get_main(),
-                        width = 6,
-                        pre_num = getOption("sbr.pre_num_fig", 0L)) {
+sbr_figures <- function(
+  x_name = ".*",
+  sub = character(0),
+  report = sbr_get_report(),
+  tag = ".*",
+  drop = NULL,
+  keep = NULL,
+  sort = NULL,
+  rename = NULL,
+  nheaders = 2L,
+  header1 = 4L,
+  main = subfoldr2::sbf_get_main(),
+  width = 6,
+  pre_num = getOption("sbr.pre_num_fig", 0L)
+) {
   chk_string(x_name)
   chk_string(report)
   chk_string(tag)
@@ -22,7 +30,7 @@ sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
     chk_vector(drop)
     check_values(drop, "")
   }
-    if (!is.null(keep)) {
+  if (!is.null(keep)) {
     chk_vector(keep)
     check_values(keep, "")
   }
@@ -47,14 +55,20 @@ sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
   chk_count(pre_num)
 
   nheaders <- min(nheaders, (7L - header1))
-  
+
   plots <- sbf_load_plots_recursive(
-    sub = sub, main = main, meta = TRUE,
-    tag = tag, drop = drop
+    sub = sub,
+    main = main,
+    meta = TRUE,
+    tag = tag,
+    drop = drop
   )
   windows <- sbf_load_windows_recursive(
-    sub = sub, main = main, meta = TRUE,
-    tag = tag, drop = drop
+    sub = sub,
+    main = main,
+    meta = TRUE,
+    tag = tag,
+    drop = drop
   )
 
   plots <- rename_sub_sub1(plots)
@@ -62,7 +76,7 @@ sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
 
   plots <- keep_sub(plots, keep = keep)
   windows <- keep_sub(windows, keep = keep)
-  
+
   plots <- plots[grepl(x_name, plots$name), ]
   windows <- windows[grepl(x_name, windows$name), ]
 
@@ -109,8 +123,15 @@ sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
     to <- data$to[i]
 
     img <- p0(
-      "<img alt = \"", to, "\" src = \"", to,
-      "\" title = \"", to, "\" width = \"", width, "%\">"
+      "<img alt = \"",
+      to,
+      "\" src = \"",
+      to,
+      "\" title = \"",
+      to,
+      "\" width = \"",
+      width,
+      "%\">"
     )
 
     caption <- p0("<figcaption>", caption, "</figcaption>")

@@ -5,10 +5,19 @@
 #' @inheritParams sbr_tables
 #' @return A string of the code blocks in markdown format.
 #' @export
-sbr_blocks <- function(x_name = ".*", sub = character(0), report = sbr_get_report(),
-                       tag = ".*", drop = NULL, keep = NULL, sort = NULL, rename = NULL,
-                       nheaders = 2L, header1 = 4L,
-                       main = subfoldr2::sbf_get_main()) {
+sbr_blocks <- function(
+  x_name = ".*",
+  sub = character(0),
+  report = sbr_get_report(),
+  tag = ".*",
+  drop = NULL,
+  keep = NULL,
+  sort = NULL,
+  rename = NULL,
+  nheaders = 2L,
+  header1 = 4L,
+  main = subfoldr2::sbf_get_main()
+) {
   chk_string(x_name)
   chk_string(report)
   chk_string(tag)
@@ -41,7 +50,9 @@ sbr_blocks <- function(x_name = ".*", sub = character(0), report = sbr_get_repor
   nheaders <- min(nheaders, (7L - header1))
 
   data <- sbf_load_blocks_recursive(
-    sub = sub, main = main, meta = TRUE,
+    sub = sub,
+    main = main,
+    meta = TRUE,
     tag = tag
   )
 
@@ -65,7 +76,9 @@ sbr_blocks <- function(x_name = ".*", sub = character(0), report = sbr_get_repor
   data$caption <- p0("Block ", 1:nrow(data), ". ", data$caption)
   data$caption <- add_full_stop(data$caption)
 
-  data$blocks <- purrr::map(data$blocks, \(x) stringr::str_replace(x, "^\\{", " {"))
+  data$blocks <- purrr::map(data$blocks, \(x) {
+    stringr::str_replace(x, "^\\{", " {")
+  })
   data$blocks <- p0("```\n.\n", data$blocks, "\n..\n```")
 
   txt <- character(0)

@@ -9,6 +9,8 @@ rm_all <- function(ask) {
 
   msg <- paste0("Delete directory '", report, "'?")
 
-  if (!ask || yesno(msg)) unlink(report, recursive = TRUE)
+  if (!ask || yesno(msg)) {
+    unlink(report, recursive = TRUE)
+  }
   NULL
 }

@@ -13,14 +13,20 @@ test_that("sigfig function works correctly on various numeric types", {
 
   expect_equal(res$small_decimal, c("1.23e-01", "1.23e-04", "1.99", "1.00e+02"))
   expect_equal(res$large_number, c("1230000", "9880000", "5560", "1000000"))
-  expect_equal(res$scientific, c("1.23e-05", "4.56e+08", "7.89e-10", "2.34e+12"))
+  expect_equal(
+    res$scientific,
+    c("1.23e-05", "4.56e+08", "7.89e-10", "2.34e+12")
+  )
   expect_equal(res$integer, c("123", "456", "789", "0"))
   expect_equal(res$missing, c(NA, NA, NA, NA))
 
   expect_identical(res$character, df$character)
   expect_identical(res$logical, df$logical)
 
-  expect_true(all(sapply(res[c("small_decimal", "large_number", "scientific")], is.character)))
+  expect_true(all(sapply(
+    res[c("small_decimal", "large_number", "scientific")],
+    is.character
+  )))
 })
 
 test_that("sigfig_override and sigfig work as expected", {
@@ -35,14 +41,26 @@ test_that("sigfig_override and sigfig work as expected", {
   subfoldr2::sbf_save_table(x2, x_name = "glance")
 
   txt <- sbr_tables()
-  expect_identical(txt, "\nTable 1.\n\n|x  |       y|\n|:--|-------:|\n|a  | 0.01586|\n\nTable 2.\n\n|x  |    y|\n|:--|----:|\n|b  | 2025|\n")
+  expect_identical(
+    txt,
+    "\nTable 1.\n\n|x  |       y|\n|:--|-------:|\n|a  | 0.01586|\n\nTable 2.\n\n|x  |    y|\n|:--|----:|\n|b  | 2025|\n"
+  )
 
   txt <- sbr_tables(sigfig = 1)
-  expect_identical(txt, "\nTable 1.\n\n|x  |    y|\n|:--|----:|\n|a  | 0.02|\n\nTable 2.\n\n|x  |    y|\n|:--|----:|\n|b  | 2000|\n")
+  expect_identical(
+    txt,
+    "\nTable 1.\n\n|x  |    y|\n|:--|----:|\n|a  | 0.02|\n\nTable 2.\n\n|x  |    y|\n|:--|----:|\n|b  | 2000|\n"
+  )
 
   txt <- sbr_tables(sigfig = 1, sigfig_override = c("coef" = 3))
-  expect_identical(txt, "\nTable 1.\n\n|x  |      y|\n|:--|------:|\n|a  | 0.0159|\n\nTable 2.\n\n|x  |    y|\n|:--|----:|\n|b  | 2000|\n")
+  expect_identical(
+    txt,
+    "\nTable 1.\n\n|x  |      y|\n|:--|------:|\n|a  | 0.0159|\n\nTable 2.\n\n|x  |    y|\n|:--|----:|\n|b  | 2000|\n"
+  )
 
   txt <- sbr_tables(sigfig = 1, sigfig_override = c("coef" = 4, "glance" = 3))
-  expect_identical(txt, "\nTable 1.\n\n|x  |       y|\n|:--|-------:|\n|a  | 0.01586|\n\nTable 2.\n\n|x  |    y|\n|:--|----:|\n|b  | 2020|\n")
+  expect_identical(
+    txt,
+    "\nTable 1.\n\n|x  |       y|\n|:--|-------:|\n|a  | 0.01586|\n\nTable 2.\n\n|x  |    y|\n|:--|----:|\n|b  | 2020|\n"
+  )
 })

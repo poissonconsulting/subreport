@@ -52,22 +52,46 @@ test_that("tables", {
   subfoldr2::sbf_save_table(x, caption = "Extra Obs")
   subfoldr2::sbf_save_table(z, caption = "More Sites")
 
-  expect_identical(sbr_tables(nheaders = 0L), "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 2. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\nTable 3. Extra Obs.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 4. More Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n")
+  expect_identical(
+    sbr_tables(nheaders = 0L),
+    "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 2. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\nTable 3. Extra Obs.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 4. More Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n"
+  )
 
-  expect_identical(sbr_tables(sort = "z", nheaders = 0L), "\nTable 1. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\nTable 2. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 3. More Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\nTable 4. Extra Obs.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n")
+  expect_identical(
+    sbr_tables(sort = "z", nheaders = 0L),
+    "\nTable 1. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\nTable 2. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 3. More Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\nTable 4. Extra Obs.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n"
+  )
 
-  expect_identical(sbr_tables(), "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 2. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\n#### RB\n\n##### Max Like\n\nTable 3. Extra Obs.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 4. More Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n")
+  expect_identical(
+    sbr_tables(),
+    "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 2. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\n#### RB\n\n##### Max Like\n\nTable 3. Extra Obs.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 4. More Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n"
+  )
 
-  expect_identical(sbr_tables(header1 = 1L), "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 2. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\n# RB\n\n## Max Like\n\nTable 3. Extra Obs.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 4. More Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n")
+  expect_identical(
+    sbr_tables(header1 = 1L),
+    "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 2. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\n# RB\n\n## Max Like\n\nTable 3. Extra Obs.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 4. More Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n"
+  )
 
-  expect_identical(sbr_tables(rename = c("max like" = "max Like", "RB" = "Rainbow trout")), "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 2. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\n#### Rainbow trout\n\n##### max Like\n\nTable 3. Extra Obs.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 4. More Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n")
+  expect_identical(
+    sbr_tables(rename = c("max like" = "max Like", "RB" = "Rainbow trout")),
+    "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 2. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\n#### Rainbow trout\n\n##### max Like\n\nTable 3. Extra Obs.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 4. More Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n"
+  )
 
   subfoldr2::sbf_set_sub("RB", "max like", "number6")
   subfoldr2::sbf_save_table(x, caption = "Tiny")
 
-  expect_identical(sbr_tables(rename = c("max like" = "max Like", "RB" = "Rainbow trout")), "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 2. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\n#### Rainbow trout\n\n##### max Like\n\nTable 3. Extra Obs.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 4. More Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\nTable 5. Tiny.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n")
+  expect_identical(
+    sbr_tables(rename = c("max like" = "max Like", "RB" = "Rainbow trout")),
+    "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 2. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\n#### Rainbow trout\n\n##### max Like\n\nTable 3. Extra Obs.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 4. More Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\nTable 5. Tiny.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n"
+  )
 
-  expect_identical(sbr_tables(rename = c("max like" = "max Like", "RB" = "Rainbow trout"), nheaders = 3L), "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 2. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\n#### Rainbow trout\n\n##### max Like\n\nTable 3. Extra Obs.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 4. More Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\n###### Number6\n\nTable 5. Tiny.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n")
+  expect_identical(
+    sbr_tables(
+      rename = c("max like" = "max Like", "RB" = "Rainbow trout"),
+      nheaders = 3L
+    ),
+    "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 2. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\n#### Rainbow trout\n\n##### max Like\n\nTable 3. Extra Obs.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 4. More Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\n###### Number6\n\nTable 5. Tiny.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n"
+  )
 })
 
 test_that("tables sub", {
@@ -116,14 +140,20 @@ test_that("tables sort sub and name", {
   subfoldr2::sbf_save_table(a, sub = "b")
 
   txt <- sbr_tables()
-  expect_identical(txt, "\nTable 1.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n\n#### B\n\nTable 2.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n")
+  expect_identical(
+    txt,
+    "\nTable 1.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n\n#### B\n\nTable 2.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n"
+  )
   expect_identical(
     list.files(sbr_get_report(), recursive = TRUE),
     c("tables/a.csv", "tables/a.yaml", "tables/b/a.csv", "tables/b/a.yaml")
   )
 
   txt <- sbr_tables(sort = c("b", "a"))
-  expect_identical(txt, "\nTable 1.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n\n#### B\n\nTable 2.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n")
+  expect_identical(
+    txt,
+    "\nTable 1.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n\n#### B\n\nTable 2.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n"
+  )
 })
 
 test_that("tables with []", {
