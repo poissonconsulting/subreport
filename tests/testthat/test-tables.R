@@ -8,21 +8,17 @@ test_that("tables", {
   subfoldr2::sbf_save_table(x, caption = "Observations")
 
   txt <- sbr_tables()
-  expect_identical(
-    txt,
-    "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n"
-  )
+  expect_identical(txt, "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n")
   expect_identical(
     list.files(sbr_get_report(), recursive = TRUE),
-    "tables/x.csv"
+    c("tables/x.csv", "tables/x.yaml")
   )
 
   subfoldr2::sbf_save_table(x, x_name = "y", report = FALSE)
   expect_identical(sbr_tables(), txt)
   expect_identical(
     list.files(sbr_get_report(), recursive = TRUE),
-    "tables/x.csv",
-    "tables/y.csv"
+    c("tables/x.csv", "tables/x.yaml")
   )
 
   x_csv <- utils::read.csv(file.path(sbr_get_report(), "tables/x.csv"))
@@ -108,13 +104,10 @@ test_that("tables sub", {
   subfoldr2::sbf_save_table(x, sub = "A sub", caption = "Observations")
 
   txt <- sbr_tables()
-  expect_identical(
-    txt,
-    "\n#### A Sub\n\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n"
-  )
+  expect_identical(txt, "\n#### A Sub\n\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n")
   expect_identical(
     list.files(sbr_get_report(), recursive = TRUE),
-    "tables/A sub/x.csv"
+    c("tables/A sub/x.csv", "tables/A sub/x.yaml")
   )
 })
 
@@ -128,13 +121,10 @@ test_that("tables missing caption", {
   subfoldr2::sbf_save_table(x)
 
   txt <- sbr_tables()
-  expect_identical(
-    txt,
-    "\nTable 1.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n"
-  )
+  expect_identical(txt, "\nTable 1.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n")
   expect_identical(
     list.files(sbr_get_report(), recursive = TRUE),
-    "tables/x.csv"
+    c("tables/x.csv", "tables/x.yaml")
   )
 })
 
@@ -156,7 +146,7 @@ test_that("tables sort sub and name", {
   )
   expect_identical(
     list.files(sbr_get_report(), recursive = TRUE),
-    c("tables/a.csv", "tables/b/a.csv")
+    c("tables/a.csv", "tables/a.yaml", "tables/b/a.csv", "tables/b/a.yaml")
   )
 
   txt <- sbr_tables(sort = c("b", "a"))
@@ -176,12 +166,31 @@ test_that("tables with []", {
   subfoldr2::sbf_save_table(x)
 
   txt <- sbr_tables()
-  expect_identical(
-    txt,
-    "\nTable 1.\n\n|term   | count|\n|:------|-----:|\n|par[1] |     1|\n|par[2] |     2|\n"
-  )
+  expect_identical(txt, "\nTable 1.\n\n|term   | count|\n|:------|-----:|\n|par[1] |     1|\n|par[2] |     2|\n")
   expect_identical(
     list.files(sbr_get_report(), recursive = TRUE),
-    "tables/x.csv"
+    c("tables/x.csv", "tables/x.yaml")
+  )
+})
+
+test_that("tables copies yaml metadata to report folder", {
+  path <- withr::local_tempdir()
+  subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
+  sbr_set_report(path, "report", rm = TRUE, ask = FALSE)
+  sbf_reset_sub()
+
+  x <- data.frame(obs = "JD", count = 1L)
+  subfoldr2::sbf_save_table(x, caption = "Observations")
+  subfoldr2::sbf_save_table(x, x_name = "y", sub = "A sub", caption = "More")
+
+  expect_true(file.exists(file.path(subfoldr2::sbf_get_main(), "tables/x.yaml")))
+
+  sbr_tables()
+  expect_identical(
+    sort(list.files(sbr_get_report(), recursive = TRUE)),
+    sort(c(
+      "tables/x.csv", "tables/x.yaml",
+      "tables/A sub/y.csv", "tables/A sub/y.yaml"
+    ))
   )
 })
