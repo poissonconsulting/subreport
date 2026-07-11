@@ -77,6 +77,7 @@ sbr_tables <- function(x_name = ".*", sub = character(0), report = sbr_get_repor
     return(character(0))
   }
 
+  transfer_files(data, report = report, ext = "yaml")
   data <- write_files(data, report = report, ext = ".csv", fun = write_csv)
 
   data <- sort_sub(data, sort = sort)

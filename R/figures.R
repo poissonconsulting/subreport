@@ -73,10 +73,13 @@ sbr_figures <- function(x_name = ".*", sub = character(0), report = sbr_get_repo
   plots <- drop_duplicate_sub_colnames(plots, windows)
 
   if (nrow(windows)) {
+    transfer_files(windows, ext = "yaml", report = report, class = "plots")
     windows <- transfer_files(windows, ext = "png", report = report, class = "plots")
   }
   if (nrow(plots)) {
     transfer_files(plots, report = report, ext = "csv")
+    transfer_files(plots, report = report, ext = "yaml")
+    transfer_files(plots, report = report, ext = "xlsx")
     plots <- transfer_files(plots, report = report, ext = "png")
   }
   colnames(windows)[1] <- "plots"

@@ -13,7 +13,7 @@ test_that("figures", {
   expect_match(txt, "\n<figure>\n<img alt = \".*report/plots/x.png\" width = \"100%\">\n<figcaption>Figure 1. A ggplot.</figcaption>\n</figure>\n")
   expect_identical(
     sort(list.files(sbr_get_report(), recursive = TRUE)),
-    sort(c("plots/x.csv", "plots/x.png"))
+    sort(c("plots/x.csv", "plots/x.png", "plots/x.yaml"))
   )
 
   skip("opens window")
@@ -116,13 +116,13 @@ test_that("figures pre_num", {
   expect_match(txt, "\n<figure>\n<img alt = \".*report/plots/x.png\" width = \"100%\">\n<figcaption>Figure 1. A ggplot.</figcaption>\n</figure>\n")
   expect_identical(
     sort(list.files(sbr_get_report(), recursive = TRUE)),
-    sort(c("plots/x.csv", "plots/x.png"))
+    sort(c("plots/x.csv", "plots/x.png", "plots/x.yaml"))
   )
   txt <- sbr_figures()
   expect_match(txt, "\n<figure>\n<img alt = \".*report/plots/x.png\" width = \"100%\">\n<figcaption>Figure 2. A ggplot.</figcaption>\n</figure>\n")
   expect_identical(
     sort(list.files(sbr_get_report(), recursive = TRUE)),
-    sort(c("plots/x.csv", "plots/x.png"))
+    sort(c("plots/x.csv", "plots/x.png", "plots/x.yaml"))
   )
 })
 
@@ -163,4 +163,26 @@ test_that("sbr_figures() lists the correct file names in the md string.", {
   file.remove(list.files("report", pattern = "plot-", recursive = TRUE, full.names = TRUE))
   file.remove(list.files("report", pattern = "\\.DS_Store", recursive = TRUE,
                          full.names = TRUE))
+})
+
+test_that("figures copies yaml and xlsx to report folder", {
+  path <- withr::local_tempdir()
+  subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
+  sbr_set_report(path, "report", rm = TRUE, ask = FALSE)
+  sbf_reset_sub()
+
+  data <- data.frame(x = 1:2, y = 3:4)
+  x <- ggplot2::ggplot(data = data, ggplot2::aes(x = x, y = y)) +
+    ggplot2::geom_point()
+  subfoldr2::sbf_save_plot(x, caption = "A ggplot")
+
+  main <- subfoldr2::sbf_get_main()
+  expect_true(file.exists(file.path(main, "plots/x.yaml")))
+  expect_true(file.exists(file.path(main, "plots/x.xlsx")))
+
+  sbr_figures()
+  report <- sbr_get_report()
+  expect_true(file.exists(file.path(report, "plots/x.png")))
+  expect_true(file.exists(file.path(report, "plots/x.yaml")))
+  expect_true(file.exists(file.path(report, "plots/x.xlsx")))
 })
