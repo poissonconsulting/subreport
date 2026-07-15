@@ -20,11 +20,11 @@
 ## Citation
 
 Thorley J, Dalgarno S (2026). *subreport: Generate Reports from
-'subfoldr2' Objects*. R package version 0.1.0.9001.
+'subfoldr2' Objects*. R package version 0.1.0.9002.
 
     @Manual{,
       title = {subreport: Generate Reports from `subfoldr2` Objects},
       author = {Joe Thorley and Seb Dalgarno},
       year = {2026},
-      note = {R package version 0.1.0.9001},
+      note = {R package version 0.1.0.9002},
     }
