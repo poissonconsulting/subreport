@@ -8,11 +8,19 @@
 \description{
 Facilitates generation of .Rmd and .html reports from tables, (code) blocks and figures (plots and windows) saved using the subfoldr2 package. To quickly view all the results use `sbr_knit_results()`. The `sbr_n()` and `sbr_s()` functions can be used to insert numbers or strings saved using subfoldr2.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://poissonconsulting.github.io/subreport/}
+}
+
+}
 \author{
 \strong{Maintainer}: Joe Thorley \email{joe@poissonconsulting.ca} (\href{https://orcid.org/0000-0002-7683-4592}{ORCID})
 
 Authors:
 \itemize{
+  \item Joe Thorley \email{joe@poissonconsulting.ca} (\href{https://orcid.org/0000-0002-7683-4592}{ORCID})
   \item Seb Dalgarno \email{seb@poissonconsulting.ca} (\href{https://orcid.org/0000-0002-3658-4517}{ORCID})
 }
 
