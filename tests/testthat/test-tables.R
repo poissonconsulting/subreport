@@ -8,7 +8,10 @@ test_that("tables", {
   subfoldr2::sbf_save_table(x, caption = "Observations")
 
   txt <- sbr_tables()
-  expect_identical(txt, "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n")
+  expect_identical(
+    txt,
+    "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n"
+  )
   expect_identical(
     list.files(sbr_get_report(), recursive = TRUE),
     c("tables/x.csv", "tables/x.yaml")
@@ -104,7 +107,10 @@ test_that("tables sub", {
   subfoldr2::sbf_save_table(x, sub = "A sub", caption = "Observations")
 
   txt <- sbr_tables()
-  expect_identical(txt, "\n#### A Sub\n\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n")
+  expect_identical(
+    txt,
+    "\n#### A Sub\n\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n"
+  )
   expect_identical(
     list.files(sbr_get_report(), recursive = TRUE),
     c("tables/A sub/x.csv", "tables/A sub/x.yaml")
@@ -121,7 +127,10 @@ test_that("tables missing caption", {
   subfoldr2::sbf_save_table(x)
 
   txt <- sbr_tables()
-  expect_identical(txt, "\nTable 1.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n")
+  expect_identical(
+    txt,
+    "\nTable 1.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n"
+  )
   expect_identical(
     list.files(sbr_get_report(), recursive = TRUE),
     c("tables/x.csv", "tables/x.yaml")
@@ -166,7 +175,10 @@ test_that("tables with []", {
   subfoldr2::sbf_save_table(x)
 
   txt <- sbr_tables()
-  expect_identical(txt, "\nTable 1.\n\n|term   | count|\n|:------|-----:|\n|par[1] |     1|\n|par[2] |     2|\n")
+  expect_identical(
+    txt,
+    "\nTable 1.\n\n|term   | count|\n|:------|-----:|\n|par[1] |     1|\n|par[2] |     2|\n"
+  )
   expect_identical(
     list.files(sbr_get_report(), recursive = TRUE),
     c("tables/x.csv", "tables/x.yaml")
@@ -183,14 +195,19 @@ test_that("tables copies yaml metadata to report folder", {
   subfoldr2::sbf_save_table(x, caption = "Observations")
   subfoldr2::sbf_save_table(x, x_name = "y", sub = "A sub", caption = "More")
 
-  expect_true(file.exists(file.path(subfoldr2::sbf_get_main(), "tables/x.yaml")))
+  expect_true(file.exists(file.path(
+    subfoldr2::sbf_get_main(),
+    "tables/x.yaml"
+  )))
 
   sbr_tables()
   expect_identical(
     sort(list.files(sbr_get_report(), recursive = TRUE)),
     sort(c(
-      "tables/x.csv", "tables/x.yaml",
-      "tables/A sub/y.csv", "tables/A sub/y.yaml"
+      "tables/x.csv",
+      "tables/x.yaml",
+      "tables/A sub/y.csv",
+      "tables/A sub/y.yaml"
     ))
   )
 })
