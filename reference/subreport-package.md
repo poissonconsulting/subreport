@@ -6,12 +6,21 @@ package. To quickly view all the results use \`sbr_knit_results()\`. The
 \`sbr_n()\` and \`sbr_s()\` functions can be used to insert numbers or
 strings saved using subfoldr2.
 
+## See also
+
+Useful links:
+
+- <https://poissonconsulting.github.io/subreport/>
+
 ## Author
 
 **Maintainer**: Joe Thorley <joe@poissonconsulting.ca>
 ([ORCID](https://orcid.org/0000-0002-7683-4592))
 
 Authors:
+
+- Joe Thorley <joe@poissonconsulting.ca>
+  ([ORCID](https://orcid.org/0000-0002-7683-4592))
 
 - Seb Dalgarno <seb@poissonconsulting.ca>
   ([ORCID](https://orcid.org/0000-0002-3658-4517))

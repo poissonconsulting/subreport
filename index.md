@@ -24,7 +24,8 @@ functions allow numbers and strings to be inserted into .Rmd reports.
 
 ## Usage
 
-``` R
+``` r
+
 library(subfoldr2)
 library(subreport)
 
@@ -50,7 +51,8 @@ cat(sbr_tables())
 To install the latest development version from GitHub
 [repository](https://github.com/poissonconsulting/subreport)
 
-``` R
+``` r
+
 # install.packages("remotes")
 remotes::install_github("poissonconsulting/subreport")
 ```
