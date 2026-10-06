@@ -1,4 +1,5 @@
 test_that("figures", {
+  withr::local_options(sbr.pre_num_fig = NULL)
   path <- withr::local_tempdir()
   subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
   sbr_set_report(path, "report", rm = TRUE, ask = FALSE)
@@ -8,7 +9,7 @@ test_that("figures", {
   x <- ggplot2::ggplot(data = data, ggplot2::aes(x = x, y = y))
   subfoldr2::sbf_save_plot(x, caption = "A ggplot")
 
-  options(warn = 2)
+  withr::local_options(warn = 2)
   txt <- sbr_figures()
   expect_match(
     txt,
@@ -16,7 +17,7 @@ test_that("figures", {
   )
   expect_identical(
     sort(list.files(sbr_get_report(), recursive = TRUE)),
-    sort(c("plots/x.csv", "plots/x.png", "plots/x.yaml"))
+    sort(c("plots/x.csv", "plots/x.png", "plots/x.xlsx", "plots/x.yaml"))
   )
 
   skip("opens window")
@@ -55,6 +56,7 @@ test_that("figures", {
 })
 
 test_that("figures sort sub and name", {
+  withr::local_options(sbr.pre_num_fig = NULL)
   path <- withr::local_tempdir()
   subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
   sbr_set_report(path, "report", rm = TRUE, ask = FALSE)
@@ -98,6 +100,7 @@ test_that("figures sort sub and name", {
 })
 
 test_that("figures different sub lengths windows and plots", {
+  withr::local_options(sbr.pre_num_fig = NULL)
   path <- withr::local_tempdir()
   subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
   sbr_set_report(path, "report", rm = TRUE, ask = FALSE)
@@ -132,6 +135,7 @@ test_that("figures different sub lengths windows and plots", {
 })
 
 test_that("figures pre_num", {
+  withr::local_options(sbr.pre_num_fig = NULL)
   path <- withr::local_tempdir()
   subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
   sbr_set_report(path, "report", rm = TRUE, ask = FALSE)
@@ -141,7 +145,7 @@ test_that("figures pre_num", {
   x <- ggplot2::ggplot(data = data, ggplot2::aes(x = x, y = y))
   subfoldr2::sbf_save_plot(x, caption = "A ggplot")
 
-  options(warn = 2)
+  withr::local_options(warn = 2)
   txt <- sbr_figures(pre_num = 0)
   expect_match(
     txt,
@@ -149,7 +153,7 @@ test_that("figures pre_num", {
   )
   expect_identical(
     sort(list.files(sbr_get_report(), recursive = TRUE)),
-    sort(c("plots/x.csv", "plots/x.png", "plots/x.yaml"))
+    sort(c("plots/x.csv", "plots/x.png", "plots/x.xlsx", "plots/x.yaml"))
   )
   txt <- sbr_figures()
   expect_match(
@@ -158,11 +162,12 @@ test_that("figures pre_num", {
   )
   expect_identical(
     sort(list.files(sbr_get_report(), recursive = TRUE)),
-    sort(c("plots/x.csv", "plots/x.png", "plots/x.yaml"))
+    sort(c("plots/x.csv", "plots/x.png", "plots/x.xlsx", "plots/x.yaml"))
   )
 })
 
 test_that("sbr_figures() lists the correct file names in the md string.", {
+  withr::local_options(sbr.pre_num_fig = NULL)
   expect_identical(character(0), sbr_figures())
 
   p1 <- ggplot2::ggplot() +
@@ -217,6 +222,7 @@ test_that("sbr_figures() lists the correct file names in the md string.", {
 })
 
 test_that("figures copies yaml and xlsx to report folder", {
+  withr::local_options(sbr.pre_num_fig = NULL)
   path <- withr::local_tempdir()
   subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
   sbr_set_report(path, "report", rm = TRUE, ask = FALSE)

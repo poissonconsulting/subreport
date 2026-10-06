@@ -64,3 +64,65 @@ test_that("sigfig_override and sigfig work as expected", {
     "\nTable 1.\n\n|x  |       y|\n|:--|-------:|\n|a  | 0.01586|\n\nTable 2.\n\n|x  |    y|\n|:--|----:|\n|b  | 2020|\n"
   )
 })
+
+test_that("sigfig_override and sigfig applies to tables with the same name in nested subs", {
+  path <- withr::local_tempdir()
+  subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
+  sbr_set_report(path, "report", rm = TRUE, ask = FALSE)
+  sbf_reset_sub()
+
+  x <- data.frame(x = "a", y = 1.234567)
+  x2 <- data.frame(x = "b", y = 2025)
+  subfoldr2::sbf_save_table(x, x_name = "coef", sub = "density")
+  subfoldr2::sbf_save_table(x, x_name = "coef", sub = "density/nested")
+  subfoldr2::sbf_save_table(x, x_name = "coef", sub = "density/nested/deeper")
+  subfoldr2::sbf_save_table(x2, x_name = "glance", sub = "density/nested")
+
+  txt <- sbr_tables()
+  expect_identical(
+    txt,
+    "\n#### Density\n\nTable 1.\n\n|x  |     y|\n|:--|-----:|\n|a  | 1.235|\n\n##### Nested\n\nTable 2.\n\n|x  |     y|\n|:--|-----:|\n|a  | 1.235|\n\nTable 3.\n\n|x  |    y|\n|:--|----:|\n|b  | 2025|\n\nTable 4.\n\n|x  |     y|\n|:--|-----:|\n|a  | 1.235|\n"
+  )
+
+  txt <- sbr_tables(sigfig = 1)
+  expect_identical(
+    txt,
+    "\n#### Density\n\nTable 1.\n\n|x  |  y|\n|:--|--:|\n|a  |  1|\n\n##### Nested\n\nTable 2.\n\n|x  |  y|\n|:--|--:|\n|a  |  1|\n\nTable 3.\n\n|x  |    y|\n|:--|----:|\n|b  | 2000|\n\nTable 4.\n\n|x  |  y|\n|:--|--:|\n|a  |  1|\n"
+  )
+
+  txt <- sbr_tables(sigfig = 1, sigfig_override = c("coef" = 3))
+  expect_identical(
+    txt,
+    "\n#### Density\n\nTable 1.\n\n|x  |    y|\n|:--|----:|\n|a  | 1.23|\n\n##### Nested\n\nTable 2.\n\n|x  |    y|\n|:--|----:|\n|a  | 1.23|\n\nTable 3.\n\n|x  |    y|\n|:--|----:|\n|b  | 2000|\n\nTable 4.\n\n|x  |    y|\n|:--|----:|\n|a  | 1.23|\n"
+  )
+
+  txt <- sbr_tables(sigfig = 1, sigfig_override = c("coef" = 5, "glance" = 3))
+  expect_identical(
+    txt,
+    "\n#### Density\n\nTable 1.\n\n|x  |      y|\n|:--|------:|\n|a  | 1.2346|\n\n##### Nested\n\nTable 2.\n\n|x  |      y|\n|:--|------:|\n|a  | 1.2346|\n\nTable 3.\n\n|x  |    y|\n|:--|----:|\n|b  | 2020|\n\nTable 4.\n\n|x  |      y|\n|:--|------:|\n|a  | 1.2346|\n"
+  )
+
+  txt <- sbr_tables(sigfig = 5, sigfig_override = c("glance" = 1))
+  expect_identical(
+    txt,
+    "\n#### Density\n\nTable 1.\n\n|x  |      y|\n|:--|------:|\n|a  | 1.2346|\n\n##### Nested\n\nTable 2.\n\n|x  |      y|\n|:--|------:|\n|a  | 1.2346|\n\nTable 3.\n\n|x  |    y|\n|:--|----:|\n|b  | 2000|\n\nTable 4.\n\n|x  |      y|\n|:--|------:|\n|a  | 1.2346|\n"
+  )
+})
+
+test_that("sigfig_override can target a single nested table by giving it a unique name", {
+  path <- withr::local_tempdir()
+  subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
+  sbr_set_report(path, "report", rm = TRUE, ask = FALSE)
+  sbf_reset_sub()
+
+  x <- data.frame(x = "a", y = 1.234567)
+  subfoldr2::sbf_save_table(x, x_name = "coef", sub = "density")
+  subfoldr2::sbf_save_table(x, x_name = "coef_nested", sub = "density/nested")
+  subfoldr2::sbf_save_table(x, x_name = "coef", sub = "density/nested/deeper")
+
+  txt <- sbr_tables(sigfig = 5, sigfig_override = c("coef_nested" = 2))
+  expect_identical(
+    txt,
+    "\n#### Density\n\nTable 1.\n\n|x  |      y|\n|:--|------:|\n|a  | 1.2346|\n\n##### Nested\n\nTable 2.\n\n|x  |   y|\n|:--|---:|\n|a  | 1.2|\n\nTable 3.\n\n|x  |      y|\n|:--|------:|\n|a  | 1.2346|\n"
+  )
+})
