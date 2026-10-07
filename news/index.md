@@ -1,5 +1,15 @@
 # Changelog
 
+## subreport 0.1.0.9003
+
+- Merge pull request \#51 from poissonconsulting/air-formatting.
+
+  update build script and air formatting
+
+- Merge pull request \#52 from poissonconsulting/fix-tests.
+
+  fixing failing figures and tables tests
+
 ## subreport 0.1.0.9002
 
 - Same as previous version.
