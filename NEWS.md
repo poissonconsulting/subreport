@@ -1,5 +1,10 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# subreport 0.1.0.9004
+
+- Same as previous version.
+
+
 # subreport 0.1.0.9003
 
 - Merge pull request #51 from poissonconsulting/air-formatting.
