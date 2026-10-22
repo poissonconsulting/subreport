@@ -254,3 +254,29 @@ test_that("tables pre_num", {
     sort(c("tables/x.csv", "tables/x.yaml"))
   )
 })
+
+test_that("tables drop", {
+  withr::local_options(sbr.pre_num_tab = NULL)
+  path <- withr::local_tempdir()
+  subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
+  sbr_set_report(path, "report", rm = TRUE, ask = FALSE)
+  sbf_reset_sub()
+
+  subfoldr2::sbf_save_table(data.frame(x = 1L), "x", sub = "a", caption = "Kept")
+  subfoldr2::sbf_save_table(
+    data.frame(x = 2L),
+    "x",
+    sub = "b",
+    caption = "Dropped"
+  )
+
+  expect_identical(
+    sbr_tables(drop = "b"),
+    "\n#### A\n\nTable 1. Kept.\n\n|  x|\n|--:|\n|  1|\n"
+  )
+  expect_identical(
+    sort(list.files(sbr_get_report(), recursive = TRUE)),
+    sort(c("tables/a/x.csv", "tables/a/x.yaml"))
+  )
+  expect_identical(sbr_tables(drop = c("a", "b")), character(0))
+})
