@@ -19,7 +19,7 @@ sbr_knit_results(
 
 \item{report}{A string of the directory to save the tables, code blocks and plots.}
 
-\item{sub}{A string specifying the path to the sub folder (by default the
+\item{sub}{A string or character vector specifying the path to the sub folder (by default the
 current sub folder).}
 
 \item{main}{A string specifying the path to the main folder (by default the

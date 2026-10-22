@@ -17,7 +17,8 @@ sbr_tables(
   header1 = 4L,
   main = subfoldr2::sbf_get_main(),
   sigfig = 4L,
-  sigfig_override = NULL
+  sigfig_override = NULL,
+  pre_num = getOption("sbr.pre_num_tab", 0L)
 )
 }
 \arguments{
@@ -48,6 +49,8 @@ By default sub folder names have the first letter of each word capitalized.}
 \item{sigfig}{A positive integer of the significant figures to use when formatting numbers. This is applied to all tables.}
 
 \item{sigfig_override}{A named vector of table names and the number of significant figures to use. This will override the default set in \code{sigfig} for matching tables.}
+
+\item{pre_num}{A count specifying the number of pre-existing items.}
 }
 \value{
 A string of the tables in markdown format.
