@@ -41,4 +41,4 @@ Remotes:
 Encoding: UTF-8
 Config/Needs/website: poissonconsulting/poissontemplate
 Roxygen: list(markdown = TRUE)
-Config/roxygen2/version: 8.1.0.9000
+Config/roxygen2/version: 8.1.1.9000

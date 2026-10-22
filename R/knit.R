@@ -31,6 +31,8 @@ sbr_knit_results <- function(
   input <- paste0(file, ".Rmd")
   writeLines(report_text(sub = sub, main = main), con = input)
 
+  options(sbr.pre_num_tab = NULL, sbr.pre_num_fig = NULL)
+
   path <- rmarkdown::render(
     input = input,
     output_format = "html_document",

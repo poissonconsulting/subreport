@@ -12,7 +12,7 @@ sbr_n(x_name, sub = character(0))
 \arguments{
 \item{x_name}{A string of the name.}
 
-\item{sub}{A string specifying the path to the sub folder (by default the
+\item{sub}{A string or character vector specifying the path to the sub folder (by default the
 current sub folder).}
 }
 \value{

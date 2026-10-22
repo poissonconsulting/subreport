@@ -17,6 +17,7 @@
 #' @param main A string of the path to the main folder.
 #' @param sigfig A positive integer of the significant figures to use when formatting numbers. This is applied to all tables.
 #' @param sigfig_override A named vector of table names and the number of significant figures to use. This will override the default set in `sigfig` for matching tables.
+#' @param pre_num A count specifying the number of pre-existing items.
 #' @return A string of the tables in markdown format.
 #' @export
 sbr_tables <- function(
@@ -32,7 +33,8 @@ sbr_tables <- function(
   header1 = 4L,
   main = subfoldr2::sbf_get_main(),
   sigfig = 4L,
-  sigfig_override = NULL
+  sigfig_override = NULL,
+  pre_num = getOption("sbr.pre_num_tab", 0L)
 ) {
   chk_string(x_name)
   chk_string(report)
@@ -68,6 +70,7 @@ sbr_tables <- function(
   chk_null_or(sigfig_override, vld = vld_whole_numeric)
   chk_null_or(sigfig_override, vld = vld_gte)
   chk_null_or(names(sigfig_override), vld = vld_unique)
+  chk_count(pre_num)
 
   nheaders <- min(nheaders, (7L - header1))
 
@@ -95,7 +98,7 @@ sbr_tables <- function(
   data <- rename_sub(data, rename)
   data <- set_headings(data, nheaders, header1)
 
-  data$caption <- p0("Table ", 1:nrow(data), ". ", data$caption)
+  data$caption <- p0("Table ", 1:nrow(data) + pre_num, ". ", data$caption)
   data$caption <- add_full_stop(data$caption)
 
   txt <- character(0)
@@ -124,6 +127,7 @@ sbr_tables <- function(
 
     txt <- c(txt, heading, caption, "", table)
   }
+  options(sbr.pre_num_tab = nrow(data) + pre_num)
   txt <- c(txt, "")
   p0(txt, collapse = "\n")
 }
