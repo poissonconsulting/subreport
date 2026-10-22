@@ -27,3 +27,23 @@ test_that("blocks", {
   y_txt <- paste0(y_txt, collapse = "\n")
   expect_identical(y_txt, y)
 })
+
+test_that("blocks drop", {
+  path <- withr::local_tempdir()
+  subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
+  sbr_set_report(path, "report", rm = TRUE, ask = FALSE)
+  sbf_reset_sub()
+
+  subfoldr2::sbf_save_block("kept", "x", sub = "a", caption = "kept")
+  subfoldr2::sbf_save_block("dropped", "x", sub = "b", caption = "dropped")
+
+  expect_identical(
+    sbr_blocks(drop = "b"),
+    "\n#### A\n\n```\n.\nkept\n..\n```\nBlock 1. kept.\n"
+  )
+  expect_identical(
+    list.files(sbr_get_report(), recursive = TRUE),
+    "blocks/a/x.txt"
+  )
+  expect_identical(sbr_blocks(drop = c("a", "b")), character(0))
+})
