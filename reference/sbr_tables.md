@@ -19,7 +19,8 @@ sbr_tables(
   header1 = 4L,
   main = subfoldr2::sbf_get_main(),
   sigfig = 4L,
-  sigfig_override = NULL
+  sigfig_override = NULL,
+  pre_num = getOption("sbr.pre_num_tab", 0L)
 )
 ```
 
@@ -87,6 +88,10 @@ sbr_tables(
   A named vector of table names and the number of significant figures to
   use. This will override the default set in `sigfig` for matching
   tables.
+
+- pre_num:
+
+  A count specifying the number of pre-existing items.
 
 ## Value
 
