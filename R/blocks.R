@@ -53,13 +53,13 @@ sbr_blocks <- function(
     sub = sub,
     main = main,
     meta = TRUE,
-    tag = tag
+    tag = tag,
+    drop = drop
   )
 
   data <- rename_sub_sub1(data)
 
   data <- keep_sub(data, keep = keep)
-  data <- drop_sub(data, drop = drop)
 
   data <- data[grepl(x_name, data$name), ]
 
