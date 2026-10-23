@@ -18,6 +18,11 @@
 #' @param sigfig A positive integer of the significant figures to use when formatting numbers. This is applied to all tables.
 #' @param sigfig_override A named vector of table names and the number of significant figures to use. This will override the default set in `sigfig` for matching tables.
 #' @param pre_num A count specifying the number of pre-existing items.
+#' @param rounded A flag specifying whether to use the rounded markdown table
+#'   (`.md`) saved by [subfoldr2::sbf_save_table()] when it is available.
+#'   The rounded tables follow the rounding policy for estimates and CLs and
+#'   align numeric values on the decimal point. Tables without a `.md` file,
+#'   or named in `sigfig_override`, are formatted using `sigfig`.
 #' @return A string of the tables in markdown format.
 #' @export
 sbr_tables <- function(
@@ -34,7 +39,8 @@ sbr_tables <- function(
   main = subfoldr2::sbf_get_main(),
   sigfig = 4L,
   sigfig_override = NULL,
-  pre_num = getOption("sbr.pre_num_tab", 0L)
+  pre_num = getOption("sbr.pre_num_tab", 0L),
+  rounded = TRUE
 ) {
   chk_string(x_name)
   chk_string(report)
@@ -71,6 +77,7 @@ sbr_tables <- function(
   chk_null_or(sigfig_override, vld = vld_gte)
   chk_null_or(names(sigfig_override), vld = vld_unique)
   chk_count(pre_num)
+  chk_flag(rounded)
 
   nheaders <- min(nheaders, (7L - header1))
 
@@ -94,6 +101,15 @@ sbr_tables <- function(
   transfer_files(data, report = report, ext = "yaml")
   data <- write_files(data, report = report, ext = ".csv", fun = write_csv)
 
+  data$md <- replace_ext(data$file, "md")
+  data$rounded <- rounded & file.exists(data$md)
+  if (!is.null(sigfig_override)) {
+    data$rounded <- data$rounded & !data$name %in% names(sigfig_override)
+  }
+  if (any(data$rounded)) {
+    transfer_files(data[data$rounded, ], report = report, ext = "md")
+  }
+
   data <- sort_sub(data, sort = sort)
   data <- rename_sub(data, rename)
   data <- set_headings(data, nheaders, header1)
@@ -106,6 +122,12 @@ sbr_tables <- function(
     heading <- data$heading[i]
     caption <- data$caption[i]
     nm <- data$name[i]
+
+    if (data$rounded[i]) {
+      table <- readLines(data$md[i], encoding = "UTF-8", warn = FALSE)
+      txt <- c(txt, heading, caption, "", table)
+      next
+    }
 
     table <- data$tables[[i]]
     # done before formatting to character in signif_table

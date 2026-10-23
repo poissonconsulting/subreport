@@ -41,25 +41,31 @@ test_that("sigfig_override and sigfig work as expected", {
   subfoldr2::sbf_save_table(x, x_name = "coef")
   subfoldr2::sbf_save_table(x2, x_name = "glance")
 
-  txt <- sbr_tables(pre_num = 0L)
+  txt <- sbr_tables(rounded = FALSE, pre_num = 0L)
   expect_identical(
     txt,
     "\nTable 1.\n\n|x  |       y|\n|:--|-------:|\n|a  | 0.01586|\n\nTable 2.\n\n|x  |    y|\n|:--|----:|\n|b  | 2025|\n"
   )
 
-  txt <- sbr_tables(sigfig = 1, pre_num = 0L)
+  txt <- sbr_tables(rounded = FALSE, sigfig = 1, pre_num = 0L)
   expect_identical(
     txt,
     "\nTable 1.\n\n|x  |    y|\n|:--|----:|\n|a  | 0.02|\n\nTable 2.\n\n|x  |    y|\n|:--|----:|\n|b  | 2000|\n"
   )
 
-  txt <- sbr_tables(sigfig = 1, sigfig_override = c("coef" = 3), pre_num = 0L)
+  txt <- sbr_tables(
+    rounded = FALSE,
+    sigfig = 1,
+    sigfig_override = c("coef" = 3),
+    pre_num = 0L
+  )
   expect_identical(
     txt,
     "\nTable 1.\n\n|x  |      y|\n|:--|------:|\n|a  | 0.0159|\n\nTable 2.\n\n|x  |    y|\n|:--|----:|\n|b  | 2000|\n"
   )
 
   txt <- sbr_tables(
+    rounded = FALSE,
     sigfig = 1,
     sigfig_override = c("coef" = 4, "glance" = 3),
     pre_num = 0L
@@ -84,25 +90,31 @@ test_that("sigfig_override and sigfig applies to tables with the same name in ne
   subfoldr2::sbf_save_table(x, x_name = "coef", sub = "density/nested/deeper")
   subfoldr2::sbf_save_table(x2, x_name = "glance", sub = "density/nested")
 
-  txt <- sbr_tables(pre_num = 0L)
+  txt <- sbr_tables(rounded = FALSE, pre_num = 0L)
   expect_identical(
     txt,
     "\n#### Density\n\nTable 1.\n\n|x  |     y|\n|:--|-----:|\n|a  | 1.235|\n\n##### Nested\n\nTable 2.\n\n|x  |     y|\n|:--|-----:|\n|a  | 1.235|\n\nTable 3.\n\n|x  |    y|\n|:--|----:|\n|b  | 2025|\n\nTable 4.\n\n|x  |     y|\n|:--|-----:|\n|a  | 1.235|\n"
   )
 
-  txt <- sbr_tables(sigfig = 1, pre_num = 0L)
+  txt <- sbr_tables(rounded = FALSE, sigfig = 1, pre_num = 0L)
   expect_identical(
     txt,
     "\n#### Density\n\nTable 1.\n\n|x  |  y|\n|:--|--:|\n|a  |  1|\n\n##### Nested\n\nTable 2.\n\n|x  |  y|\n|:--|--:|\n|a  |  1|\n\nTable 3.\n\n|x  |    y|\n|:--|----:|\n|b  | 2000|\n\nTable 4.\n\n|x  |  y|\n|:--|--:|\n|a  |  1|\n"
   )
 
-  txt <- sbr_tables(sigfig = 1, sigfig_override = c("coef" = 3), pre_num = 0L)
+  txt <- sbr_tables(
+    rounded = FALSE,
+    sigfig = 1,
+    sigfig_override = c("coef" = 3),
+    pre_num = 0L
+  )
   expect_identical(
     txt,
     "\n#### Density\n\nTable 1.\n\n|x  |    y|\n|:--|----:|\n|a  | 1.23|\n\n##### Nested\n\nTable 2.\n\n|x  |    y|\n|:--|----:|\n|a  | 1.23|\n\nTable 3.\n\n|x  |    y|\n|:--|----:|\n|b  | 2000|\n\nTable 4.\n\n|x  |    y|\n|:--|----:|\n|a  | 1.23|\n"
   )
 
   txt <- sbr_tables(
+    rounded = FALSE,
     sigfig = 1,
     sigfig_override = c("coef" = 5, "glance" = 3),
     pre_num = 0L
@@ -112,7 +124,12 @@ test_that("sigfig_override and sigfig applies to tables with the same name in ne
     "\n#### Density\n\nTable 1.\n\n|x  |      y|\n|:--|------:|\n|a  | 1.2346|\n\n##### Nested\n\nTable 2.\n\n|x  |      y|\n|:--|------:|\n|a  | 1.2346|\n\nTable 3.\n\n|x  |    y|\n|:--|----:|\n|b  | 2020|\n\nTable 4.\n\n|x  |      y|\n|:--|------:|\n|a  | 1.2346|\n"
   )
 
-  txt <- sbr_tables(sigfig = 5, sigfig_override = c("glance" = 1), pre_num = 0L)
+  txt <- sbr_tables(
+    rounded = FALSE,
+    sigfig = 5,
+    sigfig_override = c("glance" = 1),
+    pre_num = 0L
+  )
   expect_identical(
     txt,
     "\n#### Density\n\nTable 1.\n\n|x  |      y|\n|:--|------:|\n|a  | 1.2346|\n\n##### Nested\n\nTable 2.\n\n|x  |      y|\n|:--|------:|\n|a  | 1.2346|\n\nTable 3.\n\n|x  |    y|\n|:--|----:|\n|b  | 2000|\n\nTable 4.\n\n|x  |      y|\n|:--|------:|\n|a  | 1.2346|\n"
@@ -131,7 +148,11 @@ test_that("sigfig_override can target a single nested table by giving it a uniqu
   subfoldr2::sbf_save_table(x, x_name = "coef_nested", sub = "density/nested")
   subfoldr2::sbf_save_table(x, x_name = "coef", sub = "density/nested/deeper")
 
-  txt <- sbr_tables(sigfig = 5, sigfig_override = c("coef_nested" = 2))
+  txt <- sbr_tables(
+    rounded = FALSE,
+    sigfig = 5,
+    sigfig_override = c("coef_nested" = 2)
+  )
   expect_identical(
     txt,
     "\n#### Density\n\nTable 1.\n\n|x  |      y|\n|:--|------:|\n|a  | 1.2346|\n\n##### Nested\n\nTable 2.\n\n|x  |   y|\n|:--|---:|\n|a  | 1.2|\n\nTable 3.\n\n|x  |      y|\n|:--|------:|\n|a  | 1.2346|\n"
