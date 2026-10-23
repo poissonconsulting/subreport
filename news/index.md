@@ -1,5 +1,17 @@
 # Changelog
 
+## subreport 0.1.0.9005
+
+- Merge pull request \#56 from poissonconsulting/drop-unnecessary.
+
+  - Drop unnecessary tables, blocks, numbers, and strings before loading
+
+- Merge pull request \#55 from poissonconsulting/pre-num-tables.
+
+  - Number tables continuously across
+    [`sbr_tables()`](https://poissonconsulting.github.io/subreport/reference/sbr_tables.md)
+    calls (fixes \#13)
+
 ## subreport 0.1.0.9004
 
 - Same as previous version.
