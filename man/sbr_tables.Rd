@@ -18,7 +18,8 @@ sbr_tables(
   main = subfoldr2::sbf_get_main(),
   sigfig = 4L,
   sigfig_override = NULL,
-  pre_num = getOption("sbr.pre_num_tab", 0L)
+  pre_num = getOption("sbr.pre_num_tab", 0L),
+  rounded = TRUE
 )
 }
 \arguments{
@@ -51,6 +52,12 @@ By default sub folder names have the first letter of each word capitalized.}
 \item{sigfig_override}{A named vector of table names and the number of significant figures to use. This will override the default set in \code{sigfig} for matching tables.}
 
 \item{pre_num}{A count specifying the number of pre-existing items.}
+
+\item{rounded}{A flag specifying whether to use the rounded markdown table
+(\code{.md}) saved by \code{\link[subfoldr2:sbf_save_table]{subfoldr2::sbf_save_table()}} when it is available.
+The rounded tables follow the rounding policy for estimates and CLs and
+align numeric values on the decimal point. Tables without a \code{.md} file,
+or named in \code{sigfig_override}, are formatted using \code{sigfig}.}
 }
 \value{
 A string of the tables in markdown format.

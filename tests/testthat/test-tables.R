@@ -8,7 +8,7 @@ test_that("tables", {
   x <- data.frame(obs = "JD", count = 1L)
   subfoldr2::sbf_save_table(x, caption = "Observations")
 
-  txt <- sbr_tables(pre_num = 0L)
+  txt <- sbr_tables(rounded = FALSE, pre_num = 0L)
   expect_identical(
     txt,
     "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n"
@@ -19,7 +19,7 @@ test_that("tables", {
   )
 
   subfoldr2::sbf_save_table(x, x_name = "y", report = FALSE)
-  expect_identical(sbr_tables(pre_num = 0L), txt)
+  expect_identical(sbr_tables(rounded = FALSE, pre_num = 0L), txt)
   expect_identical(
     list.files(sbr_get_report(), recursive = TRUE),
     c("tables/x.csv", "tables/x.yaml")
@@ -28,27 +28,30 @@ test_that("tables", {
   x_csv <- utils::read.csv(file.path(sbr_get_report(), "tables/x.csv"))
   expect_identical(x_csv, x)
 
-  expect_identical(sbr_tables(drop = "x", pre_num = 0L), character(0))
+  expect_identical(
+    sbr_tables(rounded = FALSE, drop = "x", pre_num = 0L),
+    character(0)
+  )
 
   z <- data.frame(Site = 1:2, Name = c("parlour", "study"))
   subfoldr2::sbf_save_table(z, caption = "Sites")
   expect_identical(
-    sbr_tables(pre_num = 0L),
+    sbr_tables(rounded = FALSE, pre_num = 0L),
     "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 2. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n"
   )
 
   expect_identical(
-    sbr_tables("x", pre_num = 0L),
+    sbr_tables(rounded = FALSE, "x", pre_num = 0L),
     "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n"
   )
 
   expect_identical(
-    sbr_tables("(x)|(z)", pre_num = 0L),
+    sbr_tables(rounded = FALSE, "(x)|(z)", pre_num = 0L),
     "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 2. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n"
   )
 
   expect_identical(
-    sbr_tables(sort = "z", pre_num = 0L),
+    sbr_tables(rounded = FALSE, sort = "z", pre_num = 0L),
     "\nTable 1. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\nTable 2. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n"
   )
 
@@ -57,27 +60,28 @@ test_that("tables", {
   subfoldr2::sbf_save_table(z, caption = "More Sites")
 
   expect_identical(
-    sbr_tables(nheaders = 0L, pre_num = 0L),
+    sbr_tables(rounded = FALSE, nheaders = 0L, pre_num = 0L),
     "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 2. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\nTable 3. Extra Obs.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 4. More Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n"
   )
 
   expect_identical(
-    sbr_tables(sort = "z", nheaders = 0L, pre_num = 0L),
+    sbr_tables(rounded = FALSE, sort = "z", nheaders = 0L, pre_num = 0L),
     "\nTable 1. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\nTable 2. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 3. More Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\nTable 4. Extra Obs.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n"
   )
 
   expect_identical(
-    sbr_tables(pre_num = 0L),
+    sbr_tables(rounded = FALSE, pre_num = 0L),
     "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 2. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\n#### RB\n\n##### Max Like\n\nTable 3. Extra Obs.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 4. More Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n"
   )
 
   expect_identical(
-    sbr_tables(header1 = 1L, pre_num = 0L),
+    sbr_tables(rounded = FALSE, header1 = 1L, pre_num = 0L),
     "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 2. Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n\n# RB\n\n## Max Like\n\nTable 3. Extra Obs.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n\nTable 4. More Sites.\n\n| Site|Name    |\n|----:|:-------|\n|    1|parlour |\n|    2|study   |\n"
   )
 
   expect_identical(
     sbr_tables(
+      rounded = FALSE,
       rename = c("max like" = "max Like", "RB" = "Rainbow trout"),
       pre_num = 0L
     ),
@@ -89,6 +93,7 @@ test_that("tables", {
 
   expect_identical(
     sbr_tables(
+      rounded = FALSE,
       rename = c("max like" = "max Like", "RB" = "Rainbow trout"),
       pre_num = 0L
     ),
@@ -97,6 +102,7 @@ test_that("tables", {
 
   expect_identical(
     sbr_tables(
+      rounded = FALSE,
       rename = c("max like" = "max Like", "RB" = "Rainbow trout"),
       nheaders = 3L,
       pre_num = 0L
@@ -115,7 +121,7 @@ test_that("tables sub", {
   x <- data.frame(obs = "JD", count = 1L)
   subfoldr2::sbf_save_table(x, sub = "A sub", caption = "Observations")
 
-  txt <- sbr_tables()
+  txt <- sbr_tables(rounded = FALSE)
   expect_identical(
     txt,
     "\n#### A Sub\n\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n"
@@ -136,7 +142,7 @@ test_that("tables missing caption", {
   x <- data.frame(obs = "JD", count = 1L)
   subfoldr2::sbf_save_table(x)
 
-  txt <- sbr_tables()
+  txt <- sbr_tables(rounded = FALSE)
   expect_identical(
     txt,
     "\nTable 1.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n"
@@ -159,7 +165,7 @@ test_that("tables sort sub and name", {
 
   subfoldr2::sbf_save_table(a, sub = "b")
 
-  txt <- sbr_tables(pre_num = 0L)
+  txt <- sbr_tables(rounded = FALSE, pre_num = 0L)
   expect_identical(
     txt,
     "\nTable 1.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n\n#### B\n\nTable 2.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n"
@@ -169,7 +175,7 @@ test_that("tables sort sub and name", {
     c("tables/a.csv", "tables/a.yaml", "tables/b/a.csv", "tables/b/a.yaml")
   )
 
-  txt <- sbr_tables(sort = c("b", "a"), pre_num = 0L)
+  txt <- sbr_tables(rounded = FALSE, sort = c("b", "a"), pre_num = 0L)
   expect_identical(
     txt,
     "\nTable 1.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n\n#### B\n\nTable 2.\n\n|obs |count |\n|:---|:-----|\n|JD  |A     |\n"
@@ -186,7 +192,7 @@ test_that("tables with []", {
   x <- data.frame(term = c("par[1]", "par[2]"), count = 1:2)
   subfoldr2::sbf_save_table(x)
 
-  txt <- sbr_tables()
+  txt <- sbr_tables(rounded = FALSE)
   expect_identical(
     txt,
     "\nTable 1.\n\n|term   | count|\n|:------|-----:|\n|par[1] |     1|\n|par[2] |     2|\n"
@@ -213,7 +219,7 @@ test_that("tables copies yaml metadata to report folder", {
     "tables/x.yaml"
   )))
 
-  sbr_tables()
+  sbr_tables(rounded = FALSE)
   expect_identical(
     sort(list.files(sbr_get_report(), recursive = TRUE)),
     sort(c(
@@ -235,7 +241,7 @@ test_that("tables pre_num", {
   x <- data.frame(obs = "JD", count = 1L)
   subfoldr2::sbf_save_table(x, caption = "Observations")
 
-  txt <- sbr_tables(pre_num = 0)
+  txt <- sbr_tables(rounded = FALSE, pre_num = 0)
   expect_identical(
     txt,
     "\nTable 1. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n"
@@ -244,7 +250,7 @@ test_that("tables pre_num", {
     sort(list.files(sbr_get_report(), recursive = TRUE)),
     sort(c("tables/x.csv", "tables/x.yaml"))
   )
-  txt <- sbr_tables()
+  txt <- sbr_tables(rounded = FALSE)
   expect_identical(
     txt,
     "\nTable 2. Observations.\n\n|obs | count|\n|:---|-----:|\n|JD  |     1|\n"
@@ -262,7 +268,12 @@ test_that("tables drop", {
   sbr_set_report(path, "report", rm = TRUE, ask = FALSE)
   sbf_reset_sub()
 
-  subfoldr2::sbf_save_table(data.frame(x = 1L), "x", sub = "a", caption = "Kept")
+  subfoldr2::sbf_save_table(
+    data.frame(x = 1L),
+    "x",
+    sub = "a",
+    caption = "Kept"
+  )
   subfoldr2::sbf_save_table(
     data.frame(x = 2L),
     "x",
@@ -271,12 +282,48 @@ test_that("tables drop", {
   )
 
   expect_identical(
-    sbr_tables(drop = "b"),
+    sbr_tables(rounded = FALSE, drop = "b"),
     "\n#### A\n\nTable 1. Kept.\n\n|  x|\n|--:|\n|  1|\n"
   )
   expect_identical(
     sort(list.files(sbr_get_report(), recursive = TRUE)),
     sort(c("tables/a/x.csv", "tables/a/x.yaml"))
   )
-  expect_identical(sbr_tables(drop = c("a", "b")), character(0))
+  expect_identical(
+    sbr_tables(rounded = FALSE, drop = c("a", "b")),
+    character(0)
+  )
+})
+
+test_that("tables uses the rounded markdown table when available", {
+  withr::local_options(sbr.pre_num_tab = NULL)
+  path <- withr::local_tempdir()
+  subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
+  sbr_set_report(path, "report", rm = TRUE, ask = FALSE)
+  sbf_reset_sub()
+
+  x <- data.frame(estimate = 62.57, lower = 40.31, upper = 110.4)
+  subfoldr2::sbf_save_table(x, caption = "Estimates")
+  md <- c(
+    "| estimate | lower | upper |",
+    "|---:|---:|---:|",
+    "| 63 | 40 | 110 |"
+  )
+  writeLines(md, file.path(subfoldr2::sbf_get_main(), "tables", "x.md"))
+
+  expect_identical(
+    sbr_tables(pre_num = 0L),
+    paste0("\nTable 1. Estimates.\n\n", paste(md, collapse = "\n"), "\n")
+  )
+  expect_true(file.exists(file.path(sbr_get_report(), "tables", "x.md")))
+
+  expect_identical(
+    sbr_tables(rounded = FALSE, pre_num = 0L),
+    "\nTable 1. Estimates.\n\n| estimate| lower| upper|\n|--------:|-----:|-----:|\n|    62.57| 40.31| 110.4|\n"
+  )
+  expect_identical(
+    sbr_tables(sigfig_override = c(x = 2L), pre_num = 0L),
+    "\nTable 1. Estimates.\n\n| estimate| lower| upper|\n|--------:|-----:|-----:|\n|       63|    40|   110|\n"
+  )
+  expect_error(sbr_tables(rounded = "yes"), class = "chk_error")
 })
