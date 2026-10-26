@@ -37,7 +37,7 @@ Suggests:
     usethis,
     withr
 Remotes: 
-    poissonconsulting/subfoldr2
+    poissonconsulting/subfoldr2@save-table-md
 Encoding: UTF-8
 Config/Needs/website: poissonconsulting/poissontemplate
 Roxygen: list(markdown = TRUE)

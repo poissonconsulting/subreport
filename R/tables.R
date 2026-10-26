@@ -15,8 +15,10 @@
 #' @param nheaders A count of the number of sub folder levels to assign headers to.
 #' @param header1 A count of the heading level for the first sub folder level.
 #' @param main A string of the path to the main folder.
-#' @param sigfig A positive integer of the significant figures to use when formatting numbers. This is applied to all tables.
-#' @param sigfig_override A named vector of table names and the number of significant figures to use. This will override the default set in `sigfig` for matching tables.
+#' @param sigfig A positive integer of the significant figures to use when formatting numbers. This is applied to all tables unless `md = TRUE` in which case it is only applied to tables without a `.md` file.
+#' @param sigfig_override A named vector of table names and the number of significant figures to use. This will override the default set in `sigfig` and the `.md` file for matching tables.
+#' @param md A flag specifying whether to use the `.md` file of each table saved by [subfoldr2::sbf_save_table()], which is rounded following the rounding policy, with the decimal points aligned using figure and punctuation spaces.
+#' Tables in `sigfig_override` and tables without a `.md` file are formatted using significant figures.
 #' @param pre_num A count specifying the number of pre-existing items.
 #' @return A string of the tables in markdown format.
 #' @export
@@ -34,6 +36,7 @@ sbr_tables <- function(
   main = subfoldr2::sbf_get_main(),
   sigfig = 4L,
   sigfig_override = NULL,
+  md = FALSE,
   pre_num = getOption("sbr.pre_num_tab", 0L)
 ) {
   chk_string(x_name)
@@ -70,6 +73,7 @@ sbr_tables <- function(
   chk_null_or(sigfig_override, vld = vld_whole_numeric)
   chk_null_or(sigfig_override, vld = vld_gte)
   chk_null_or(names(sigfig_override), vld = vld_unique)
+  chk_flag(md)
   chk_count(pre_num)
 
   nheaders <- min(nheaders, (7L - header1))
@@ -81,6 +85,7 @@ sbr_tables <- function(
     tag = tag,
     drop = drop
   )
+  data$md_sub <- sanitize_path(file.path(p0(sub, collapse = "/"), data$sub))
   data <- rename_sub_sub1(data)
 
   data <- keep_sub(data, keep = keep)
@@ -102,10 +107,26 @@ sbr_tables <- function(
   data$caption <- add_full_stop(data$caption)
 
   txt <- character(0)
+  no_md <- character(0)
   for (i in seq_len(nrow(data))) {
     heading <- data$heading[i]
     caption <- data$caption[i]
     nm <- data$name[i]
+
+    if (md && !nm %in% names(sigfig_override)) {
+      table <- sbf_load_table_md(
+        nm,
+        sub = data$md_sub[i],
+        main = main,
+        entities = TRUE,
+        exists = NA
+      )
+      if (!is.null(table)) {
+        txt <- c(txt, heading, caption, "", table)
+        next
+      }
+      no_md <- c(no_md, file_path(data$md_sub[i], nm))
+    }
 
     table <- data$tables[[i]]
     # done before formatting to character in signif_table
@@ -126,6 +147,14 @@ sbr_tables <- function(
     )
 
     txt <- c(txt, heading, caption, "", table)
+  }
+  if (length(no_md)) {
+    message(
+      "The following tables have no `.md` file and were formatted to ",
+      sigfig,
+      " significant figures: ",
+      cc(sanitize_path(no_md), " and ")
+    )
   }
   options(sbr.pre_num_tab = nrow(data) + pre_num)
   txt <- c(txt, "")

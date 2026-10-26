@@ -18,6 +18,7 @@ sbr_tables(
   main = subfoldr2::sbf_get_main(),
   sigfig = 4L,
   sigfig_override = NULL,
+  md = FALSE,
   pre_num = getOption("sbr.pre_num_tab", 0L)
 )
 }
@@ -46,9 +47,12 @@ By default sub folder names have the first letter of each word capitalized.}
 
 \item{main}{A string of the path to the main folder.}
 
-\item{sigfig}{A positive integer of the significant figures to use when formatting numbers. This is applied to all tables.}
+\item{sigfig}{A positive integer of the significant figures to use when formatting numbers. This is applied to all tables unless \code{md = TRUE} in which case it is only applied to tables without a \code{.md} file.}
 
-\item{sigfig_override}{A named vector of table names and the number of significant figures to use. This will override the default set in \code{sigfig} for matching tables.}
+\item{sigfig_override}{A named vector of table names and the number of significant figures to use. This will override the default set in \code{sigfig} and the \code{.md} file for matching tables.}
+
+\item{md}{A flag specifying whether to use the \code{.md} file of each table saved by \code{\link[subfoldr2:sbf_save_table]{subfoldr2::sbf_save_table()}}, which is rounded following the rounding policy, with the decimal points aligned using figure and punctuation spaces.
+Tables in \code{sigfig_override} and tables without a \code{.md} file are formatted using significant figures.}
 
 \item{pre_num}{A count specifying the number of pre-existing items.}
 }
