@@ -20,6 +20,7 @@ sbr_tables(
   main = subfoldr2::sbf_get_main(),
   sigfig = 4L,
   sigfig_override = NULL,
+  md = FALSE,
   pre_num = getOption("sbr.pre_num_tab", 0L)
 )
 ```
@@ -81,13 +82,23 @@ sbr_tables(
 - sigfig:
 
   A positive integer of the significant figures to use when formatting
-  numbers. This is applied to all tables.
+  numbers. This is applied to all tables unless `md = TRUE` in which
+  case it is only applied to tables without a `.md` file.
 
 - sigfig_override:
 
   A named vector of table names and the number of significant figures to
-  use. This will override the default set in `sigfig` for matching
-  tables.
+  use. This will override the default set in `sigfig` and the `.md` file
+  for matching tables.
+
+- md:
+
+  A flag specifying whether to use the `.md` file of each table saved by
+  [`subfoldr2::sbf_save_table()`](https://poissonconsulting.github.io/subfoldr2/reference/sbf_save_table.html),
+  which is rounded following the rounding policy, with the decimal
+  points aligned using figure and punctuation spaces. Tables in
+  `sigfig_override` and tables without a `.md` file are formatted using
+  significant figures.
 
 - pre_num:
 
