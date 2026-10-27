@@ -1,5 +1,13 @@
 # Changelog
 
+## subreport 0.1.0.9007
+
+### Features
+
+- Use rounded .md table files by default in sbr_tables() (#64).
+
+- Copy table and plot .md files into the report folder (#61, \#62).
+
 ## subreport 0.1.0.9006
 
 ### Bug fixes
