@@ -17,7 +17,13 @@ test_that("figures", {
   )
   expect_identical(
     sort(list.files(sbr_get_report(), recursive = TRUE)),
-    sort(c("plots/x.csv", "plots/x.png", "plots/x.xlsx", "plots/x.yaml"))
+    sort(c(
+      "plots/x.csv",
+      "plots/x.md",
+      "plots/x.png",
+      "plots/x.xlsx",
+      "plots/x.yaml"
+    ))
   )
 
   skip("opens window")
@@ -153,7 +159,13 @@ test_that("figures pre_num", {
   )
   expect_identical(
     sort(list.files(sbr_get_report(), recursive = TRUE)),
-    sort(c("plots/x.csv", "plots/x.png", "plots/x.xlsx", "plots/x.yaml"))
+    sort(c(
+      "plots/x.csv",
+      "plots/x.md",
+      "plots/x.png",
+      "plots/x.xlsx",
+      "plots/x.yaml"
+    ))
   )
   txt <- sbr_figures()
   expect_match(
@@ -162,7 +174,13 @@ test_that("figures pre_num", {
   )
   expect_identical(
     sort(list.files(sbr_get_report(), recursive = TRUE)),
-    sort(c("plots/x.csv", "plots/x.png", "plots/x.xlsx", "plots/x.yaml"))
+    sort(c(
+      "plots/x.csv",
+      "plots/x.md",
+      "plots/x.png",
+      "plots/x.xlsx",
+      "plots/x.yaml"
+    ))
   )
 })
 
@@ -221,7 +239,7 @@ test_that("sbr_figures() lists the correct file names in the md string.", {
   ))
 })
 
-test_that("figures copies yaml and xlsx to report folder", {
+test_that("figures copies yaml, xlsx and md to report folder", {
   withr::local_options(sbr.pre_num_fig = NULL)
   path <- withr::local_tempdir()
   subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
@@ -236,10 +254,15 @@ test_that("figures copies yaml and xlsx to report folder", {
   main <- subfoldr2::sbf_get_main()
   expect_true(file.exists(file.path(main, "plots/x.yaml")))
   expect_true(file.exists(file.path(main, "plots/x.xlsx")))
+  expect_true(file.exists(file.path(main, "plots/x.md")))
 
   sbr_figures()
   report <- sbr_get_report()
   expect_true(file.exists(file.path(report, "plots/x.png")))
   expect_true(file.exists(file.path(report, "plots/x.yaml")))
   expect_true(file.exists(file.path(report, "plots/x.xlsx")))
+  expect_identical(
+    readLines(file.path(report, "plots/x.md")),
+    readLines(file.path(main, "plots/x.md"))
+  )
 })

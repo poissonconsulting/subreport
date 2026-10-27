@@ -15,14 +15,14 @@ test_that("tables", {
   )
   expect_identical(
     list.files(sbr_get_report(), recursive = TRUE),
-    c("tables/x.csv", "tables/x.yaml")
+    c("tables/x.csv", "tables/x.md", "tables/x.yaml")
   )
 
   subfoldr2::sbf_save_table(x, x_name = "y", report = FALSE)
   expect_identical(sbr_tables(pre_num = 0L), txt)
   expect_identical(
     list.files(sbr_get_report(), recursive = TRUE),
-    c("tables/x.csv", "tables/x.yaml")
+    c("tables/x.csv", "tables/x.md", "tables/x.yaml")
   )
 
   x_csv <- utils::read.csv(file.path(sbr_get_report(), "tables/x.csv"))
@@ -122,7 +122,7 @@ test_that("tables sub", {
   )
   expect_identical(
     list.files(sbr_get_report(), recursive = TRUE),
-    c("tables/A sub/x.csv", "tables/A sub/x.yaml")
+    c("tables/A sub/x.csv", "tables/A sub/x.md", "tables/A sub/x.yaml")
   )
 })
 
@@ -143,7 +143,7 @@ test_that("tables missing caption", {
   )
   expect_identical(
     list.files(sbr_get_report(), recursive = TRUE),
-    c("tables/x.csv", "tables/x.yaml")
+    c("tables/x.csv", "tables/x.md", "tables/x.yaml")
   )
 })
 
@@ -166,7 +166,14 @@ test_that("tables sort sub and name", {
   )
   expect_identical(
     list.files(sbr_get_report(), recursive = TRUE),
-    c("tables/a.csv", "tables/a.yaml", "tables/b/a.csv", "tables/b/a.yaml")
+    c(
+      "tables/a.csv",
+      "tables/a.md",
+      "tables/a.yaml",
+      "tables/b/a.csv",
+      "tables/b/a.md",
+      "tables/b/a.yaml"
+    )
   )
 
   txt <- sbr_tables(sort = c("b", "a"), pre_num = 0L)
@@ -193,7 +200,7 @@ test_that("tables with []", {
   )
   expect_identical(
     list.files(sbr_get_report(), recursive = TRUE),
-    c("tables/x.csv", "tables/x.yaml")
+    c("tables/x.csv", "tables/x.md", "tables/x.yaml")
   )
 })
 
@@ -218,8 +225,10 @@ test_that("tables copies yaml metadata to report folder", {
     sort(list.files(sbr_get_report(), recursive = TRUE)),
     sort(c(
       "tables/x.csv",
+      "tables/x.md",
       "tables/x.yaml",
       "tables/A sub/y.csv",
+      "tables/A sub/y.md",
       "tables/A sub/y.yaml"
     ))
   )
@@ -242,7 +251,7 @@ test_that("tables pre_num", {
   )
   expect_identical(
     sort(list.files(sbr_get_report(), recursive = TRUE)),
-    sort(c("tables/x.csv", "tables/x.yaml"))
+    sort(c("tables/x.csv", "tables/x.md", "tables/x.yaml"))
   )
   txt <- sbr_tables()
   expect_identical(
@@ -251,7 +260,7 @@ test_that("tables pre_num", {
   )
   expect_identical(
     sort(list.files(sbr_get_report(), recursive = TRUE)),
-    sort(c("tables/x.csv", "tables/x.yaml"))
+    sort(c("tables/x.csv", "tables/x.md", "tables/x.yaml"))
   )
 })
 
@@ -262,7 +271,12 @@ test_that("tables drop", {
   sbr_set_report(path, "report", rm = TRUE, ask = FALSE)
   sbf_reset_sub()
 
-  subfoldr2::sbf_save_table(data.frame(x = 1L), "x", sub = "a", caption = "Kept")
+  subfoldr2::sbf_save_table(
+    data.frame(x = 1L),
+    "x",
+    sub = "a",
+    caption = "Kept"
+  )
   subfoldr2::sbf_save_table(
     data.frame(x = 2L),
     "x",
@@ -276,7 +290,31 @@ test_that("tables drop", {
   )
   expect_identical(
     sort(list.files(sbr_get_report(), recursive = TRUE)),
-    sort(c("tables/a/x.csv", "tables/a/x.yaml"))
+    sort(c("tables/a/x.csv", "tables/a/x.md", "tables/a/x.yaml"))
   )
   expect_identical(sbr_tables(drop = c("a", "b")), character(0))
+})
+
+test_that("tables copies md files to report folder when they exist", {
+  withr::local_options(sbr.pre_num_tab = NULL)
+  path <- withr::local_tempdir()
+  subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
+  sbr_set_report(path, "report", rm = TRUE, ask = FALSE)
+  sbf_reset_sub()
+
+  x <- data.frame(estimate = 1.2345, lower = 0.9, upper = 1.6)
+  subfoldr2::sbf_save_table(x, caption = "Estimates")
+  withr::with_options(
+    list(sbf.save_md = FALSE),
+    subfoldr2::sbf_save_table(x, x_name = "y", caption = "No md")
+  )
+
+  sbr_tables()
+  report <- sbr_get_report()
+  expect_identical(
+    readLines(file.path(report, "tables/x.md")),
+    readLines(file.path(subfoldr2::sbf_get_main(), "tables/x.md"))
+  )
+  expect_false(file.exists(file.path(report, "tables/y.md")))
+  expect_true(file.exists(file.path(report, "tables/y.csv")))
 })
