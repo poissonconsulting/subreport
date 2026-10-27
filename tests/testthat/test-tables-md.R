@@ -27,7 +27,7 @@ test_that("sbr_tables md uses md files, sigfig_override and sigfig fallback", {
     cat(sbr_tables(md = TRUE, sigfig_override = c(coef2 = 2), pre_num = 0L))
   })
   expect_identical(
-    sbr_tables(md = FALSE, pre_num = 0L),
+    sbr_tables(md = TRUE, pre_num = 0L),
     sbr_tables(pre_num = 0L)
   )
 })
