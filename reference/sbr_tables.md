@@ -20,7 +20,7 @@ sbr_tables(
   main = subfoldr2::sbf_get_main(),
   sigfig = 4L,
   sigfig_override = NULL,
-  md = FALSE,
+  md = TRUE,
   pre_num = getOption("sbr.pre_num_tab", 0L)
 )
 ```
