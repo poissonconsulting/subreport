@@ -1,5 +1,17 @@
 # Changelog
 
+## subreport 0.1.0.9006
+
+### Bug fixes
+
+- Require subfoldr2 1.0.1.9022 for sbr_tables(md = TRUE) (#60).
+
+### Features
+
+- Add `md` argument to
+  [`sbr_tables()`](https://poissonconsulting.github.io/subreport/reference/sbr_tables.md)
+  to use rounded `.md` table files (#59).
+
 ## subreport 0.1.0.9005
 
 - Merge pull request \#56 from poissonconsulting/drop-unnecessary.
