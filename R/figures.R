@@ -99,6 +99,7 @@ sbr_figures <- function(
     transfer_files(plots, report = report, ext = "csv")
     transfer_files(plots, report = report, ext = "yaml")
     transfer_files(plots, report = report, ext = "xlsx")
+    transfer_files(plots, report = report, ext = "md")
     plots <- transfer_files(plots, report = report, ext = "png")
   }
   colnames(windows)[1] <- "plots"

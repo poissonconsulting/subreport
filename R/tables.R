@@ -97,6 +97,7 @@ sbr_tables <- function(
   }
 
   transfer_files(data, report = report, ext = "yaml")
+  transfer_files(data, report = report, ext = "md")
   data <- write_files(data, report = report, ext = ".csv", fun = write_csv)
 
   data <- sort_sub(data, sort = sort)
