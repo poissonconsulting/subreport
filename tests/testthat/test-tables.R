@@ -324,3 +324,22 @@ test_that("tables copies md files to report folder when they exist", {
   expect_false(file.exists(file.path(report, "tables/y.md")))
   expect_true(file.exists(file.path(report, "tables/y.csv")))
 })
+
+test_that("tables rename can combine sub folders", {
+  withr::local_options(sbr.pre_num_tab = NULL)
+  path <- withr::local_tempdir()
+  subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
+  sbr_set_report(path, "report", rm = TRUE, ask = FALSE)
+  sbf_reset_sub()
+
+  x <- data.frame(x = 1)
+  subfoldr2::sbf_save_table(x, caption = "A", sub = "auc")
+  subfoldr2::sbf_save_table(x, caption = "B", sub = "fecundity")
+  subfoldr2::sbf_save_table(x, caption = "C", sub = "spawner-timing")
+
+  rename <- c("auc" = "Spawner Timing", "spawner-timing" = "Spawner Timing")
+  expect_identical(
+    sbr_tables(rename = rename, md = FALSE, pre_num = 0L),
+    "\n#### Spawner Timing\n\nTable 1. A.\n\n|  x|\n|--:|\n|  1|\n\nTable 2. C.\n\n|  x|\n|--:|\n|  1|\n\n#### Fecundity\n\nTable 3. B.\n\n|  x|\n|--:|\n|  1|\n"
+  )
+})

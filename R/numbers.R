@@ -40,7 +40,6 @@ sbr_numbers <- function(
   if (!is.null(rename)) {
     chk_vector(rename)
     check_values(rename, "")
-    chk_unique(rename)
     chk_named(rename)
   }
 

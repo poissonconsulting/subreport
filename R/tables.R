@@ -10,8 +10,9 @@
 #' @param keep A character vector specifying the highest level sub folders to keep that are not in drop. If NULL all highest level subfolders that are not in drop are kept.
 #' @param sort A character vector specifying the initial sort order for sub folders and file names or NULL.
 #' Missing items appear afterwards in alphabetical order.
-#' @param rename A unique named character vector specifying new heading names for sub folders or NULL.
+#' @param rename A named character vector specifying new heading names for sub folders or NULL.
 #' By default sub folder names have the first letter of each word capitalized.
+#' Sub folders with the same new heading name are combined under one heading.
 #' @param nheaders A count of the number of sub folder levels to assign headers to.
 #' @param header1 A count of the heading level for the first sub folder level.
 #' @param main A string of the path to the main folder.
@@ -58,7 +59,6 @@ sbr_tables <- function(
   if (!is.null(rename)) {
     chk_vector(rename)
     check_values(rename, "")
-    chk_unique(rename)
     chk_named(rename)
   }
 
