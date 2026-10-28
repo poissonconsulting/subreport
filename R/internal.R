@@ -158,6 +158,14 @@ rename_sub <- function(data, rename) {
     recognized <- column %in% names(rename)
     data[[colname]][recognized] <- rename[column[recognized]]
   }
+
+  keys <- lapply(seq_along(colnames), function(i) {
+    key <- do.call(paste, c(data[colnames[seq_len(i)]], sep = "/"))
+    match(key, unique(key))
+  })
+  if (length(keys)) {
+    data <- data[do.call(order, keys), , drop = FALSE]
+  }
   data
 }
 
