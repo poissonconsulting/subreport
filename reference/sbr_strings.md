@@ -60,9 +60,10 @@ sbr_strings(
 
 - rename:
 
-  A unique named character vector specifying new heading names for sub
-  folders or NULL. By default sub folder names have the first letter of
-  each word capitalized.
+  A named character vector specifying new heading names for sub folders
+  or NULL. By default sub folder names have the first letter of each
+  word capitalized. Sub folders with the same new heading name are
+  combined under one heading.
 
 - nheaders:
 
