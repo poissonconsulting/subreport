@@ -57,3 +57,23 @@ test_that("numbers drop", {
   expect_identical(sbr_numbers(drop = "b"), "\n#### A\n\n- x: 1\n")
   expect_identical(sbr_numbers(drop = c("a", "b")), character(0))
 })
+
+test_that("numbers rename can combine sub folders", {
+  path <- withr::local_tempdir()
+  subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
+  sbr_set_report(path, "report", rm = TRUE, ask = FALSE)
+  subfoldr2::sbf_reset_sub()
+
+  subfoldr2::sbf_save_number(1, "a", sub = "auc")
+  subfoldr2::sbf_save_number(2, "b", sub = "fecundity")
+  subfoldr2::sbf_save_number(3, "c", sub = "spawner-timing")
+  subfoldr2::sbf_save_number(4, "d", sub = c("growth", "auc"))
+  subfoldr2::sbf_save_number(5, "e", sub = c("growth", "length"))
+  subfoldr2::sbf_save_number(6, "f", sub = c("growth", "spawner-timing"))
+
+  rename <- c("auc" = "Spawner Timing", "spawner-timing" = "Spawner Timing")
+  expect_identical(
+    sbr_numbers(rename = rename),
+    "\n#### Spawner Timing\n\n- a: 1\n- c: 3\n\n#### Fecundity\n\n- b: 2\n\n#### Growth\n\n##### Spawner Timing\n\n- d: 4\n- f: 6\n\n##### Length\n\n- e: 5\n"
+  )
+})

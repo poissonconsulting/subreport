@@ -38,8 +38,9 @@ sbr_tables(
 \item{sort}{A character vector specifying the initial sort order for sub folders and file names or NULL.
 Missing items appear afterwards in alphabetical order.}
 
-\item{rename}{A unique named character vector specifying new heading names for sub folders or NULL.
-By default sub folder names have the first letter of each word capitalized.}
+\item{rename}{A named character vector specifying new heading names for sub folders or NULL.
+By default sub folder names have the first letter of each word capitalized.
+Sub folders with the same new heading name are combined under one heading.}
 
 \item{nheaders}{A count of the number of sub folder levels to assign headers to.}
 
