@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# subreport 0.1.0.9008
+
+- Merge pull request #65 from poissonconsulting/rename-duplicates.
+
+  - Allow rename to combine sub folders under one heading (#6)
+
+
 # subreport 0.1.0.9007
 
 ## Features
