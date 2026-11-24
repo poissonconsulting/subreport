@@ -23,9 +23,9 @@
 #' @param pre_num A count specifying the number of pre-existing items.
 #' @return A string of the tables in markdown format.
 #' @export
-#' @examples
-#' main <- file.path(tempdir(), "output")
-#' report <- file.path(tempdir(), "report")
+#' @examplesIf requireNamespace("withr", quietly = TRUE)
+#' main <- withr::local_tempdir()
+#' report <- withr::local_tempdir()
 #'
 #' coef <- data.frame(
 #'   term = c("intercept", "slope"),

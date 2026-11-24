@@ -64,8 +64,9 @@ A string of the tables in markdown format.
 Returns a string of the report tables in markdown format ready for inclusion in a report.
 }
 \examples{
-main <- file.path(tempdir(), "output")
-report <- file.path(tempdir(), "report")
+\dontshow{if (requireNamespace("withr", quietly = TRUE)) withAutoprint(\{ # examplesIf}
+main <- withr::local_tempdir()
+report <- withr::local_tempdir()
 
 coef <- data.frame(
   term = c("intercept", "slope"),
@@ -115,4 +116,5 @@ cat(sbr_tables(
   rename = c(fish = "Fish Model"),
   pre_num = 0L
 ))
+\dontshow{\}) # examplesIf}
 }
