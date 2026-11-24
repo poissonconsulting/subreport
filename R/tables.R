@@ -54,20 +54,22 @@
 #' # from the previous call
 #' cat(sbr_tables(main = main, report = report, pre_num = 0L))
 #'
-#' # format the coef table to 2 significant figures instead
-#' cat(sbr_tables(
-#'   main = main,
-#'   report = report,
-#'   sigfig_override = c(coef = 2),
-#'   pre_num = 0L
-#' ))
-#'
-#' # format all tables to 3 significant figures
+#' # format all tables to 3 significant figures instead
 #' cat(sbr_tables(
 #'   main = main,
 #'   report = report,
 #'   md = FALSE,
 #'   sigfig = 3,
+#'   pre_num = 0L
+#' ))
+#'
+#' # format the coef table to 2 significant figures
+#' cat(sbr_tables(
+#'   main = main,
+#'   report = report,
+#'   md = FALSE,
+#'   sigfig = 3,
+#'   sigfig_override = c(coef = 2),
 #'   pre_num = 0L
 #' ))
 #'
@@ -77,6 +79,7 @@
 #'   report = report,
 #'   keep = "fish",
 #'   rename = c(fish = "Fish Model"),
+#'   md = FALSE,
 #'   pre_num = 0L
 #' ))
 sbr_tables <- function(
