@@ -18,6 +18,7 @@
 #' @param main A string of the path to the main folder.
 #' @param sigfig A positive integer of the significant figures to use when formatting numbers. This is applied to all tables unless `md = TRUE` in which case it is only applied to tables without a `.md` file.
 #' @param sigfig_override A named vector of table names and the number of significant figures to use. This will override the default set in `sigfig` and the `.md` file for matching tables.
+#' Names are matched against the table name (`x_name`) only so `c(coef = 2)` applies to all tables named `coef` regardless of sub folder.
 #' @param md A flag specifying whether to use the `.md` file of each table saved by [subfoldr2::sbf_save_table()], which is rounded following the rounding policy, with the decimal points aligned using figure and punctuation spaces.
 #' Tables in `sigfig_override` and tables without a `.md` file are formatted using significant figures.
 #' @param pre_num A count specifying the number of pre-existing items.
@@ -48,6 +49,9 @@
 #' )
 #'
 #' # use the rounded .md file of each table
+#' # (figure and punctuation space entities align the decimal points)
+#' # pre_num = 0L restarts the table numbering, which otherwise continues
+#' # from the previous call
 #' cat(sbr_tables(main = main, report = report, pre_num = 0L))
 #'
 #' # format the coef table to 2 significant figures instead
