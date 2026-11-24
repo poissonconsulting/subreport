@@ -64,10 +64,8 @@ A string of the tables in markdown format.
 Returns a string of the report tables in markdown format ready for inclusion in a report.
 }
 \examples{
-old <- options(sbf.main = NULL, sbr.report = NULL, sbr.pre_num_tab = NULL)
-path <- file.path(tempdir(), "sbr_tables")
-subfoldr2::sbf_set_main(path, "output", rm = TRUE, ask = FALSE)
-sbr_set_report(path, "report", rm = TRUE, ask = FALSE)
+main <- file.path(tempdir(), "output")
+report <- file.path(tempdir(), "report")
 
 coef <- data.frame(
   term = c("intercept", "slope"),
@@ -75,22 +73,46 @@ coef <- data.frame(
   lower = c(0.21153, 9.81272),
   upper = c(0.85131, 15.0517)
 )
-subfoldr2::sbf_save_table(coef, sub = "fish", caption = "Model coefficients")
+subfoldr2::sbf_save_table(
+  coef,
+  sub = "fish",
+  main = main,
+  caption = "Model coefficients"
+)
 sites <- data.frame(site = c("Upper", "Lower"), length = c(1234.567, 89.1234))
-subfoldr2::sbf_save_table(sites, sub = "habitat", caption = "Site lengths")
+subfoldr2::sbf_save_table(
+  sites,
+  sub = "habitat",
+  main = main,
+  caption = "Site lengths"
+)
 
 # use the rounded .md file of each table
-cat(sbr_tables(pre_num = 0L))
+cat(sbr_tables(main = main, report = report, pre_num = 0L))
 
 # format the coef table to 2 significant figures instead
-cat(sbr_tables(sigfig_override = c(coef = 2), pre_num = 0L))
+cat(sbr_tables(
+  main = main,
+  report = report,
+  sigfig_override = c(coef = 2),
+  pre_num = 0L
+))
 
 # format all tables to 3 significant figures
-cat(sbr_tables(md = FALSE, sigfig = 3, pre_num = 0L))
+cat(sbr_tables(
+  main = main,
+  report = report,
+  md = FALSE,
+  sigfig = 3,
+  pre_num = 0L
+))
 
 # only include the fish tables and rename the heading
-cat(sbr_tables(keep = "fish", rename = c(fish = "Fish Model"), pre_num = 0L))
-
-unlink(path, recursive = TRUE)
-options(old)
+cat(sbr_tables(
+  main = main,
+  report = report,
+  keep = "fish",
+  rename = c(fish = "Fish Model"),
+  pre_num = 0L
+))
 }
