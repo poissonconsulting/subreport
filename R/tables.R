@@ -18,11 +18,70 @@
 #' @param main A string of the path to the main folder.
 #' @param sigfig A positive integer of the significant figures to use when formatting numbers. This is applied to all tables unless `md = TRUE` in which case it is only applied to tables without a `.md` file.
 #' @param sigfig_override A named vector of table names and the number of significant figures to use. This will override the default set in `sigfig` and the `.md` file for matching tables.
+#' Names are matched against the table name (`x_name`) only so `c(coef = 2)` applies to all tables named `coef` regardless of sub folder.
 #' @param md A flag specifying whether to use the `.md` file of each table saved by [subfoldr2::sbf_save_table()], which is rounded following the rounding policy, with the decimal points aligned using figure and punctuation spaces.
 #' Tables in `sigfig_override` and tables without a `.md` file are formatted using significant figures.
 #' @param pre_num A count specifying the number of pre-existing items.
 #' @return A string of the tables in markdown format.
 #' @export
+#' @examplesIf requireNamespace("withr", quietly = TRUE)
+#' main <- withr::local_tempdir()
+#' report <- withr::local_tempdir()
+#'
+#' coef <- data.frame(
+#'   term = c("intercept", "slope"),
+#'   estimate = c(0.531247, 12.43219),
+#'   lower = c(0.21153, 9.81272),
+#'   upper = c(0.85131, 15.0517)
+#' )
+#' subfoldr2::sbf_save_table(
+#'   coef,
+#'   sub = "fish",
+#'   main = main,
+#'   caption = "Model coefficients"
+#' )
+#' sites <- data.frame(site = c("Upper", "Lower"), length = c(1234.567, 89.1234))
+#' subfoldr2::sbf_save_table(
+#'   sites,
+#'   sub = "habitat",
+#'   main = main,
+#'   caption = "Site lengths"
+#' )
+#'
+#' # use the rounded .md file of each table
+#' # (figure and punctuation space entities align the decimal points)
+#' # pre_num = 0L restarts the table numbering, which otherwise continues
+#' # from the previous call
+#' cat(sbr_tables(main = main, report = report, pre_num = 0L))
+#'
+#' # format all tables to 3 significant figures instead
+#' cat(sbr_tables(
+#'   main = main,
+#'   report = report,
+#'   md = FALSE,
+#'   sigfig = 3,
+#'   pre_num = 0L
+#' ))
+#'
+#' # format the coef table to 2 significant figures
+#' cat(sbr_tables(
+#'   main = main,
+#'   report = report,
+#'   md = FALSE,
+#'   sigfig = 3,
+#'   sigfig_override = c(coef = 2),
+#'   pre_num = 0L
+#' ))
+#'
+#' # only include the fish tables and rename the heading
+#' cat(sbr_tables(
+#'   main = main,
+#'   report = report,
+#'   keep = "fish",
+#'   rename = c(fish = "Fish Model"),
+#'   md = FALSE,
+#'   pre_num = 0L
+#' ))
 sbr_tables <- function(
   x_name = ".*",
   sub = character(0),

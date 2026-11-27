@@ -50,7 +50,8 @@ Sub folders with the same new heading name are combined under one heading.}
 
 \item{sigfig}{A positive integer of the significant figures to use when formatting numbers. This is applied to all tables unless \code{md = TRUE} in which case it is only applied to tables without a \code{.md} file.}
 
-\item{sigfig_override}{A named vector of table names and the number of significant figures to use. This will override the default set in \code{sigfig} and the \code{.md} file for matching tables.}
+\item{sigfig_override}{A named vector of table names and the number of significant figures to use. This will override the default set in \code{sigfig} and the \code{.md} file for matching tables.
+Names are matched against the table name (\code{x_name}) only so \code{c(coef = 2)} applies to all tables named \code{coef} regardless of sub folder.}
 
 \item{md}{A flag specifying whether to use the \code{.md} file of each table saved by \code{\link[subfoldr2:sbf_save_table]{subfoldr2::sbf_save_table()}}, which is rounded following the rounding policy, with the decimal points aligned using figure and punctuation spaces.
 Tables in \code{sigfig_override} and tables without a \code{.md} file are formatted using significant figures.}
@@ -62,4 +63,65 @@ A string of the tables in markdown format.
 }
 \description{
 Returns a string of the report tables in markdown format ready for inclusion in a report.
+}
+\examples{
+\dontshow{if (requireNamespace("withr", quietly = TRUE)) withAutoprint(\{ # examplesIf}
+main <- withr::local_tempdir()
+report <- withr::local_tempdir()
+
+coef <- data.frame(
+  term = c("intercept", "slope"),
+  estimate = c(0.531247, 12.43219),
+  lower = c(0.21153, 9.81272),
+  upper = c(0.85131, 15.0517)
+)
+subfoldr2::sbf_save_table(
+  coef,
+  sub = "fish",
+  main = main,
+  caption = "Model coefficients"
+)
+sites <- data.frame(site = c("Upper", "Lower"), length = c(1234.567, 89.1234))
+subfoldr2::sbf_save_table(
+  sites,
+  sub = "habitat",
+  main = main,
+  caption = "Site lengths"
+)
+
+# use the rounded .md file of each table
+# (figure and punctuation space entities align the decimal points)
+# pre_num = 0L restarts the table numbering, which otherwise continues
+# from the previous call
+cat(sbr_tables(main = main, report = report, pre_num = 0L))
+
+# format all tables to 3 significant figures instead
+cat(sbr_tables(
+  main = main,
+  report = report,
+  md = FALSE,
+  sigfig = 3,
+  pre_num = 0L
+))
+
+# format the coef table to 2 significant figures
+cat(sbr_tables(
+  main = main,
+  report = report,
+  md = FALSE,
+  sigfig = 3,
+  sigfig_override = c(coef = 2),
+  pre_num = 0L
+))
+
+# only include the fish tables and rename the heading
+cat(sbr_tables(
+  main = main,
+  report = report,
+  keep = "fish",
+  rename = c(fish = "Fish Model"),
+  md = FALSE,
+  pre_num = 0L
+))
+\dontshow{\}) # examplesIf}
 }
