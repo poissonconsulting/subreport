@@ -90,7 +90,9 @@ sbr_tables(
 
   A named vector of table names and the number of significant figures to
   use. This will override the default set in `sigfig` and the `.md` file
-  for matching tables.
+  for matching tables. Names are matched against the table name
+  (`x_name`) only so `c(coef = 2)` applies to all tables named `coef`
+  regardless of sub folder.
 
 - md:
 
@@ -108,3 +110,128 @@ sbr_tables(
 ## Value
 
 A string of the tables in markdown format.
+
+## Examples
+
+``` r
+main <- withr::local_tempdir()
+report <- withr::local_tempdir()
+
+coef <- data.frame(
+  term = c("intercept", "slope"),
+  estimate = c(0.531247, 12.43219),
+  lower = c(0.21153, 9.81272),
+  upper = c(0.85131, 15.0517)
+)
+subfoldr2::sbf_save_table(
+  coef,
+  sub = "fish",
+  main = main,
+  caption = "Model coefficients"
+)
+sites <- data.frame(site = c("Upper", "Lower"), length = c(1234.567, 89.1234))
+subfoldr2::sbf_save_table(
+  sites,
+  sub = "habitat",
+  main = main,
+  caption = "Site lengths"
+)
+
+# use the rounded .md file of each table
+# (figure and punctuation space entities align the decimal points)
+# pre_num = 0L restarts the table numbering, which otherwise continues
+# from the previous call
+cat(sbr_tables(main = main, report = report, pre_num = 0L))
+#> 
+#> #### Fish
+#> 
+#> Table 1. Model coefficients.
+#> 
+#> | term      | estimate | lower | upper |
+#> | :-------- | -------: | ----: | ----: |
+#> | intercept | 0.53 | 0.21 | 0.85 |
+#> | slope | 12.4&#8199; | 9.8&#8199; | 15&#8200;&#8199;&#8199; |
+#> 
+#> #### Habitat
+#> 
+#> Table 2. Site lengths.
+#> 
+#> | site  |   length |
+#> | :---- | -------: |
+#> | Upper | 1,235&#8200;&#8199;&#8199; |
+#> | Lower | 89.12 |
+
+# format all tables to 3 significant figures instead
+cat(sbr_tables(
+  main = main,
+  report = report,
+  md = FALSE,
+  sigfig = 3,
+  pre_num = 0L
+))
+#> 
+#> #### Fish
+#> 
+#> Table 1. Model coefficients.
+#> 
+#> |term      | estimate| lower| upper|
+#> |:---------|--------:|-----:|-----:|
+#> |intercept |    0.531| 0.212| 0.851|
+#> |slope     |     12.4|  9.81|  15.1|
+#> 
+#> #### Habitat
+#> 
+#> Table 2. Site lengths.
+#> 
+#> |site  | length|
+#> |:-----|------:|
+#> |Upper |   1230|
+#> |Lower |   89.1|
+
+# format the coef table to 2 significant figures
+cat(sbr_tables(
+  main = main,
+  report = report,
+  md = FALSE,
+  sigfig = 3,
+  sigfig_override = c(coef = 2),
+  pre_num = 0L
+))
+#> 
+#> #### Fish
+#> 
+#> Table 1. Model coefficients.
+#> 
+#> |term      | estimate| lower| upper|
+#> |:---------|--------:|-----:|-----:|
+#> |intercept |     0.53|  0.21|  0.85|
+#> |slope     |       12|   9.8|    15|
+#> 
+#> #### Habitat
+#> 
+#> Table 2. Site lengths.
+#> 
+#> |site  | length|
+#> |:-----|------:|
+#> |Upper |   1230|
+#> |Lower |   89.1|
+
+# only include the fish tables and rename the heading
+cat(sbr_tables(
+  main = main,
+  report = report,
+  keep = "fish",
+  rename = c(fish = "Fish Model"),
+  md = FALSE,
+  pre_num = 0L
+))
+#> 
+#> #### Fish Model
+#> 
+#> Table 1. Model coefficients.
+#> 
+#> |term      | estimate|  lower|  upper|
+#> |:---------|--------:|------:|------:|
+#> |intercept |   0.5312| 0.2115| 0.8513|
+#> |slope     |    12.43|  9.813|  15.05|
+```
