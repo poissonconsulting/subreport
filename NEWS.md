@@ -1,5 +1,10 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# subreport 0.1.0.9009
+
+- Same as previous version.
+
+
 # subreport 0.1.0.9008
 
 - Merge pull request #65 from poissonconsulting/rename-duplicates.
